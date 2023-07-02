@@ -1,0 +1,15 @@
+D:\Clinic Project\Clinic\Services\bin\Debug\net6.0\Services.deps.json
+D:\Clinic Project\Clinic\Services\bin\Debug\net6.0\Services.dll
+D:\Clinic Project\Clinic\Services\bin\Debug\net6.0\Services.pdb
+D:\Clinic Project\Clinic\Services\bin\Debug\net6.0\Repository.dll
+D:\Clinic Project\Clinic\Services\bin\Debug\net6.0\Repository.pdb
+D:\Clinic Project\Clinic\Services\obj\Debug\net6.0\Services.csproj.AssemblyReference.cache
+D:\Clinic Project\Clinic\Services\obj\Debug\net6.0\Services.GeneratedMSBuildEditorConfig.editorconfig
+D:\Clinic Project\Clinic\Services\obj\Debug\net6.0\Services.AssemblyInfoInputs.cache
+D:\Clinic Project\Clinic\Services\obj\Debug\net6.0\Services.AssemblyInfo.cs
+D:\Clinic Project\Clinic\Services\obj\Debug\net6.0\Services.csproj.CoreCompileInputs.cache
+D:\Clinic Project\Clinic\Services\obj\Debug\net6.0\Services.csproj.CopyComplete
+D:\Clinic Project\Clinic\Services\obj\Debug\net6.0\Services.dll
+D:\Clinic Project\Clinic\Services\obj\Debug\net6.0\refint\Services.dll
+D:\Clinic Project\Clinic\Services\obj\Debug\net6.0\Services.pdb
+D:\Clinic Project\Clinic\Services\obj\Debug\net6.0\ref\Services.dll
