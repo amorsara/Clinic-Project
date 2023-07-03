@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Repository.GeneratedModels;
 
@@ -29,5 +30,6 @@ public partial class Contact
 
     public string? Url { get; set; }
 
+    [JsonIgnore]
     public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 }

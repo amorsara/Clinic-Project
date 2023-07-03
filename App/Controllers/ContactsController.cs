@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
+using Services.Contacts;
 
 namespace App.Controllers
 {
@@ -14,45 +15,41 @@ namespace App.Controllers
     public class ContactsController : ControllerBase
     {
         private readonly ClinicDBContext _context;
+        private readonly IContactsData _iContactsData;
 
-        public ContactsController(ClinicDBContext context)
+        public ContactsController(ClinicDBContext context, IContactsData contactsData)
         {
             _context = context;
+            _iContactsData = contactsData;
         }
 
-        // GET: api/Contacts
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Contact>>> GetContacts()
+        [Route("/api/contacts/getallcontacts")]
+        public async Task<ActionResult<IEnumerable<Contact>>> GetAllContacts()
         {
-          if (_context.Contacts == null)
-          {
-              return NotFound();
-          }
-            return await _context.Contacts.ToListAsync();
+            var contacts = await _iContactsData.GetAllContact();
+            if (contacts == null)
+            {
+                 return NotFound();
+            }
+            return contacts;
         }
 
-        // GET: api/Contacts/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Contact>> GetContact(int id)
+        [HttpGet]
+        [Route("/api/contacts/getcontactbyid/{id}")]
+        public async Task<ActionResult<Contact>> GetContactById(int id)
         {
-          if (_context.Contacts == null)
-          {
-              return NotFound();
-          }
-            var contact = await _context.Contacts.FindAsync(id);
-
+            var contact = await _iContactsData.GetContactById(id);
             if (contact == null)
             {
                 return NotFound();
-            }
-
+            }         
             return contact;
         }
-
-        // PUT: api/Contacts/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutContact(int id, Contact contact)
+      
+        [HttpPut]
+        [Route("/api/contacts/updatecontact/{id}")]
+        public async Task<IActionResult> UpdateContact(int id, Contact contact)
         {
             if (id != contact.Idcontact)
             {
@@ -67,7 +64,7 @@ namespace App.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ContactExists(id))
+                if (!_iContactsData.ContactExists(id))
                 {
                     return NotFound();
                 }
@@ -80,23 +77,23 @@ namespace App.Controllers
             return NoContent();
         }
 
-        // POST: api/Contacts
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Contact>> PostContact(Contact contact)
+        [Route("/api/contacts/createcontact")]
+        public async Task<ActionResult<Contact>> CreateContact(Contact contact)
         {
-          if (_context.Contacts == null)
-          {
-              return Problem("Entity set 'ClinicDBContext.Contacts'  is null.");
-          }
-            _context.Contacts.Add(contact);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetContact", new { id = contact.Idcontact }, contact);
+            var result = await _iContactsData.CreateContact(contact);
+            if (result)
+            {
+                return CreatedAtAction("CreateContact", new { id = contact.Idcontact }, contact);
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
 
-        // DELETE: api/Contacts/5
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("/api/contacts/deletecontact/{id}")]
         public async Task<IActionResult> DeleteContact(int id)
         {
             if (_context.Contacts == null)
@@ -113,11 +110,6 @@ namespace App.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
-        }
-
-        private bool ContactExists(int id)
-        {
-            return (_context.Contacts?.Any(e => e.Idcontact == id)).GetValueOrDefault();
         }
     }
 }

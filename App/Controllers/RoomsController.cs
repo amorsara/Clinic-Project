@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
+using Services.Rooms;
 
 namespace App.Controllers
 {
@@ -14,45 +15,41 @@ namespace App.Controllers
     public class RoomsController : ControllerBase
     {
         private readonly ClinicDBContext _context;
+        private readonly IRoomsData _iRoomsData;
 
-        public RoomsController(ClinicDBContext context)
+        public RoomsController(ClinicDBContext context, IRoomsData roomsData)
         {
             _context = context;
+            _iRoomsData = roomsData;
         }
 
-        // GET: api/Rooms
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Room>>> GetRooms()
+        [Route("/api/rooms/getallrooms")]
+        public async Task<ActionResult<IEnumerable<Room>>> GetAllRooms()
         {
-          if (_context.Rooms == null)
-          {
-              return NotFound();
-          }
-            return await _context.Rooms.ToListAsync();
+            var rooms = await _iRoomsData.GetAllRooms();
+            if (rooms == null)
+            {
+                return NotFound();
+            }
+            return rooms;
         }
 
-        // GET: api/Rooms/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Room>> GetRoom(int id)
+        [HttpGet]
+        [Route("/api/rooms/getroombyid/{id}")]
+        public async Task<ActionResult<Room>> GetRoomById(int id)
         {
-          if (_context.Rooms == null)
-          {
-              return NotFound();
-          }
-            var room = await _context.Rooms.FindAsync(id);
-
+            var room = await _iRoomsData.GetRoomById(id);
             if (room == null)
             {
                 return NotFound();
             }
-
             return room;
         }
 
-        // PUT: api/Rooms/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutRoom(int id, Room room)
+        [HttpPut]
+        [Route("/api/rooms/updateroom/{id}")]
+        public async Task<IActionResult> UpdateRoom(int id, Room room)
         {
             if (id != room.Idroom)
             {
@@ -67,7 +64,7 @@ namespace App.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!RoomExists(id))
+                if (!_iRoomsData.RoomExists(id))
                 {
                     return NotFound();
                 }
@@ -80,23 +77,23 @@ namespace App.Controllers
             return NoContent();
         }
 
-        // POST: api/Rooms
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Room>> PostRoom(Room room)
+        [Route("/api/rooms/createroom")]
+        public async Task<ActionResult<Room>> CreateRoom(Room room)
         {
-          if (_context.Rooms == null)
-          {
-              return Problem("Entity set 'ClinicDBContext.Rooms'  is null.");
-          }
-            _context.Rooms.Add(room);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetRoom", new { id = room.Idroom }, room);
+            var result = await _iRoomsData.CreateRoom(room);
+            if (result)
+            {
+                return CreatedAtAction("CreateRoom", new { id = room.Idroom }, room);
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
 
-        // DELETE: api/Rooms/5
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("/api/rooms/deleteroom/{id}")]
         public async Task<IActionResult> DeleteRoom(int id)
         {
             if (_context.Rooms == null)
@@ -115,9 +112,5 @@ namespace App.Controllers
             return NoContent();
         }
 
-        private bool RoomExists(int id)
-        {
-            return (_context.Rooms?.Any(e => e.Idroom == id)).GetValueOrDefault();
-        }
     }
 }

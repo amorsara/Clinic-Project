@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
+using Services.Appointments;
 
 namespace App.Controllers
 {
@@ -14,45 +15,41 @@ namespace App.Controllers
     public class AppointmentsController : ControllerBase
     {
         private readonly ClinicDBContext _context;
+        private readonly IAppointmentsData _iAppointmentsData;
 
-        public AppointmentsController(ClinicDBContext context)
+        public AppointmentsController(ClinicDBContext context, IAppointmentsData appointmentsData)
         {
             _context = context;
+            _iAppointmentsData = appointmentsData;
         }
 
-        // GET: api/Appointments
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Appointment>>> GetAppointments()
+        [Route("/api/appointments/getallappointments")]
+        public async Task<ActionResult<IEnumerable<Appointment>>> GetAllAppointments()
         {
-          if (_context.Appointments == null)
-          {
-              return NotFound();
-          }
-            return await _context.Appointments.ToListAsync();
+            var appointments = await _iAppointmentsData.GetAllAppointments();
+            if (appointments == null)
+            {
+                return NotFound();
+            }
+            return appointments;
         }
 
-        // GET: api/Appointments/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Appointment>> GetAppointment(int id)
+        [HttpGet]
+        [Route("/api/appointments/getappointmentbyid/{id}")]
+        public async Task<ActionResult<Appointment>> GetAppointmentById(int id)
         {
-          if (_context.Appointments == null)
-          {
-              return NotFound();
-          }
-            var appointment = await _context.Appointments.FindAsync(id);
-
+            var appointment = await _iAppointmentsData.GetAppointmentById(id);
             if (appointment == null)
             {
                 return NotFound();
             }
-
             return appointment;
         }
 
-        // PUT: api/Appointments/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutAppointment(int id, Appointment appointment)
+        [HttpPut]
+        [Route("/api/appointments/updateappointment/{id}")]
+        public async Task<IActionResult> UpdateAppointment(int id, Appointment appointment)
         {
             if (id != appointment.Idappointment)
             {
@@ -67,7 +64,7 @@ namespace App.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AppointmentExists(id))
+                if (!_iAppointmentsData.AppointmentExists(id))
                 {
                     return NotFound();
                 }
@@ -79,24 +76,25 @@ namespace App.Controllers
 
             return NoContent();
         }
-
-        // POST: api/Appointments
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+      
         [HttpPost]
-        public async Task<ActionResult<Appointment>> PostAppointment(Appointment appointment)
+        [Route("/api/appointments/createappointment")]
+        public async Task<ActionResult<Appointment>> CreateAppointment(Appointment appointment)
         {
-          if (_context.Appointments == null)
-          {
-              return Problem("Entity set 'ClinicDBContext.Appointments'  is null.");
-          }
-            _context.Appointments.Add(appointment);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetAppointment", new { id = appointment.Idappointment }, appointment);
+            var result = await _iAppointmentsData.CreateAppointment(appointment);
+            if (result)
+            {
+                return CreatedAtAction("CreateAppointment", new { id = appointment.Idappointment }, appointment);
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
 
-        // DELETE: api/Appointments/5
-        [HttpDelete("{id}")]
+        
+        [HttpDelete]
+        [Route("/api/appointments/deleteappointment/{id}")]
         public async Task<IActionResult> DeleteAppointment(int id)
         {
             if (_context.Appointments == null)
@@ -115,9 +113,5 @@ namespace App.Controllers
             return NoContent();
         }
 
-        private bool AppointmentExists(int id)
-        {
-            return (_context.Appointments?.Any(e => e.Idappointment == id)).GetValueOrDefault();
-        }
     }
 }

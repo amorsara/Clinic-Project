@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
+using Services.WorkHours;
 
 namespace App.Controllers
 {
@@ -14,45 +15,41 @@ namespace App.Controllers
     public class WorkhoursController : ControllerBase
     {
         private readonly ClinicDBContext _context;
+        private readonly IWorkHoursData _iWorkHoursData;
 
-        public WorkhoursController(ClinicDBContext context)
+        public WorkhoursController(ClinicDBContext context, IWorkHoursData workHoursData)
         {
             _context = context;
+            _iWorkHoursData = workHoursData;
         }
 
-        // GET: api/Workhours
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Workhour>>> GetWorkhours()
+        [Route("/api/workhours/getallworkhour")]
+        public async Task<ActionResult<IEnumerable<Workhour>>> GetAllWorkhours()
         {
-          if (_context.Workhours == null)
-          {
-              return NotFound();
-          }
-            return await _context.Workhours.ToListAsync();
+            var workhours = await _iWorkHoursData.GetAllWorkHours();
+            if (workhours == null)
+            {
+                return NotFound();
+            }
+            return workhours;
         }
 
-        // GET: api/Workhours/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Workhour>> GetWorkhour(int id)
+        [HttpGet]
+        [Route("/api/workhours/getworkhourbyid/{id}")]
+        public async Task<ActionResult<Workhour>> GetWorkhourById(int id)
         {
-          if (_context.Workhours == null)
-          {
-              return NotFound();
-          }
-            var workhour = await _context.Workhours.FindAsync(id);
-
+            var workhour = await _iWorkHoursData.GetWorkHourById(id);
             if (workhour == null)
             {
                 return NotFound();
             }
-
             return workhour;
         }
 
-        // PUT: api/Workhours/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutWorkhour(int id, Workhour workhour)
+        [HttpPut]
+        [Route("/api/workhours/updateworkhour/{id}")]
+        public async Task<IActionResult> UpdateWorkhour(int id, Workhour workhour)
         {
             if (id != workhour.Idworkhour)
             {
@@ -67,7 +64,7 @@ namespace App.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!WorkhourExists(id))
+                if (!_iWorkHoursData.WorkHourExists(id))
                 {
                     return NotFound();
                 }
@@ -80,23 +77,24 @@ namespace App.Controllers
             return NoContent();
         }
 
-        // POST: api/Workhours
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Workhour>> PostWorkhour(Workhour workhour)
-        {
-          if (_context.Workhours == null)
-          {
-              return Problem("Entity set 'ClinicDBContext.Workhours'  is null.");
-          }
-            _context.Workhours.Add(workhour);
-            await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetWorkhour", new { id = workhour.Idworkhour }, workhour);
+        [HttpPost]
+        [Route("/api/workhours/createworkhour")]
+        public async Task<ActionResult<Workhour>> CreateWorkhour(Workhour workhour)
+        {
+            var result = await _iWorkHoursData.CreateWorkHour(workhour);
+            if (result)
+            {
+                return CreatedAtAction("CreateWorkhour", new { id = workhour.Idworkhour }, workhour);
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
 
-        // DELETE: api/Workhours/5
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("/api/workhours/deleteworkhour/{id}")]
         public async Task<IActionResult> DeleteWorkhour(int id)
         {
             if (_context.Workhours == null)
@@ -115,9 +113,5 @@ namespace App.Controllers
             return NoContent();
         }
 
-        private bool WorkhourExists(int id)
-        {
-            return (_context.Workhours?.Any(e => e.Idworkhour == id)).GetValueOrDefault();
-        }
     }
 }

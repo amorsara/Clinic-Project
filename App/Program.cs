@@ -1,5 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
+using Services.Appointments;
+using Services.Contacts;
+using Services.Employees;
+using Services.Rooms;
+using Services.WorkHours;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +17,13 @@ builder.Services.AddSwaggerGen();
 
 var cs = builder.Configuration["ClinicDBConnectionString"];
 builder.Services.AddDbContext<ClinicDBContext>(options => options.UseNpgsql(cs));
+
+builder.Services.AddScoped<IContactsData, ContactsData>();
+builder.Services.AddScoped<IEmployeesData, EmployeesData>();
+builder.Services.AddScoped<IRoomsData, RoomsData>();
+builder.Services.AddScoped<IAppointmentsData, AppointmentsData>();
+builder.Services.AddScoped<IWorkHoursData, WorkHoursData>();
+
 
 var app = builder.Build();
 

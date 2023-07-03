@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
+using Services.Employees;
 
 namespace App.Controllers
 {
@@ -14,45 +15,42 @@ namespace App.Controllers
     public class EmployeesController : ControllerBase
     {
         private readonly ClinicDBContext _context;
+        private readonly IEmployeesData _iEmployeesData;
 
-        public EmployeesController(ClinicDBContext context)
+        public EmployeesController(ClinicDBContext context, IEmployeesData employeesData)
         {
             _context = context;
+            _iEmployeesData = employeesData;
         }
 
-        // GET: api/Employees
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees()
+        [Route("/api/employees/getallemployees")]
+        public async Task<ActionResult<IEnumerable<Employee>>> GetAllEmployees()
         {
-          if (_context.Employees == null)
-          {
-              return NotFound();
-          }
-            return await _context.Employees.ToListAsync();
+            var employees = await _iEmployeesData.GetAllEmployees();
+            if (employees == null)
+            {
+                return NotFound();
+            }
+            return employees;
         }
 
-        // GET: api/Employees/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Employee>> GetEmployee(int id)
+        [HttpGet]
+        [Route("/api/employees/getemployeebyid/{id}")]
+        public async Task<ActionResult<Employee>> GetEmployeeById(int id)
         {
-          if (_context.Employees == null)
-          {
-              return NotFound();
-          }
-            var employee = await _context.Employees.FindAsync(id);
-
+            var employee = await _iEmployeesData.GetEmployeeById(id);
             if (employee == null)
             {
                 return NotFound();
             }
-
             return employee;
         }
 
-        // PUT: api/Employees/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutEmployee(int id, Employee employee)
+
+        [HttpPut]
+        [Route("/api/employees/updateemployee/{id}")]
+        public async Task<IActionResult> UpdateEmployee(int id, Employee employee)
         {
             if (id != employee.Idemployee)
             {
@@ -67,7 +65,7 @@ namespace App.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EmployeeExists(id))
+                if (!_iEmployeesData.EmployeeExists(id))
                 {
                     return NotFound();
                 }
@@ -80,23 +78,23 @@ namespace App.Controllers
             return NoContent();
         }
 
-        // POST: api/Employees
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Employee>> PostEmployee(Employee employee)
+        [Route("/api/employees/createemployee")]
+        public async Task<ActionResult<Employee>> CreateEmployee(Employee employee)
         {
-          if (_context.Employees == null)
-          {
-              return Problem("Entity set 'ClinicDBContext.Employees'  is null.");
-          }
-            _context.Employees.Add(employee);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetEmployee", new { id = employee.Idemployee }, employee);
+            var result = await _iEmployeesData.CreateEmployee(employee);
+            if (result)
+            {
+                return CreatedAtAction("CreateEmployee", new { id = employee.Idemployee }, employee);
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
 
-        // DELETE: api/Employees/5
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("/api/employees/deleteemployee/{id}")]
         public async Task<IActionResult> DeleteEmployee(int id)
         {
             if (_context.Employees == null)
@@ -115,9 +113,5 @@ namespace App.Controllers
             return NoContent();
         }
 
-        private bool EmployeeExists(int id)
-        {
-            return (_context.Employees?.Any(e => e.Idemployee == id)).GetValueOrDefault();
-        }
     }
 }
