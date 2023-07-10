@@ -14,6 +14,8 @@ public partial class Appointment
 
     public int Idcontact { get; set; }
 
+    public int Idroom { get; set; }
+
     public DateOnly? Date { get; set; }
 
     public TimeOnly? Duration { get; set; }
@@ -24,7 +26,7 @@ public partial class Appointment
 
     public string? Remark { get; set; }
 
-    public bool? Remainder { get; set; }
+    public int? Isremaind { get; set; }
 
     public bool? Discount { get; set; }
 
@@ -37,4 +39,7 @@ public partial class Appointment
 
     [JsonIgnore]
     public virtual Employee IdemployeeNavigation { get; set; } = null!;
+
+    [JsonIgnore]
+    public virtual Room IdroomNavigation { get; set; } = null!;
 }

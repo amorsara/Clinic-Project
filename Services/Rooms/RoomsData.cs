@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
+using Services.Employees;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,12 @@ namespace Services.Rooms
     {
 
         private readonly ClinicDBContext _context;
+        private readonly IEmployeesData _iEmployeesData;
 
-        public RoomsData(ClinicDBContext context)
+        public RoomsData(ClinicDBContext context, IEmployeesData employeesData)
         {
             _context = context;
+            _iEmployeesData = employeesData;
         }
 
         public async Task<bool> CreateRoom(Room room)
@@ -53,6 +56,38 @@ namespace Services.Rooms
         public async Task<List<Room>> GetAllRooms()
         {
             return await _context.Rooms.ToListAsync();
+        }
+
+        public async Task<string?> GetNameRoom(int id)
+        {
+            var room = await _context.Rooms.Where(r => r.Idroom == id).FirstOrDefaultAsync();
+            return room?.Nameroom;
+        }
+
+        public async Task<List<string?>> GetTreatmentsForRoom(int id)
+        {
+            var room = await GetRoomById(id);
+            var list = new List<string?>();
+            if(room?.Laser == true)
+            {
+                list.Add("Laser");
+            }
+            if (room?.Waxing == true)
+            {
+                list.Add("Waxing");
+            }
+            if (room?.Electrolysis == true)
+            {
+                list.Add("Electrolysis");
+            }
+            return list;
+        }
+
+        public async Task<List<Employee>> GetAllEmployeesForRoom(int id)
+        {
+            var list = await GetTreatmentsForRoom(id);
+            var employees = await _iEmployeesData.GetAllEmployeesForRoom(list);
+            return employees.ToList();
         }
     }
 }

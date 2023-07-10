@@ -3805,6 +3805,7 @@
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
+          "Microsoft.EntityFrameworkCore.Relational": "7.0.8",
           "Repository": "1.0.0"
         },
         "compile": {

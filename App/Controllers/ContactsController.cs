@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
 using Services.Contacts;
+using Services.DTO;
 
 namespace App.Controllers
 {
@@ -27,10 +28,22 @@ namespace App.Controllers
         [Route("/api/contacts/getallcontacts")]
         public async Task<ActionResult<IEnumerable<Contact>>> GetAllContacts()
         {
-            var contacts = await _iContactsData.GetAllContact();
+            var contacts = await _iContactsData.GetAllContacts();
             if (contacts == null)
             {
                  return NotFound();
+            }
+            return contacts;
+        }
+
+        [HttpGet]
+        [Route("/api/contacts/getallcontactswithdates")]
+        public async Task<ActionResult<IEnumerable<ContactDateDto>>> GetAllContactsWithDates()
+        {
+            var contacts = await _iContactsData.GetContactsWithDates();
+            if (contacts == null)
+            {
+                return NotFound();
             }
             return contacts;
         }
@@ -46,7 +59,43 @@ namespace App.Controllers
             }         
             return contact;
         }
-      
+
+        [HttpGet]
+        [Route("/api/contacts/getsemcontacts")]
+        public async Task<ActionResult<IEnumerable<Contact>>> GetSemContacts()
+        {
+            var result = await _iContactsData.GetSemContacts();
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return result;
+        }
+
+        [HttpGet]
+        [Route("/api/contacts/getactivecontacts")]
+        public async Task<ActionResult<IEnumerable<Contact>>> GetActiveContacts()
+        {
+            var result = await _iContactsData.GetActiveContacts();
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return result;
+        }
+
+        [HttpGet]
+        [Route("/api/contacts/getallwaitdates")]
+        public async Task<ActionResult<IEnumerable<WaitTreatmentsDto>>> GetAllWaitDates()
+        {
+            var result = await _iContactsData.GetAllWaitDates();
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return result;
+        }
+
         [HttpPut]
         [Route("/api/contacts/updatecontact/{id}")]
         public async Task<IActionResult> UpdateContact(int id, Contact contact)
@@ -111,5 +160,6 @@ namespace App.Controllers
 
             return NoContent();
         }
+
     }
 }

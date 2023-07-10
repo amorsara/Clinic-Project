@@ -1,4 +1,5 @@
 ﻿using Repository.GeneratedModels;
+using Services.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,9 @@ namespace Services.WorkHours
         Task<List<Workhour>> GetAllWorkHours();
         Task<Workhour?> GetWorkHourById(int id);
         Task<bool> CreateWorkHour(Workhour workHour);
+        Task <int?> GetShiftEmployee(int id, TimeOnly? time);
         bool WorkHourExists(int id);
+        Task<List<EmployeeShiftDto>> GetWorkHourByEmployee(int id);
+        Task<List<Workhour>> GetShiftByDay(int id, int day);
     }
 }

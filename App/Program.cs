@@ -4,6 +4,7 @@ using Services.Appointments;
 using Services.Contacts;
 using Services.Employees;
 using Services.Rooms;
+using Services.Schedule;
 using Services.WorkHours;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddSignalR();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -18,11 +20,13 @@ builder.Services.AddSwaggerGen();
 var cs = builder.Configuration["ClinicDBConnectionString"];
 builder.Services.AddDbContext<ClinicDBContext>(options => options.UseNpgsql(cs));
 
+builder.Services.AddControllers(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
 builder.Services.AddScoped<IContactsData, ContactsData>();
 builder.Services.AddScoped<IEmployeesData, EmployeesData>();
 builder.Services.AddScoped<IRoomsData, RoomsData>();
 builder.Services.AddScoped<IAppointmentsData, AppointmentsData>();
 builder.Services.AddScoped<IWorkHoursData, WorkHoursData>();
+builder.Services.AddScoped<IScheduleData, ScheduleData>();
 
 
 var app = builder.Build();

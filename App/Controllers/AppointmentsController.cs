@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
 using Services.Appointments;
+using Services.DTO;
+using Services.Schedule;
 
 namespace App.Controllers
 {
@@ -36,6 +38,20 @@ namespace App.Controllers
         }
 
         [HttpGet]
+        [Route("/api/appointments/getwaitappointments")]
+        public async Task<ActionResult<IEnumerable<Appointment>>> GetWaitAppointments()
+        {
+            var appointments = await _iAppointmentsData.GetWaitAppointments();
+            if (appointments == null)
+            {
+                return NotFound();
+            }
+            return appointments;
+        }
+
+       
+
+        [HttpGet]
         [Route("/api/appointments/getappointmentbyid/{id}")]
         public async Task<ActionResult<Appointment>> GetAppointmentById(int id)
         {
@@ -47,6 +63,32 @@ namespace App.Controllers
             return appointment;
         }
 
+        [HttpGet]
+        [Route("/api/appointments/updateremined/{id}")]
+        public async Task<ActionResult<Appointment>> UpdateRemined(int id)
+        {
+            var appointment = await _iAppointmentsData.UpdateRemined(id);
+            if (appointment == null)
+            {
+                return NotFound();
+            }
+            await UpdateAppointment(id, appointment);
+            return Ok(appointment);
+        }
+
+        [HttpGet]
+        [Route("/api/appointments/deletewait/{id}")]
+        public async Task<ActionResult<Appointment>> DeleteWait(int id)
+        {
+            var appointment = await _iAppointmentsData.DeleteWait(id);
+            if (appointment == null)
+            {
+                return NotFound();
+            }
+            await UpdateAppointment(id, appointment);
+            return Ok(appointment);
+        }
+       
         [HttpPut]
         [Route("/api/appointments/updateappointment/{id}")]
         public async Task<IActionResult> UpdateAppointment(int id, Appointment appointment)

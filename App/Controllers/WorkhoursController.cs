@@ -47,6 +47,18 @@ namespace App.Controllers
             return workhour;
         }
 
+        //[HttpGet]
+        //[Route("/api/workhours/getworkhourbyemployee/{id}")]
+        //public async Task<ActionResult<IEnumerable<Workhour>>> GetWorkhourByEmployee(int id)
+        //{
+        //    var listHours = await _iWorkHoursData.GetWorkHourByEmployee(id);
+        //    if(listHours == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return listHours;
+        //}
+
         [HttpPut]
         [Route("/api/workhours/updateworkhour/{id}")]
         public async Task<IActionResult> UpdateWorkhour(int id, Workhour workhour)

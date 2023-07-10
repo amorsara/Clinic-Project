@@ -48,9 +48,10 @@ public partial class ClinicDBContext : DbContext
             entity.Property(e => e.Duration).HasColumnName("duration");
             entity.Property(e => e.Idcontact).HasColumnName("idcontact");
             entity.Property(e => e.Idemployee).HasColumnName("idemployee");
-            entity.Property(e => e.Remainder).HasColumnName("remainder");
+            entity.Property(e => e.Idroom).HasColumnName("idroom");
+            entity.Property(e => e.Isremaind).HasColumnName("isremaind");
             entity.Property(e => e.Remark)
-                .HasMaxLength(500)
+                .HasColumnType("character varying")
                 .HasColumnName("remark");
             entity.Property(e => e.Timeend).HasColumnName("timeend");
             entity.Property(e => e.Timestart).HasColumnName("timestart");
@@ -68,6 +69,11 @@ public partial class ClinicDBContext : DbContext
                 .HasForeignKey(d => d.Idemployee)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("Appointments_employee_id_fkey");
+
+            entity.HasOne(d => d.IdroomNavigation).WithMany(p => p.Appointments)
+                .HasForeignKey(d => d.Idroom)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("Appointments_room_id_fkey");
         });
 
         modelBuilder.Entity<Contact>(entity =>
@@ -77,35 +83,38 @@ public partial class ClinicDBContext : DbContext
             entity.ToTable("contacts");
 
             entity.Property(e => e.Idcontact).HasColumnName("idcontact");
-            entity.Property(e => e.Active).HasColumnName("active");
+            entity.Property(e => e.Electrolysis).HasColumnName("electrolysis");
             entity.Property(e => e.Email)
                 .HasMaxLength(100)
                 .HasColumnName("email");
             entity.Property(e => e.Firstname)
                 .HasMaxLength(50)
                 .HasColumnName("firstname");
-            entity.Property(e => e.Homephone)
-                .HasMaxLength(11)
-                .HasColumnName("homephone");
             entity.Property(e => e.Howcomeus)
-                .HasMaxLength(200)
+                .HasColumnType("character varying")
                 .HasColumnName("howcomeus");
+            entity.Property(e => e.Isactive).HasColumnName("isactive");
+            entity.Property(e => e.Laser).HasColumnName("laser");
             entity.Property(e => e.Lastname)
                 .HasMaxLength(50)
                 .HasColumnName("lastname");
-            entity.Property(e => e.Mobilephone)
+            entity.Property(e => e.Phonenumber1)
                 .HasMaxLength(11)
-                .HasColumnName("mobilephone");
-            entity.Property(e => e.Numberphone)
+                .HasColumnName("phonenumber1");
+            entity.Property(e => e.Phonenumber2)
                 .HasMaxLength(11)
-                .HasColumnName("numberphone");
+                .HasColumnName("phonenumber2");
+            entity.Property(e => e.Phonenumber3)
+                .HasMaxLength(11)
+                .HasColumnName("phonenumber3");
             entity.Property(e => e.Remark)
-                .HasMaxLength(500)
+                .HasColumnType("character varying")
                 .HasColumnName("remark");
             entity.Property(e => e.Sem).HasColumnName("sem");
-            entity.Property(e => e.Url)
-                .HasMaxLength(500)
-                .HasColumnName("url");
+            entity.Property(e => e.Urlfile)
+                .HasColumnType("character varying")
+                .HasColumnName("urlfile");
+            entity.Property(e => e.Waxing).HasColumnName("waxing");
         });
 
         modelBuilder.Entity<Employee>(entity =>

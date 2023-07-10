@@ -1,4 +1,5 @@
 ﻿using Repository.GeneratedModels;
+using Services.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,10 @@ namespace Services.Employees
     {
         Task<List<Employee>> GetAllEmployees();
         Task<Employee?> GetEmployeeById(int id);
+        Task<string?> GetColorById(int id);
         Task<bool> CreateEmployee(Employee employee);
         bool EmployeeExists(int id);
+        Task<List<Employee>> GetAllEmployeesForRoom(List<String?> treatmentsType);
+        Task<List<EmployeeDto>> GetEmployeesForSchedule(List<Employee> employees);
     }
 }
