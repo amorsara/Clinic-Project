@@ -22,8 +22,6 @@ public partial class Employee
 
     public bool? Waxing { get; set; }
 
-    public bool? Advancedelectrolysis { get; set; }
-
     [JsonIgnore]
     public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 

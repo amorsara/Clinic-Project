@@ -124,7 +124,6 @@ public partial class ClinicDBContext : DbContext
             entity.ToTable("employees");
 
             entity.Property(e => e.Idemployee).HasColumnName("idemployee");
-            entity.Property(e => e.Advancedelectrolysis).HasColumnName("advancedelectrolysis");
             entity.Property(e => e.Color)
                 .HasMaxLength(50)
                 .HasColumnName("color");
@@ -147,7 +146,6 @@ public partial class ClinicDBContext : DbContext
             entity.ToTable("rooms");
 
             entity.Property(e => e.Idroom).HasColumnName("idroom");
-            entity.Property(e => e.Advancedelectrolysis).HasColumnName("advancedelectrolysis");
             entity.Property(e => e.Electrolysis).HasColumnName("electrolysis");
             entity.Property(e => e.Laser).HasColumnName("laser");
             entity.Property(e => e.Nameroom)
