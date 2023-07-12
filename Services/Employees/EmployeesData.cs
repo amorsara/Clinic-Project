@@ -102,6 +102,7 @@ namespace Services.Employees
             {
                 var emp = new EmployeeDto();
                 emp.Id = i++;
+                emp.IdWorker = e.Idemployee;
                 emp.nameWorker = e.Name;
                 emp.colorWorker = e.Color;
                 emp.weeklyHouers = await _iWorkHoursData.GetWorkHourByEmployee(e.Idemployee);

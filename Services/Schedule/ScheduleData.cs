@@ -40,6 +40,7 @@ namespace Services.Schedule
                 var scheduleDto = new ScheduleDto();
                 var contact = await _iContactsData.GetContactById(appointment.Idcontact);
                 scheduleDto.Id = cnt++;
+                scheduleDto.IdContact = contact?.Idcontact;
                 scheduleDto.startHouer = appointment.Timestart;
                 scheduleDto.endTime = appointment.Timeend;
                 scheduleDto.Date = appointment.Date;
@@ -72,7 +73,9 @@ namespace Services.Schedule
                     continue;
                 }
                 var roomScheduleDto = new RoomScheduleDto();
+                roomScheduleDto.IdRoom = room.Idroom;
                 roomScheduleDto.nameRoom = room.Nameroom;
+                roomScheduleDto.listTreatments = await _iRoomsData.GetTreatmentsForRoom(room.Idroom);
                 var employees = await _iRoomsData.GetAllEmployeesForRoom(room.Idroom);
                 roomScheduleDto.Employees = await _iEmployeesData.GetEmployeesForSchedule(employees);
                 list.Add(roomScheduleDto);

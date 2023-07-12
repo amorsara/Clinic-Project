@@ -8,7 +8,11 @@ namespace Services.DTO
 {
     public class RoomScheduleDto
     {
-        public string? nameRoom { get; set; } // add list type of treatment  - update get object i need find id..
+        public int IdRoom { get; set; }
+
+        public string? nameRoom { get; set; }
+
+        public List<string?>? listTreatments { get; set; }
 
         public List<EmployeeDto>? Employees { get; set; }
     }

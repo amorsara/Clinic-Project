@@ -10,6 +10,8 @@ namespace Services.DTO
     {
         public int Id { get; set; }
 
+        public int IdWorker { get; set; }
+
         public string? nameWorker { get; set; }
 
         public string? colorWorker { get; set; }

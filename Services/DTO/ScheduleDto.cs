@@ -10,6 +10,10 @@ namespace Services.DTO
     {
         public int Id { get; set; }
 
+        public int? IdContact { get; set; }
+
+        public int idWorker { get; set; }
+
         public DateOnly? Date { get; set; }
 
         public TimeOnly? startHouer { get; set; }
@@ -17,8 +21,6 @@ namespace Services.DTO
         public TimeOnly? endTime { get; set; }
 
         public string? colorWorker { get; set; }
-
-        public int idWorker { get; set; }
 
         public string? nameRoom { get; set; }
 

@@ -143,23 +143,43 @@ namespace App.Controllers
 
         [HttpPost]
         [Route("/api/contacts/createcontactwarpper")]
-        public Contact CreateContactWarpper(List<List<string>> contactDetails)
+        public async Task<ActionResult<Contact>> CreateContactWarpper(ContactValues contactDetails)
         {
-            var contact = new Contact();
-            contact.Laser = contact.Waxing = contact.Electrolysis = false;
-            contact.Remark = contactDetails[0][0];
-            contact.Phonenumber1 = contactDetails[0][1];
-            contact.Firstname = contactDetails[0][2];
-            contact.Howcomeus = contactDetails[1][0];
-            contact.Phonenumber2 = contactDetails[1][1];
-            contact.Lastname = contactDetails[1][2];
-            contact.Urlfile = contactDetails[2][0];
-            contact.Phonenumber3 = contactDetails[2][1];
-            contact.Email = contactDetails[2][2];
-            contact.Sem = true;
-            contact.Isactive = true;
-            return contact;
+            var newContact = new Contact();
+            newContact.Laser = newContact.Waxing = newContact.Electrolysis = false;
+            newContact.Remark = contactDetails.Values[0][0];
+            newContact.Firstname = contactDetails.Values[0][2];
+            newContact.Howcomeus = contactDetails.Values[1][0];
+            newContact.Lastname = contactDetails.Values[1][2];
+            newContact.Urlfile = contactDetails.Values[2][0];
+            newContact.Email = contactDetails.Values[2][2];
+            newContact.Sem = contactDetails.Sem;
+            newContact.Isactive = contactDetails.Active;         
+            if(contactDetails.Priority == "Phonenumber1")
+            {
+                newContact.Phonenumber1 = contactDetails.Values[0][1];
+                newContact.Phonenumber2 = contactDetails.Values[1][1];
+                newContact.Phonenumber3 = contactDetails.Values[2][1];
+            }
+            if (contactDetails.Priority == "Phonenumber2")
+            {
+                newContact.Phonenumber1 = contactDetails.Values[1][1];
+                newContact.Phonenumber2 = contactDetails.Values[0][1];
+                newContact.Phonenumber3 = contactDetails.Values[2][1];
+            }
+            if (contactDetails.Priority == "Phonenumber3")
+            {
+                newContact.Phonenumber1 = contactDetails.Values[2][1];
+                newContact.Phonenumber2 = contactDetails.Values[0][1];
+                newContact.Phonenumber3 = contactDetails.Values[1][1];
+            }
+
+            var contact = await CreateContact(newContact);
+
+            return contact;       
         }
+
+       
 
 
         [HttpDelete]

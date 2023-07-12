@@ -89,5 +89,7 @@ namespace Services.Rooms
             var employees = await _iEmployeesData.GetAllEmployeesForRoom(list);
             return employees.ToList();
         }
+
+        
     }
 }
