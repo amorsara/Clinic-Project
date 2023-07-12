@@ -40,7 +40,7 @@ namespace Services.DTO
 
         public string? phone3 { get; set; }
 
-        public int shift { get; set; }
+        public char shift { get; set; }
 
         public bool? cancel { get; set; }
     }

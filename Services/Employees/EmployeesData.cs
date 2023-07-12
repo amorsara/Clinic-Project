@@ -110,5 +110,11 @@ namespace Services.Employees
             }
             return list;
         }
+
+        public async Task<int?> GetEmployeIdByName(string? name)
+        {
+            var employee = await _context.Employees.Where(e => e.Name == name).FirstOrDefaultAsync();
+            return employee?.Idemployee;
+        }
     }
 }

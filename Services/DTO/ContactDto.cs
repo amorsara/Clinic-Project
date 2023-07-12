@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Services.DTO
 {
-    public class ContactValues
+    public class ContactDto
     {
         public bool Sem { get; set; }
 

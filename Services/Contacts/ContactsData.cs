@@ -119,6 +119,7 @@ namespace Services.Contacts
                 waitTreatment.Phonenumber2 = contact.Phonenumber2;
                 waitTreatment.Type = appointment.Treatmentname;
                 waitTreatment.Date = (DateOnly)appointment.Date;
+                waitTreatment.Remark = contact.Remark;
                 list.Add(waitTreatment);
             }
             return list;

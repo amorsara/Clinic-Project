@@ -34,12 +34,11 @@ namespace Services.Schedule
         {
             var list = new List<ScheduleDto>();
             var appointments = await _iAppintmentsData.GetAllAppointments();
-            int cnt = 0;
             foreach (var appointment in appointments)
             {
                 var scheduleDto = new ScheduleDto();
                 var contact = await _iContactsData.GetContactById(appointment.Idcontact);
-                scheduleDto.Id = cnt++;
+                scheduleDto.Id = appointment.Idappointment;
                 scheduleDto.IdContact = contact?.Idcontact;
                 scheduleDto.startHouer = appointment.Timestart;
                 scheduleDto.endTime = appointment.Timeend;

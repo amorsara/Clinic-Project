@@ -143,7 +143,7 @@ namespace App.Controllers
 
         [HttpPost]
         [Route("/api/contacts/createcontactwarpper")]
-        public async Task<ActionResult<Contact>> CreateContactWarpper(ContactValues contactDetails)
+        public async Task<ActionResult<Contact>> CreateContactWarpper(ContactDto contactDetails)
         {
             var newContact = new Contact();
             newContact.Laser = newContact.Waxing = newContact.Electrolysis = false;

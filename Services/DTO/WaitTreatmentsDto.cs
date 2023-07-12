@@ -14,5 +14,6 @@ namespace Services.DTO
         public string? Phonenumber2 { get; set; }
         public string? Type { get; set; } 
         public DateOnly Date { get; set; }
+        public string? Remark { get; set; }
     }
 }

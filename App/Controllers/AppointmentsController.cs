@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
 using Services.Appointments;
 using Services.DTO;
+using Services.Employees;
 using Services.Schedule;
 
 namespace App.Controllers
@@ -18,11 +19,13 @@ namespace App.Controllers
     {
         private readonly ClinicDBContext _context;
         private readonly IAppointmentsData _iAppointmentsData;
+        private readonly IEmployeesData _iIEmployeesData;
 
-        public AppointmentsController(ClinicDBContext context, IAppointmentsData appointmentsData)
+        public AppointmentsController(ClinicDBContext context, IAppointmentsData appointmentsData, IEmployeesData employeesData)
         {
             _context = context;
             _iAppointmentsData = appointmentsData;
+            _iIEmployeesData = employeesData;
         }
 
         [HttpGet]
@@ -121,6 +124,25 @@ namespace App.Controllers
       
         [HttpPost]
         [Route("/api/appointments/createappointment")]
+        public async Task<ActionResult<Appointment>> CreateAppointmentWarraper(AppointmentDto appointment)
+        {
+            var newAppointment = new Appointment();
+            newAppointment.Discount = appointment.discount;
+            newAppointment.Date = appointment.date;
+            newAppointment.Idroom = appointment.Idroom;
+            newAppointment.Idcontact = appointment.idTreated;
+            newAppointment.Treatmentname = appointment.treatment;
+            newAppointment.Remark = appointment.Remark;
+            newAppointment.Isremaind = appointment.remined;
+            newAppointment.Timestart = appointment.startHouer;
+            newAppointment.Timeend = appointment.endTime;
+            newAppointment.Idemployee = (int)await _iIEmployeesData.GetEmployeIdByName(appointment.Employee);
+            var res = await CreateAppointment(newAppointment);
+            return res;
+        }
+
+        [HttpPost]
+        [Route("/api/appointments/createappointment1")]
         public async Task<ActionResult<Appointment>> CreateAppointment(Appointment appointment)
         {
             var result = await _iAppointmentsData.CreateAppointment(appointment);
@@ -134,7 +156,7 @@ namespace App.Controllers
             }
         }
 
-        
+
         [HttpDelete]
         [Route("/api/appointments/deleteappointment/{id}")]
         public async Task<IActionResult> DeleteAppointment(int id)
