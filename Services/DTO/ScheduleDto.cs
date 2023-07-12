@@ -12,34 +12,34 @@ namespace Services.DTO
 
         public DateOnly? Date { get; set; }
 
-        public TimeOnly? StartHouer { get; set; }
+        public TimeOnly? startHouer { get; set; }
 
-        public TimeOnly? EndHouer { get; set; }
+        public TimeOnly? endTime { get; set; }
 
-        public string? ColorEmployee { get; set; }
+        public string? colorWorker { get; set; }
 
-        public int IdEmployee { get; set; }
+        public int idWorker { get; set; }
 
-        public string? NameRoom { get; set; }
+        public string? nameRoom { get; set; }
 
-        public string? FirstName { get; set; }
+        public string? firstName { get; set; }
 
-        public string? LastName { get; set; }
+        public string? lastName { get; set; }
 
-        public int? IsRemined { get; set; }
+        public int? isRemined { get; set; }
 
-        public string? Remark { get; set; }
+        public string? note { get; set; }
 
-        public string? Type { get; set; }
+        public string? type { get; set; }
 
-        public string? Phonenumber1 { get; set; }
+        public string? phone1 { get; set; }
 
-        public string? Phonenumber2 { get; set; }
+        public string? phonen2 { get; set; }
 
-        public string? Phonenumber3 { get; set; }
+        public string? phone3 { get; set; }
 
-        public int Shift { get; set; }
+        public int shift { get; set; }
 
-        public bool? Cancel { get; set; }
+        public bool? cancel { get; set; }
     }
 }

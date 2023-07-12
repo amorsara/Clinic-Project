@@ -13,7 +13,7 @@ namespace Services.WorkHours
         Task<List<Workhour>> GetAllWorkHours();
         Task<Workhour?> GetWorkHourById(int id);
         Task<bool> CreateWorkHour(Workhour workHour);
-        Task <int?> GetShiftEmployee(int id, TimeOnly? time);
+        Task <char?> GetShiftEmployee(int id, TimeOnly? time);
         bool WorkHourExists(int id);
         Task<List<EmployeeShiftDto>> GetWorkHourByEmployee(int id);
         Task<List<Workhour>> GetShiftByDay(int id, int day);

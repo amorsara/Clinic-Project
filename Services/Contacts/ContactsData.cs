@@ -90,7 +90,7 @@ namespace Services.Contacts
                 contactDates.Phonenumber1 = contact.Phonenumber1;
                 contactDates.Phonenumber2 = contact.Phonenumber2;
                 contactDates.Phonenumber3 = contact.Phonenumber3;
-                contactDates.Sem = contact.Sem;
+                contactDates.Sem = contact.Sem.ToString();
                 contactDates.Email = contact.Email;
                 contactDates.Remark = contact.Remark;
                 contact.Isactive = contact.Isactive;

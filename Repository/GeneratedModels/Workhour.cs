@@ -12,7 +12,7 @@ public partial class Workhour
 
     public int? Day { get; set; }
 
-    public int? Shift { get; set; }
+    public char? Shift { get; set; }
 
     public TimeOnly? Starthour { get; set; }
 

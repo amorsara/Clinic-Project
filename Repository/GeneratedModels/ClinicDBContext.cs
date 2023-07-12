@@ -165,7 +165,9 @@ public partial class ClinicDBContext : DbContext
             entity.Property(e => e.Endhour).HasColumnName("endhour");
             entity.Property(e => e.Idemployee).HasColumnName("idemployee");
             entity.Property(e => e.Regularwork).HasColumnName("regularwork");
-            entity.Property(e => e.Shift).HasColumnName("shift");
+            entity.Property(e => e.Shift)
+                .HasMaxLength(1)
+                .HasColumnName("shift");
             entity.Property(e => e.Starthour).HasColumnName("starthour");
 
             entity.HasOne(d => d.IdemployeeNavigation).WithMany(p => p.Workhours)

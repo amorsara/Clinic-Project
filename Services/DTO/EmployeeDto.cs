@@ -10,11 +10,11 @@ namespace Services.DTO
     {
         public int Id { get; set; }
 
-        public string? NameEmployee { get; set; }
+        public string? nameWorker { get; set; }
 
-        public string? ColorEmployee { get; set; }
+        public string? colorWorker { get; set; }
 
-        public List<EmployeeShiftDto>? WeeklyHouers { get; set; }
+        public List<EmployeeShiftDto>? weeklyHouers { get; set; }
 
     }
 }

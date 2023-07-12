@@ -40,22 +40,22 @@ namespace Services.Schedule
                 var scheduleDto = new ScheduleDto();
                 var contact = await _iContactsData.GetContactById(appointment.Idcontact);
                 scheduleDto.Id = cnt++;
-                scheduleDto.StartHouer = appointment.Timestart;
-                scheduleDto.EndHouer = appointment.Timeend;
+                scheduleDto.startHouer = appointment.Timestart;
+                scheduleDto.endTime = appointment.Timeend;
                 scheduleDto.Date = appointment.Date;
-                scheduleDto.Type = appointment.Treatmentname;
-                scheduleDto.IsRemined = appointment.Isremaind;
-                scheduleDto.Cancel = appointment.Cancle;
-                scheduleDto.IdEmployee = appointment.Idemployee;
-                scheduleDto.ColorEmployee = await _iEmployeesData.GetColorById(appointment.Idemployee);
-                scheduleDto.NameRoom = await _iRoomsData.GetNameRoom(appointment.Idroom);
-                scheduleDto.Shift = (int)await _iWorkHoursData.GetShiftEmployee(appointment.Idemployee, appointment.Timestart);
-                scheduleDto.FirstName = contact?.Firstname;
-                scheduleDto.LastName = contact?.Lastname;
-                scheduleDto.Remark = contact?.Remark;
-                scheduleDto.Phonenumber1 = contact?.Phonenumber1;
-                scheduleDto.Phonenumber2 = contact?.Phonenumber2;
-                scheduleDto.Phonenumber3 = contact?.Phonenumber3;
+                scheduleDto.type = appointment.Treatmentname;
+                scheduleDto.isRemined = appointment.Isremaind;
+                scheduleDto.cancel = appointment.Cancle;
+                scheduleDto.idWorker = appointment.Idemployee;
+                scheduleDto.colorWorker = await _iEmployeesData.GetColorById(appointment.Idemployee);
+                scheduleDto.nameRoom = await _iRoomsData.GetNameRoom(appointment.Idroom);
+                scheduleDto.shift = (char)await _iWorkHoursData.GetShiftEmployee(appointment.Idemployee, appointment.Timestart);
+                scheduleDto.firstName = contact?.Firstname;
+                scheduleDto.lastName = contact?.Lastname;
+                scheduleDto.note = contact?.Remark;
+                scheduleDto.phone1 = contact?.Phonenumber1;
+                scheduleDto.phonen2 = contact?.Phonenumber2;
+                scheduleDto.phone3 = contact?.Phonenumber3;
                 list.Add(scheduleDto);
             }
             return list;
@@ -72,7 +72,7 @@ namespace Services.Schedule
                     continue;
                 }
                 var roomScheduleDto = new RoomScheduleDto();
-                roomScheduleDto.NameRoom = room.Nameroom;
+                roomScheduleDto.nameRoom = room.Nameroom;
                 var employees = await _iRoomsData.GetAllEmployeesForRoom(room.Idroom);
                 roomScheduleDto.Employees = await _iEmployeesData.GetEmployeesForSchedule(employees);
                 list.Add(roomScheduleDto);

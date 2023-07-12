@@ -46,7 +46,7 @@ namespace Services.WorkHours
             return shifts;
         }
 
-        public async Task<int?> GetShiftEmployee(int id, TimeOnly? time)
+        public async Task<char?> GetShiftEmployee(int id, TimeOnly? time)
         {
             var res = await _context.Workhours.Where(w => w.Idemployee == id && w.Starthour <= time).FirstOrDefaultAsync();
             return res?.Shift;
@@ -65,20 +65,20 @@ namespace Services.WorkHours
                     {
                         continue;
                     }
-                    if (s.Shift == 1)
+                    if (s.Shift == 'm')
                     {
-                        employeeShiftDto.StartMorning = s.Starthour;
-                        employeeShiftDto.EndMorning = s.Endhour;
+                        employeeShiftDto.startMorning = s.Starthour;
+                        employeeShiftDto.endMorning = s.Endhour;
                     }
-                    if (s.Shift == 2)
+                    if (s.Shift == 'a')
                     {
-                        employeeShiftDto.StartAfternoon = s.Starthour;
-                        employeeShiftDto.EndAfternoon = s.Endhour;
+                        employeeShiftDto.startAfternoon = s.Starthour;
+                        employeeShiftDto.endEvenning = s.Endhour;
                     }
-                    if (s.Shift == 3)
+                    if (s.Shift == 'e')
                     {
-                        employeeShiftDto.StartEvenning = s.Starthour;
-                        employeeShiftDto.EndEvenning = s.Endhour;
+                        employeeShiftDto.startEvenning = s.Starthour;
+                        employeeShiftDto.endEvenning = s.Endhour;
                     }
                 }
                 list.Add(employeeShiftDto);

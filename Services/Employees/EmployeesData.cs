@@ -102,9 +102,9 @@ namespace Services.Employees
             {
                 var emp = new EmployeeDto();
                 emp.Id = i++;
-                emp.NameEmployee = e.Name;
-                emp.ColorEmployee = e.Color;
-                emp.WeeklyHouers = await _iWorkHoursData.GetWorkHourByEmployee(e.Idemployee);
+                emp.nameWorker = e.Name;
+                emp.colorWorker = e.Color;
+                emp.weeklyHouers = await _iWorkHoursData.GetWorkHourByEmployee(e.Idemployee);
                 list.Add(emp);
             }
             return list;

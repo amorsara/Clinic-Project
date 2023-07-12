@@ -25,7 +25,7 @@ namespace Services.DTO
 
         public string? Email { get; set; }
 
-        public bool? Sem { get; set; }
+        public string? Sem { get; set; }  // create contact -- check how get and insert...
 
         public string? Remark { get; set; }
 

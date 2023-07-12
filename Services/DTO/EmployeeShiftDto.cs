@@ -10,17 +10,17 @@ namespace Services.DTO
     {
         public int IdEmployeeShift { get; set; }
         
-        public TimeOnly? StartMorning { get; set; }
+        public TimeOnly? startMorning { get; set; }
 
-        public TimeOnly? EndMorning { get; set; }
+        public TimeOnly? endMorning { get; set; }
 
-        public TimeOnly? StartAfternoon { get; set; }
+        public TimeOnly? startAfternoon { get; set; }
 
-        public TimeOnly? EndAfternoon { get; set; }
+        public TimeOnly? endAfternoon { get; set; }
 
-        public TimeOnly? StartEvenning { get; set; }
+        public TimeOnly? startEvenning { get; set; }
 
-        public TimeOnly? EndEvenning { get; set; }
+        public TimeOnly? endEvenning { get; set; }
 
     }
 }

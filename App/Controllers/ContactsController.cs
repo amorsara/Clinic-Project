@@ -141,6 +141,27 @@ namespace App.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("/api/contacts/createcontactwarpper")]
+        public Contact CreateContactWarpper(List<List<string>> contactDetails)
+        {
+            var contact = new Contact();
+            contact.Laser = contact.Waxing = contact.Electrolysis = false;
+            contact.Remark = contactDetails[0][0];
+            contact.Phonenumber1 = contactDetails[0][1];
+            contact.Firstname = contactDetails[0][2];
+            contact.Howcomeus = contactDetails[1][0];
+            contact.Phonenumber2 = contactDetails[1][1];
+            contact.Lastname = contactDetails[1][2];
+            contact.Urlfile = contactDetails[2][0];
+            contact.Phonenumber3 = contactDetails[2][1];
+            contact.Email = contactDetails[2][2];
+            contact.Sem = true;
+            contact.Isactive = true;
+            return contact;
+        }
+
+
         [HttpDelete]
         [Route("/api/contacts/deletecontact/{id}")]
         public async Task<IActionResult> DeleteContact(int id)
