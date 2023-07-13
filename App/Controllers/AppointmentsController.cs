@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
 using Services.Appointments;
+using Services.Contacts;
 using Services.DTO;
 using Services.Employees;
 using Services.Schedule;
@@ -20,12 +21,14 @@ namespace App.Controllers
         private readonly ClinicDBContext _context;
         private readonly IAppointmentsData _iAppointmentsData;
         private readonly IEmployeesData _iIEmployeesData;
+        private readonly IContactsData _iContactsData;
 
-        public AppointmentsController(ClinicDBContext context, IAppointmentsData appointmentsData, IEmployeesData employeesData)
+        public AppointmentsController(ClinicDBContext context, IAppointmentsData appointmentsData, IEmployeesData employeesData, IContactsData contactsData)
         {
             _context = context;
             _iAppointmentsData = appointmentsData;
             _iIEmployeesData = employeesData;
+            _iContactsData = contactsData;
         }
 
         [HttpGet]
@@ -128,15 +131,15 @@ namespace App.Controllers
         {
             var newAppointment = new Appointment();
             newAppointment.Discount = appointment.discount;
-            newAppointment.Date = appointment.date;
-            newAppointment.Idroom = appointment.Idroom;
+            newAppointment.Date = appointment.Date;
+            newAppointment.Idroom = appointment.idRoom;
             newAppointment.Idcontact = appointment.idTreated;
             newAppointment.Treatmentname = appointment.treatment;
             newAppointment.Remark = appointment.Remark;
-            newAppointment.Isremaind = appointment.remined;
+            newAppointment.Isremaind = appointment.isRemined == true ? 1:0;
             newAppointment.Timestart = appointment.startHouer;
             newAppointment.Timeend = appointment.endTime;
-            newAppointment.Idemployee = (int)await _iIEmployeesData.GetEmployeIdByName(appointment.Employee);
+            newAppointment.Idemployee = appointment.idWorker;
             var res = await CreateAppointment(newAppointment);
             return res;
         }

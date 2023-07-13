@@ -12,11 +12,11 @@ namespace Services.DTO
 
         public string? treatment { get; set; }
 
-        public string? Employee { get; set; }
+        public int idWorker { get; set; }
 
-        public int Idroom { get; set; }
+        public int idRoom { get; set; }
 
-        public DateOnly? date { get; set; }
+        public DateOnly? Date { get; set; }
 
         public TimeOnly? startHouer { get; set; }
 
@@ -24,7 +24,7 @@ namespace Services.DTO
 
         public string? Remark { get; set; }
 
-        public int? remined { get; set; }
+        public bool isRemined { get; set; }
 
         public bool? discount { get; set; }
 
