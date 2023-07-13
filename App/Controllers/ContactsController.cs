@@ -33,6 +33,7 @@ namespace App.Controllers
             {
                  return NotFound();
             }
+
             return contacts;
         }
 
