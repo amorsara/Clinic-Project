@@ -14,7 +14,7 @@ namespace Services.DTO
 
         public string? Priority { get; set; }
 
-        public List<List<string?>> Values { get; set; } = new List<List<string?>>();
+        public List<ListFieldsDto?> Values { get; set; } = new List<ListFieldsDto?>();
     }
 }
 

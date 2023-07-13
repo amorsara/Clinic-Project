@@ -33,7 +33,6 @@ namespace App.Controllers
             {
                  return NotFound();
             }
-
             return contacts;
         }
 
@@ -148,31 +147,31 @@ namespace App.Controllers
         {
             var newContact = new Contact();
             newContact.Laser = newContact.Waxing = newContact.Electrolysis = false;
-            newContact.Remark = contactDetails.Values[0][0];
-            newContact.Firstname = contactDetails.Values[0][2];
-            newContact.Howcomeus = contactDetails.Values[1][0];
-            newContact.Lastname = contactDetails.Values[1][2];
-            newContact.Urlfile = contactDetails.Values[2][0];
-            newContact.Email = contactDetails.Values[2][2];
+            newContact.Remark = contactDetails.Values[0]?.field1;
+            newContact.Firstname = contactDetails.Values[0]?.field2;
+            newContact.Howcomeus = contactDetails.Values[1]?.field1;
+            newContact.Lastname = contactDetails.Values[1]?.field2;
+            newContact.Urlfile = contactDetails.Values[2]?.field1;
+            newContact.Email = contactDetails.Values[2]?.field2;
             newContact.Sem = contactDetails.Sem;
             newContact.Isactive = contactDetails.Active;         
             if(contactDetails.Priority == "Phonenumber1")
             {
-                newContact.Phonenumber1 = contactDetails.Values[0][1];
-                newContact.Phonenumber2 = contactDetails.Values[1][1];
-                newContact.Phonenumber3 = contactDetails.Values[2][1];
+                newContact.Phonenumber1 = contactDetails.Values[0]?.field2;
+                newContact.Phonenumber2 = contactDetails.Values[1]?.field2;
+                newContact.Phonenumber3 = contactDetails.Values[2]?.field2;
             }
             if (contactDetails.Priority == "Phonenumber2")
             {
-                newContact.Phonenumber1 = contactDetails.Values[1][1];
-                newContact.Phonenumber2 = contactDetails.Values[0][1];
-                newContact.Phonenumber3 = contactDetails.Values[2][1];
+                newContact.Phonenumber1 = contactDetails.Values[1]?.field2;
+                newContact.Phonenumber2 = contactDetails.Values[0]?.field2;
+                newContact.Phonenumber3 = contactDetails.Values[2]?.field2;
             }
             if (contactDetails.Priority == "Phonenumber3")
             {
-                newContact.Phonenumber1 = contactDetails.Values[2][1];
-                newContact.Phonenumber2 = contactDetails.Values[0][1];
-                newContact.Phonenumber3 = contactDetails.Values[1][1];
+                newContact.Phonenumber1 = contactDetails.Values[2]?.field2;
+                newContact.Phonenumber2 = contactDetails.Values[0]?.field2;
+                newContact.Phonenumber3 = contactDetails.Values[1]?.field2;
             }
 
             var contact = await CreateContact(newContact);
