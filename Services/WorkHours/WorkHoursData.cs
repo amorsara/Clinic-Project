@@ -61,6 +61,7 @@ namespace Services.WorkHours
                 var shifts = await GetShiftByDay(id, i);
                 foreach (var s in shifts)
                 {
+                    Console.WriteLine(s);
                     if(s == null)
                     {
                         continue;
@@ -73,7 +74,7 @@ namespace Services.WorkHours
                     if (s.Shift == 'a')
                     {
                         employeeShiftDto.startAfternoon = s.Starthour;
-                        employeeShiftDto.endEvenning = s.Endhour;
+                        employeeShiftDto.endAfternoon = s.Endhour;
                     }
                     if (s.Shift == 'e')
                     {

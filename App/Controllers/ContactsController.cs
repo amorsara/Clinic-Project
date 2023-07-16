@@ -145,14 +145,15 @@ namespace App.Controllers
         [Route("/api/contacts/createcontactwarpper")]
         public async Task<ActionResult<Contact>> CreateContactWarpper(ContactDto contactDetails)
         {
+            Console.WriteLine(contactDetails);
             var newContact = new Contact();
             newContact.Laser = newContact.Waxing = newContact.Electrolysis = false;
             newContact.Remark = contactDetails.Values[0]?.field1;
-            newContact.Firstname = contactDetails.Values[0]?.field2;
+            newContact.Firstname = contactDetails.Values[0]?.field3;
             newContact.Howcomeus = contactDetails.Values[1]?.field1;
-            newContact.Lastname = contactDetails.Values[1]?.field2;
+            newContact.Lastname = contactDetails.Values[1]?.field3;
             newContact.Urlfile = contactDetails.Values[2]?.field1;
-            newContact.Email = contactDetails.Values[2]?.field2;
+            newContact.Email = contactDetails.Values[2]?.field3;
             newContact.Sem = contactDetails.Sem;
             newContact.Isactive = contactDetails.Active;         
             if(contactDetails.Priority == "Phonenumber1")
