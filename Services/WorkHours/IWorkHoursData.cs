@@ -1,4 +1,5 @@
-﻿using Repository.GeneratedModels;
+﻿using Microsoft.AspNetCore.Mvc;
+using Repository.GeneratedModels;
 using Services.DTO;
 using System;
 using System.Collections.Generic;
@@ -17,5 +18,6 @@ namespace Services.WorkHours
         bool WorkHourExists(int id);
         Task<List<EmployeeShiftDto>> GetWorkHourByEmployee(int id);
         Task<List<Workhour>> GetShiftByDay(int id, int day);
+        Task<string> UpdateWorkhour(int id, Workhour workhour);
     }
 }

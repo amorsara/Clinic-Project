@@ -32,7 +32,7 @@ namespace Services.DTO
 
         public string? note { get; set; }
 
-        public string? type { get; set; }
+        public char? type { get; set; }
 
         public string? phone1 { get; set; }
 
@@ -40,7 +40,7 @@ namespace Services.DTO
 
         public string? phone3 { get; set; }
 
-        public char shift { get; set; }
+        public char? shift { get; set; }
 
         public bool? cancel { get; set; }
     }

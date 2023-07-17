@@ -78,6 +78,11 @@ namespace Services.Employees
                     list.Add(employee);
                     continue;
                 }
+                if (employee.Advancedelectrolysis == true && treatmentsType != null && treatmentsType.Contains("Advancedelectrolysis"))
+                {
+                    list.Add(employee);
+                    continue;
+                }
             }
             return list;
         }

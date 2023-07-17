@@ -12,7 +12,7 @@ namespace Services.DTO
         public string? FullName { get; set; }
         public string? Phonenumber1 { get; set; }
         public string? Phonenumber2 { get; set; }
-        public string? Type { get; set; } 
+        public char? Type { get; set; } 
         public DateOnly Date { get; set; }
         public string? Remark { get; set; }
     }

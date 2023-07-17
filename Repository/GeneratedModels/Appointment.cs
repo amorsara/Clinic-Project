@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
+
 namespace Repository.GeneratedModels;
 
 public partial class Appointment
 {
     public int Idappointment { get; set; }
 
-    public string? Treatmentname { get; set; }
+    public char? Treatmentname { get; set; }
 
     public int Idemployee { get; set; }
 

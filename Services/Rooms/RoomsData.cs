@@ -80,6 +80,10 @@ namespace Services.Rooms
             {
                 list.Add("Electrolysis");
             }
+            if (room?.Advancedelectrolysis == true)
+            {
+                list.Add("Advancedelectrolysis");
+            }
             return list;
         }
 

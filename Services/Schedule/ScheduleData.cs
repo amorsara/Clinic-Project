@@ -49,7 +49,7 @@ namespace Services.Schedule
                 scheduleDto.idWorker = appointment.Idemployee;
                 scheduleDto.colorWorker = await _iEmployeesData.GetColorById(appointment.Idemployee);
                 scheduleDto.nameRoom = await _iRoomsData.GetNameRoom(appointment.Idroom);
-                scheduleDto.shift = (char)await _iWorkHoursData.GetShiftEmployee(appointment.Idemployee, appointment.Timestart);
+                scheduleDto.shift = (char?)await _iWorkHoursData.GetShiftEmployee(appointment.Idemployee, appointment.Timestart);
                 scheduleDto.firstName = contact?.Firstname;
                 scheduleDto.lastName = contact?.Lastname;
                 scheduleDto.note = contact?.Remark;

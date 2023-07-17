@@ -10,7 +10,7 @@ namespace Services.DTO
     {
         public int idTreated { get; set; }
 
-        public string? treatment { get; set; }
+        public char? treatment { get; set; }
 
         public int idWorker { get; set; }
 
