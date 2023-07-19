@@ -21,6 +21,10 @@ public partial class ClinicDBContext : DbContext
 
     public virtual DbSet<Employee> Employees { get; set; }
 
+    public virtual DbSet<Epilationarea> Epilationareas { get; set; }
+
+    public virtual DbSet<Leserarea> Leserareas { get; set; }
+
     public virtual DbSet<Room> Rooms { get; set; }
 
     public virtual DbSet<Waiting> Waitings { get; set; }
@@ -140,6 +144,30 @@ public partial class ClinicDBContext : DbContext
                 .HasColumnName("password");
             entity.Property(e => e.Permission).HasColumnName("permission");
             entity.Property(e => e.Waxing).HasColumnName("waxing");
+        });
+
+        modelBuilder.Entity<Epilationarea>(entity =>
+        {
+            entity.HasKey(e => e.Idepilationarea).HasName("epilationareas_pkey");
+
+            entity.ToTable("epilationareas");
+
+            entity.Property(e => e.Idepilationarea).HasColumnName("idepilationarea");
+            entity.Property(e => e.Namearea)
+                .HasColumnType("character varying")
+                .HasColumnName("namearea");
+        });
+
+        modelBuilder.Entity<Leserarea>(entity =>
+        {
+            entity.HasKey(e => e.Idleserarea).HasName("leserarea_pkey");
+
+            entity.ToTable("leserareas");
+
+            entity.Property(e => e.Idleserarea).HasColumnName("idleserarea");
+            entity.Property(e => e.Namearea)
+                .HasColumnType("character varying")
+                .HasColumnName("namearea");
         });
 
         modelBuilder.Entity<Room>(entity =>

@@ -3,6 +3,8 @@ using Repository.GeneratedModels;
 using Services.Appointments;
 using Services.Contacts;
 using Services.Employees;
+using Services.Epilations;
+using Services.Lesers;
 using Services.Rooms;
 using Services.Schedule;
 using Services.Waitings;
@@ -29,6 +31,8 @@ builder.Services.AddScoped<IAppointmentsData, AppointmentsData>();
 builder.Services.AddScoped<IWorkHoursData, WorkHoursData>();
 builder.Services.AddScoped<IScheduleData, ScheduleData>();
 builder.Services.AddScoped<IWaitingsData, WaitingsData>();
+builder.Services.AddScoped<IEpilationData, EpilationData>();
+builder.Services.AddScoped<ILeserData, LeserData>();
 
 
 var app = builder.Build();

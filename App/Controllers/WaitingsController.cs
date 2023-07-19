@@ -26,7 +26,7 @@ namespace App.Controllers
 
         [HttpGet]
         [Route("/api/waitings/getallwaitings")]
-        public async Task<ActionResult<IEnumerable<Waiting>>> GetWaitings()
+        public async Task<ActionResult<IEnumerable<Waiting>>> GetAllWaitings()
         {
             var waiting = await _iWaitingsData.GetAllWaitings();
             if (waiting == null)
@@ -38,7 +38,7 @@ namespace App.Controllers
 
         [HttpGet]
         [Route("/api/waitings/getwaitingbyid/{id}")]
-        public async Task<ActionResult<Waiting>> GetWaiting(int id)
+        public async Task<ActionResult<Waiting>> GetWaitingById(int id)
         {
             var waiting = await _iWaitingsData.GetWaitingById(id);
             if (waiting == null)
