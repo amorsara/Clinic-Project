@@ -36,34 +36,6 @@ namespace Services.WorkHours
             return false;
         }
 
-        public async Task<string> UpdateWorkhour(int id, Workhour workhour)
-        {
-            if (id != workhour.Idworkhour)
-            {
-                return "BadRequest";
-            }
-
-            _context.Entry(workhour).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (WorkHourExists(id))
-                {
-                    return "NotFound";
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return "NoContent";
-        }
-
         public async Task<List<Workhour>> GetAllWorkHours()
         {
             return await _context.Workhours.ToListAsync();

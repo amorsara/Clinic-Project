@@ -36,7 +36,6 @@ public partial class Contact
 
     public string? Urlfile { get; set; }
 
-
     [JsonIgnore]
     public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 }

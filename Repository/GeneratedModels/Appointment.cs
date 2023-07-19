@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-
 namespace Repository.GeneratedModels;
 
 public partial class Appointment

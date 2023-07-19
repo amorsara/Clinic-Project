@@ -5,6 +5,7 @@ using Services.Contacts;
 using Services.Employees;
 using Services.Rooms;
 using Services.Schedule;
+using Services.Waitings;
 using Services.WorkHours;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +28,7 @@ builder.Services.AddScoped<IRoomsData, RoomsData>();
 builder.Services.AddScoped<IAppointmentsData, AppointmentsData>();
 builder.Services.AddScoped<IWorkHoursData, WorkHoursData>();
 builder.Services.AddScoped<IScheduleData, ScheduleData>();
+builder.Services.AddScoped<IWaitingsData, WaitingsData>();
 
 
 var app = builder.Build();

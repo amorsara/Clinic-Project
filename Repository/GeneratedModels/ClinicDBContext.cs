@@ -23,6 +23,8 @@ public partial class ClinicDBContext : DbContext
 
     public virtual DbSet<Room> Rooms { get; set; }
 
+    public virtual DbSet<Waiting> Waitings { get; set; }
+
     public virtual DbSet<Workhour> Workhours { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -154,6 +156,28 @@ public partial class ClinicDBContext : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("nameroom");
             entity.Property(e => e.Waxing).HasColumnName("waxing");
+        });
+
+        modelBuilder.Entity<Waiting>(entity =>
+        {
+            entity.HasKey(e => e.Idwaiting).HasName("waiting_pkey");
+
+            entity.ToTable("waiting");
+
+            entity.Property(e => e.Idwaiting).HasColumnName("idwaiting");
+            entity.Property(e => e.Fullname)
+                .HasColumnType("character varying")
+                .HasColumnName("fullname");
+            entity.Property(e => e.Phone1)
+                .HasColumnType("character varying")
+                .HasColumnName("phone1");
+            entity.Property(e => e.Phone2)
+                .HasColumnType("character varying")
+                .HasColumnName("phone2");
+            entity.Property(e => e.Remark)
+                .HasColumnType("character varying")
+                .HasColumnName("remark");
+            entity.Property(e => e.Untildate).HasColumnName("untildate");
         });
 
         modelBuilder.Entity<Workhour>(entity =>
