@@ -96,6 +96,27 @@ namespace App.Controllers
             return result;
         }
 
+        [HttpPost]
+        [Route("/api/contacts/updatecontactwrapper")]
+        public async Task<IActionResult> UpdateContactWrapper(ContactDto contact)
+        {
+            var newContact = new Contact();
+            newContact.Idcontact = contact.id;
+            newContact.Remark = contact.Values[0]?.field1;
+            newContact.Phonenumber1 = contact.Values[0]?.field2;
+            newContact.Firstname = contact.Values[0]?.field3;
+            newContact.Howcomeus = contact.Values[1]?.field1;
+            newContact.Phonenumber2 = contact.Values[1]?.field2;
+            newContact.Lastname = contact.Values[1]?.field3;
+            newContact.Urlfile = contact.Values[2]?.field1;
+            newContact.Phonenumber3 = contact.Values[2]?.field2;
+            newContact.Email = contact.Values[2]?.field3;
+            newContact.Sem = contact.Sem;
+            newContact.Isactive = contact.Active;
+            var c = await UpdateContact(newContact.Idcontact, newContact);
+            return c;
+        }
+
         [HttpPut]
         [Route("/api/contacts/updatecontact/{id}")]
         public async Task<IActionResult> UpdateContact(int id, Contact contact)

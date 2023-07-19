@@ -8,6 +8,8 @@ namespace Services.DTO
 {
     public class ContactDto
     {
+        public int id { get; set; }
+
         public bool Sem { get; set; }
 
         public bool Active { get; set; }
