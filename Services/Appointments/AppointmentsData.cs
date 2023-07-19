@@ -61,6 +61,21 @@ namespace Services.Appointments
             return await _context.Appointments.ToListAsync();
         }
 
+        public async Task<List<DateOnly>> GetAllFutureDatesById(int id)
+        {
+            DateOnly today = DateOnly.FromDateTime(DateTime.Now);
+            var dates = await _context.Appointments.Where(a => a.Idcontact == id && a.Date >= today).ToListAsync();
+            var list = new List<DateOnly>();
+            foreach(var date in dates)
+            {
+                if(date.Date != null)
+                {
+                    list.Add((DateOnly)date.Date);
+                }                
+            }
+            return list;
+        }
+
         public async Task<List<Appointment>> GetAllWaitDates()
         {
             DateOnly today = DateOnly.FromDateTime(DateTime.Now);

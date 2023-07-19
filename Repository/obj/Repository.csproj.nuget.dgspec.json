@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Clinic Project\\Clinic\\Repository\\Repository.csproj": {}
+    "F:\\Clinic Project\\Clinic\\Repository\\Repository.csproj": {}
   },
   "projects": {
-    "D:\\Clinic Project\\Clinic\\Repository\\Repository.csproj": {
+    "F:\\Clinic Project\\Clinic\\Repository\\Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Clinic Project\\Clinic\\Repository\\Repository.csproj",
+        "projectUniqueName": "F:\\Clinic Project\\Clinic\\Repository\\Repository.csproj",
         "projectName": "Repository",
-        "projectPath": "D:\\Clinic Project\\Clinic\\Repository\\Repository.csproj",
+        "projectPath": "F:\\Clinic Project\\Clinic\\Repository\\Repository.csproj",
         "packagesPath": "C:\\Users\\user1\\.nuget\\packages\\",
-        "outputPath": "D:\\Clinic Project\\Clinic\\Repository\\obj\\",
+        "outputPath": "F:\\Clinic Project\\Clinic\\Repository\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\user1\\AppData\\Roaming\\NuGet\\NuGet.Config",

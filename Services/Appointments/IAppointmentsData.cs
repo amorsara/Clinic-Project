@@ -14,6 +14,7 @@ namespace Services.Appointments
         Task<List<Appointment>> GetWaitAppointments();
         Task<List<Appointment>> GetAllWaitDates();
         Task<List<DateOnly>> GetDatesOfAppointments(int id);
+        Task<List<DateOnly>> GetAllFutureDatesById(int id);
         Task<Appointment?> GetAppointmentById(int id);
         Task<bool> CreateAppointment(Appointment appointments);
         bool AppointmentExists(int id);

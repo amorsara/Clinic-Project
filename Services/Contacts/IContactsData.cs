@@ -15,6 +15,7 @@ namespace Services.Contacts
         Task<List<Contact>> GetSemContacts();
         Task<List<Contact>> GetActiveContacts();
         Task<List<WaitTreatmentsDto>> GetAllWaitDates();
+        Task<List<DateOnly>> GetAllFutureDates();
         Task<List<ContactDateDto>> GetContactsWithDates();
         Task <Contact?> GetContactById(int id);
         Task<bool> CreateContact(Contact contact);

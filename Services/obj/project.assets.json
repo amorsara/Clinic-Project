@@ -4226,11 +4226,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Clinic Project\\Clinic\\Services\\Services.csproj",
+      "projectUniqueName": "F:\\Clinic Project\\Clinic\\Services\\Services.csproj",
       "projectName": "Services",
-      "projectPath": "D:\\Clinic Project\\Clinic\\Services\\Services.csproj",
+      "projectPath": "F:\\Clinic Project\\Clinic\\Services\\Services.csproj",
       "packagesPath": "C:\\Users\\user1\\.nuget\\packages\\",
-      "outputPath": "D:\\Clinic Project\\Clinic\\Services\\obj\\",
+      "outputPath": "F:\\Clinic Project\\Clinic\\Services\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\user1\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -4247,8 +4247,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\Clinic Project\\Clinic\\Repository\\Repository.csproj": {
-              "projectPath": "D:\\Clinic Project\\Clinic\\Repository\\Repository.csproj"
+            "F:\\Clinic Project\\Clinic\\Repository\\Repository.csproj": {
+              "projectPath": "F:\\Clinic Project\\Clinic\\Repository\\Repository.csproj"
             }
           }
         }

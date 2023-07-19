@@ -77,7 +77,7 @@ namespace Services.WorkHours
 
         public async Task<char?> GetShiftEmployee(int id, TimeOnly? time)
         {
-            var res = await _context.Workhours.Where(w => w.Idemployee == id && w.Starthour <= time).FirstOrDefaultAsync();
+            var res = await _context.Workhours.Where(w => w.Idemployee == id && w.Starthour <= time && w.Endhour >= time).FirstOrDefaultAsync();
             return res?.Shift;
         }
 

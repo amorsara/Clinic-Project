@@ -124,6 +124,20 @@ namespace Services.Contacts
             }
             return list;
         }
+
+        public Task<List<DateOnly>> GetAllFutureDates()
+        {
+            throw new NotImplementedException();
+        }
+
+        //public async Task<List<DateOnly>> GetAllFutureDates(int id)
+        //{
+        //    var contacts = await GetAllContacts();
+        //    foreach (var contact in contacts)
+        //    {
+
+        //    }
+        //}
     }
 }
 
