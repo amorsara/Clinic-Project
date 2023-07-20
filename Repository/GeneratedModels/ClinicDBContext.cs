@@ -48,6 +48,9 @@ public partial class ClinicDBContext : DbContext
             entity.ToTable("appointments");
 
             entity.Property(e => e.Idappointment).HasColumnName("idappointment");
+            entity.Property(e => e.Area)
+                .HasColumnType("character varying")
+                .HasColumnName("area");
             entity.Property(e => e.Cancle).HasColumnName("cancle");
             entity.Property(e => e.Date).HasColumnName("date");
             entity.Property(e => e.Discount).HasColumnName("discount");

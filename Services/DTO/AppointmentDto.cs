@@ -22,6 +22,10 @@ namespace Services.DTO
 
         public TimeOnly? endTime { get; set; }
 
+        public int duration { get; set; }
+
+        public List<string>? area { get; set; }
+
         public string? Remark { get; set; }
 
         public bool isRemined { get; set; }

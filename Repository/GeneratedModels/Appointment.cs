@@ -18,8 +18,6 @@ public partial class Appointment
 
     public DateOnly? Date { get; set; }
 
-    public TimeOnly? Duration { get; set; }
-
     public TimeOnly? Timestart { get; set; }
 
     public TimeOnly? Timeend { get; set; }
@@ -33,6 +31,10 @@ public partial class Appointment
     public bool? Cancle { get; set; }
 
     public bool? Wait { get; set; }
+
+    public string? Area { get; set; }
+
+    public int? Duration { get; set; }
 
     [JsonIgnore]
     public virtual Contact IdcontactNavigation { get; set; } = null!;

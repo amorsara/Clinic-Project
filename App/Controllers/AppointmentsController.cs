@@ -139,6 +139,8 @@ namespace App.Controllers
             newAppointment.Isremaind = appointment.isRemined == true ? 1:0;
             newAppointment.Timestart = appointment.startHouer;
             newAppointment.Timeend = appointment.endTime;
+            newAppointment.Duration = appointment.duration;
+            newAppointment.Area = appointment.area?.Count != null ? String.Join(", ", appointment.area): null;
             newAppointment.Idemployee = appointment.idWorker;
             var res = await CreateAppointment(newAppointment);
             return res;
