@@ -130,14 +130,54 @@ namespace Services.Contacts
             throw new NotImplementedException();
         }
 
-        //public async Task<List<DateOnly>> GetAllFutureDates(int id)
-        //{
-        //    var contacts = await GetAllContacts();
-        //    foreach (var contact in contacts)
-        //    {
+        public async Task<bool> UpdateContact(int id, Contact contact)
+        {
+            _context.Entry(contact).State = EntityState.Modified;
 
-        //    }
-        //}
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ContactExists(id))
+                {
+                    return false;
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return true;
+        }
+
+        public async Task<ActionResult<Contact?>> UpdateTreatementNameForContact(int id, char? type)
+        {
+            var c = await GetContactById(id);
+            if (c == null)
+            {
+                return c;
+            }
+            if (type == 'l')
+            {
+                c.Laser = true;
+            }
+            if (type == 'e')
+            {
+                c.Electrolysis = true;
+            }
+            if (type == 'w')
+            {
+                c.Waxing = true;
+            }
+
+            await UpdateContact(id, c);
+            return c;
+
+        }
+
     }
 }
 

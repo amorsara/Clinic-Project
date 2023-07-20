@@ -96,6 +96,7 @@ namespace App.Controllers
             return result;
         }
 
+
         [HttpPost]
         [Route("/api/contacts/updatecontactwrapper")]
         public async Task<IActionResult> UpdateContactWrapper(ContactDto contact)
@@ -123,28 +124,34 @@ namespace App.Controllers
         {
             if (id != contact.Idcontact)
             {
+                return NoContent();
+            }
+            var res = await _iContactsData.UpdateContact(id, contact);
+            if (res == false)
+            {
                 return BadRequest();
             }
+            return Ok();
 
-            _context.Entry(contact).State = EntityState.Modified;
+            //_context.Entry(contact).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!_iContactsData.ContactExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            //try
+            //{
+            //    await _context.SaveChangesAsync();
+            //}
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    if (!_iContactsData.ContactExists(id))
+            //    {
+            //        return NotFound();
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
 
-            return NoContent();
+            //return NoContent();
         }
 
         [HttpPost]

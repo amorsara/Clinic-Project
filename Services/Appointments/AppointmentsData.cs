@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
 using Services.Contacts;
 using Services.DTO;
@@ -91,7 +92,8 @@ namespace Services.Appointments
 
         public async Task<List<DateOnly>> GetDatesOfAppointments(int id)
         {
-            var appointments = await _context.Appointments.Where(a => a.Idcontact == id).ToListAsync();
+            DateOnly today = DateOnly.FromDateTime(DateTime.Now);
+            var appointments = await _context.Appointments.Where(a => a.Idcontact == id && a.Date >= today).ToListAsync();
             var listDate = new List<DateOnly>();
             foreach(var appointment in appointments)
             {

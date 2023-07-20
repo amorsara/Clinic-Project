@@ -143,6 +143,7 @@ namespace App.Controllers
             newAppointment.Area = appointment.area?.Count != null ? String.Join(", ", appointment.area): null;
             newAppointment.Idemployee = appointment.idWorker;
             var res = await CreateAppointment(newAppointment);
+            var c = await _iContactsData.UpdateTreatementNameForContact(appointment.idTreated, appointment.treatment);
             return res;
         }
 

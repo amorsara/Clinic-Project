@@ -20,5 +20,7 @@ namespace Services.Contacts
         Task <Contact?> GetContactById(int id);
         Task<bool> CreateContact(Contact contact);
         bool ContactExists(int id);
+        Task<bool> UpdateContact(int id, Contact contact);
+        Task<ActionResult<Contact?>> UpdateTreatementNameForContact(int id, char? type);
     }
 }

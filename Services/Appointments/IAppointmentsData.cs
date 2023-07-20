@@ -1,4 +1,5 @@
-﻿using Repository.GeneratedModels;
+﻿using Microsoft.AspNetCore.Mvc;
+using Repository.GeneratedModels;
 using Services.DTO;
 using System;
 using System.Collections.Generic;

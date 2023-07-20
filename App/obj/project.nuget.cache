@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "0/Jn7/A/JhacbZ2aIfWhj24vE7G02Le2GVvdz4xe5W7hcV3xyVwzKuey3f81eUnUVdv6zqLF/3FTbu+2mEwtyQ==",
+  "dgSpecHash": "YtxI7nD1GoZv5RgxyK3+cbZIjuZQLp4KqYMUlRaIMtyF9IetWfCXC4rFezevtMjH3kw/gzwXct/IpxgSV8CizA==",
   "success": true,
   "projectFilePath": "F:\\Clinic Project\\Clinic\\App\\App.csproj",
   "expectedPackageFiles": [
@@ -123,6 +123,7 @@
     "C:\\Users\\user1\\.nuget\\packages\\microsoft.net.stringtools\\17.3.2\\microsoft.net.stringtools.17.3.2.nupkg.sha512",
     "C:\\Users\\user1\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\user1\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
+    "C:\\Users\\user1\\.nuget\\packages\\microsoft.office.interop.excel\\15.0.4795.1001\\microsoft.office.interop.excel.15.0.4795.1001.nupkg.sha512",
     "C:\\Users\\user1\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
     "C:\\Users\\user1\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.15.1\\microsoft.visualstudio.azure.containers.tools.targets.1.15.1.nupkg.sha512",
     "C:\\Users\\user1\\.nuget\\packages\\microsoft.visualstudio.debugger.contracts\\17.2.0\\microsoft.visualstudio.debugger.contracts.17.2.0.nupkg.sha512",
