@@ -116,13 +116,17 @@ namespace Services.Rooms
                 {
                     list.Add("Laser");
                 }
-                if (room?.Waxing == true || room?.Advancedelectrolysis == true)
+                if (room?.Waxing == true)
                 {
                     list.Add("Waxing");
                 }
                 if (room?.Electrolysis == true)
                 {
                     list.Add("Electrolysis");
+                }
+                if (room?.Advancedelectrolysis == true)
+                {
+                    list.Add("Advancedelectrolysis");
                 }
                 roomFieldsDto.fields = list;
                 listRoomFieldsDto.Add(roomFieldsDto);

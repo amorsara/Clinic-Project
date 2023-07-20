@@ -119,13 +119,17 @@ namespace Services.Employees
                 {
                     list.Add("Laser");
                 }
-                if (employee?.Waxing == true || employee?.Advancedelectrolysis == true)
+                if (employee?.Waxing == true)
                 {
                     list.Add("Waxing");
                 }
                 if (employee?.Electrolysis == true)
                 {
                     list.Add("Electrolysis");
+                }
+                if (employee?.Advancedelectrolysis == true)
+                {
+                    list.Add("Advancedelectrolysis");
                 }
                 employeeFieldesDto.fields = list;
                 listEmployeeFields.Add(employeeFieldesDto);
