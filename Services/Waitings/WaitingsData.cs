@@ -43,7 +43,9 @@ namespace Services.Waitings
 
         public async Task<List<Waiting>> GetAllWaitings()
         {
-             return await _context.Waitings.ToListAsync();
+            DateOnly today = DateOnly.FromDateTime(DateTime.Now);
+            var waitings = await _context.Waitings.Where(w => w.Untildate >= today).ToListAsync();
+            return waitings;
         }
 
         public bool WaitingExists(int id)

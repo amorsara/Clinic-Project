@@ -205,6 +205,9 @@ public partial class ClinicDBContext : DbContext
             entity.Property(e => e.Remark)
                 .HasColumnType("character varying")
                 .HasColumnName("remark");
+            entity.Property(e => e.Type)
+                .HasMaxLength(1)
+                .HasColumnName("type");
             entity.Property(e => e.Untildate).HasColumnName("untildate");
         });
 
