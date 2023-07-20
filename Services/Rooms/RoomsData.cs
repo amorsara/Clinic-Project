@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
+using Services.DTO;
 using Services.Employees;
 using System;
 using System.Collections.Generic;
@@ -94,6 +95,40 @@ namespace Services.Rooms
             return employees.ToList();
         }
 
-        
+        public async Task<List<RoomFieldsDto>> GetAllFieldsForRoom()
+        {
+            var rooms = await GetAllRooms();
+            var listRoomFieldsDto = new List<RoomFieldsDto>();
+            int i = 0;
+            foreach(var room in rooms)
+            {
+                if (room == null)
+                {
+                    continue;
+                }
+                var roomFieldsDto = new RoomFieldsDto();
+                var list = new List<string>();
+                roomFieldsDto.Id = i++;
+                roomFieldsDto.IdRoom = room.Idroom;
+                roomFieldsDto.nameRoom = room.Nameroom;
+
+                if (room?.Laser == true)
+                {
+                    list.Add("Laser");
+                }
+                if (room?.Waxing == true || room?.Advancedelectrolysis == true)
+                {
+                    list.Add("Waxing");
+                }
+                if (room?.Electrolysis == true)
+                {
+                    list.Add("Electrolysis");
+                }
+                roomFieldsDto.fields = list;
+                listRoomFieldsDto.Add(roomFieldsDto);
+            }
+            return listRoomFieldsDto;
+        }
+
     }
 }

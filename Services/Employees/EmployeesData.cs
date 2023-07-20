@@ -99,6 +99,40 @@ namespace Services.Employees
             return employee;
         }
 
+        public async Task<List<EmployeeFieldsDto>> GetAllEmployeesFields()
+        {
+            var employees = await GetAllEmployees();
+            var listEmployeeFields = new List<EmployeeFieldsDto>();
+            int i = 0;
+            foreach(var employee in employees)
+            {
+                var employeeFieldesDto = new EmployeeFieldsDto();
+                employeeFieldesDto.Id = i++;
+                employeeFieldesDto.nameWorker = employee.Name;
+                employeeFieldesDto.colorWorker = employee.Color;
+                var list = new List<string>();
+                if(employee == null)
+                {
+                    continue;
+                }
+                if(employee?.Laser == true)
+                {
+                    list.Add("Laser");
+                }
+                if (employee?.Waxing == true || employee?.Advancedelectrolysis == true)
+                {
+                    list.Add("Waxing");
+                }
+                if (employee?.Electrolysis == true)
+                {
+                    list.Add("Electrolysis");
+                }
+                employeeFieldesDto.fields = list;
+                listEmployeeFields.Add(employeeFieldesDto);
+            }
+            return listEmployeeFields;
+        }
+
         public async Task<List<EmployeeDto>> GetEmployeesForSchedule(List<Employee> employees)
         {
             var list = new List<EmployeeDto>();

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
+using Services.DTO;
 using Services.Employees;
 
 namespace App.Controllers
@@ -28,6 +29,18 @@ namespace App.Controllers
         public async Task<ActionResult<IEnumerable<Employee>>> GetAllEmployees()
         {
             var employees = await _iEmployeesData.GetAllEmployees();
+            if (employees == null)
+            {
+                return NotFound();
+            }
+            return employees;
+        }
+
+        [HttpGet]
+        [Route("/api/employees/GetEmployeesFields")]
+        public async Task<ActionResult<IEnumerable<EmployeeFieldsDto>>> GetAllEmployeesFields()
+        {
+            var employees = await _iEmployeesData.GetAllEmployeesFields();
             if (employees == null)
             {
                 return NotFound();

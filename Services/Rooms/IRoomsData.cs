@@ -1,4 +1,5 @@
 ﻿using Repository.GeneratedModels;
+using Services.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace Services.Rooms
         Task<string?> GetNameRoom(int id);
         Task<List<string?>> GetTreatmentsForRoom(int id); 
         Task<List<Employee>> GetAllEmployeesForRoom(int id);
+        Task<List<RoomFieldsDto>> GetAllFieldsForRoom();
         bool RoomExists(int id);
     }
 }

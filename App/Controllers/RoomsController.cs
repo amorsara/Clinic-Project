@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
+using Services.DTO;
 using Services.Rooms;
 
 namespace App.Controllers
@@ -28,6 +29,18 @@ namespace App.Controllers
         public async Task<ActionResult<IEnumerable<Room>>> GetAllRooms()
         {
             var rooms = await _iRoomsData.GetAllRooms();
+            if (rooms == null)
+            {
+                return NotFound();
+            }
+            return rooms;
+        }
+
+        [HttpGet]
+        [Route("/api/rooms/getallfieldsforroom")]
+        public async Task<ActionResult<IEnumerable<RoomFieldsDto>>> GetAllFieldsForRoom()
+        {
+            var rooms = await _iRoomsData.GetAllFieldsForRoom();
             if (rooms == null)
             {
                 return NotFound();

@@ -18,5 +18,6 @@ namespace Services.Employees
         bool EmployeeExists(int id);
         Task<List<Employee>> GetAllEmployeesForRoom(List<String?> treatmentsType);
         Task<List<EmployeeDto>> GetEmployeesForSchedule(List<Employee> employees);
+        Task<List<EmployeeFieldsDto>> GetAllEmployeesFields();
     }
 }
