@@ -37,6 +37,18 @@ namespace App.Controllers
         }
 
         [HttpGet]
+        [Route("/api/rooms/getallnamerooms")]
+        public async Task<ActionResult<IEnumerable<string>>> GetAllNameRooms()
+        {
+            var rooms = await _iRoomsData.GetAllNameRooms();
+            if (rooms == null)
+            {
+                return NotFound();
+            }
+            return rooms;
+        }
+
+        [HttpGet]
         [Route("/api/rooms/getallfieldsforroom")]
         public async Task<ActionResult<IEnumerable<RoomFieldsDto>>> GetAllFieldsForRoom()
         {

@@ -160,5 +160,19 @@ namespace Services.Employees
             return employee?.Idemployee;
         }
 
+        public async Task<List<string>> GetAllNameEmployees()
+        {
+            var employees = await GetAllEmployees();
+            var list = new List<string>();
+            foreach (var emp in employees)
+            {
+                if (emp == null || emp.Name == null)
+                {
+                    continue;
+                }
+                list.Add(emp.Name);
+            }
+            return list;
+        }
     }
 }

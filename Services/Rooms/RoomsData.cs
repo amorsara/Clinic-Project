@@ -134,5 +134,19 @@ namespace Services.Rooms
             return listRoomFieldsDto;
         }
 
+        public async Task<List<string>> GetAllNameRooms()
+        {
+            var rooms = await GetAllRooms();
+            var list = new List<string>();
+            foreach(var room in rooms)
+            {
+                if(room == null || room.Nameroom == null)
+                {
+                    continue;
+                }
+                list.Add(room.Nameroom);
+            }
+            return list;
+        }
     }
 }

@@ -37,6 +37,18 @@ namespace App.Controllers
         }
 
         [HttpGet]
+        [Route("/api/employees/getallnameemployees")]
+        public async Task<ActionResult<IEnumerable<string>>> GetAllNameEmployees()
+        {
+            var employees = await _iEmployeesData.GetAllNameEmployees();
+            if (employees == null)
+            {
+                return NotFound();
+            }
+            return employees;
+        }
+
+        [HttpGet]
         [Route("/api/employees/GetEmployeesFields")]
         public async Task<ActionResult<IEnumerable<EmployeeFieldsDto>>> GetAllEmployeesFields()
         {

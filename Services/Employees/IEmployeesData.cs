@@ -14,6 +14,7 @@ namespace Services.Employees
         Task<Employee?> GetEmployeeById(int id);
         Task<string?> GetColorById(int id);
         Task<int?> GetEmployeIdByName(string? name);
+        Task<List<string>> GetAllNameEmployees();
         Task<bool> CreateEmployee(Employee employee);
         bool EmployeeExists(int id);
         Task<List<Employee>> GetAllEmployeesForRoom(List<String?> treatmentsType);
