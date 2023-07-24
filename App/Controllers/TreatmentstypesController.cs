@@ -30,6 +30,26 @@ namespace App.Controllers
             return await _context.Treatmentstypes.ToListAsync();
         }
 
+        [HttpGet]
+        [Route("api/Treatmentstypes/getalltretmentstype")]
+        public async Task<ActionResult<IEnumerable<string>>> GetlistTreatmentstypes()
+        {
+            if (_context.Treatmentstypes == null)
+            {
+                return NotFound();
+            }
+            var res = await _context.Treatmentstypes.ToListAsync();
+            var list = new List<string>();
+            foreach(var item in res)
+            {
+                if(item != null && item.Nametreatment != null)
+                {
+                    list.Add(item.Nametreatment);
+                }
+            }
+            return list;
+        }
+
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Treatmentstype>> GetTreatmentstype(int id)
