@@ -160,15 +160,15 @@ namespace Services.Contacts
             {
                 return c;
             }
-            if (type == 'l')
+            if (type == 'L' || type == 'l')
             {
                 c.Laser = true;
             }
-            if (type == 'e')
+            if (type == 'E' || type == 'e')
             {
                 c.Electrolysis = true;
             }
-            if (type == 'w')
+            if (type == 'W' || type == 'w')
             {
                 c.Waxing = true;
             }
