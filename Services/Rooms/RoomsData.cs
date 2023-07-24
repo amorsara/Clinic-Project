@@ -143,7 +143,13 @@ namespace Services.Rooms
                     newRoom.Idroom = res.Idroom;
                     if(newRoom.Nameroom != res.Nameroom || newRoom.Treatmentstype != res.Treatmentstype)
                     {
-                        var result = await UpdateRoom(res.Idroom, newRoom);
+                        res.Nameroom = newRoom.Nameroom;
+                        res.Treatmentstype = newRoom.Treatmentstype;
+                        var result = await UpdateRoom(res.Idroom, res);
+                    }
+                    else
+                    {
+                        continue;
                     }
                 }
                 else // room isnt exist - go to create...
