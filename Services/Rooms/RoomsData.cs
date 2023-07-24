@@ -2,6 +2,7 @@
 using Repository.GeneratedModels;
 using Services.DTO;
 using Services.Employees;
+using Services.TreatmentsType;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +16,13 @@ namespace Services.Rooms
 
         private readonly ClinicDBContext _context;
         private readonly IEmployeesData _iEmployeesData;
+        private readonly ITreatmentsTypeData _iTreatmentsTypeData;
 
-        public RoomsData(ClinicDBContext context, IEmployeesData employeesData)
+        public RoomsData(ClinicDBContext context, IEmployeesData employeesData, ITreatmentsTypeData treatmentsTypeData)
         {
             _context = context;
             _iEmployeesData = employeesData;
+            _iTreatmentsTypeData = treatmentsTypeData;
         }
 
         public async Task<bool> CreateRoom(Room room)
@@ -194,6 +197,39 @@ namespace Services.Rooms
                 }
             }
             return null;
+        }
+
+        public async Task<List<List<RoomDto>>> GetAllRoomsWithTypes()
+        {
+            var rooms = await GetAllRooms();
+            var types = await _iTreatmentsTypeData.GetlistTreatmentstypes();
+            var listRooms = new List<List<RoomDto>>();
+            foreach(var room in rooms)
+            {
+                if (room == null || room.Treatmentstype == null) { continue; }
+                var list = new List<RoomDto>();
+                foreach(var item in types)
+                {
+                    if(item == null) continue;
+                    var roomDto = new RoomDto();
+                    roomDto.name = item;
+                    if (room.Treatmentstype.Contains(item))
+                    {
+                        roomDto.c = "true";
+                    }
+                    else
+                    {
+                        roomDto.c = "false";
+                    }
+                    list.Add(roomDto);
+                }
+                var roomDto1 = new RoomDto();
+                roomDto1.c = room.Nameroom;
+                roomDto1.name = "Room Name";
+                list.Add(roomDto1);
+                listRooms.Add(list);
+            }
+            return listRooms;
         }
     }
 }

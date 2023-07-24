@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,20 @@ namespace Services.TreatmentsType
             _context = context;
         }
 
+        public async Task<List<string>> GetlistTreatmentstypes()
+        {
+            var tretments = await GetAllTreatmentstypes();
+            var list = new List<string>();
+            foreach (var item in tretments)
+            {
+                if (item != null && item.Nametreatment != null)
+                {
+                    list.Add(item.Nametreatment);
+                }
+            }
+            return list;
+        }
+
         public Task<IActionResult> DeleteTreatmentstype(int id)
         {
             throw new NotImplementedException();
@@ -28,9 +43,9 @@ namespace Services.TreatmentsType
             throw new NotImplementedException();
         }
 
-        public Task<ActionResult<IEnumerable<Treatmentstype>>> GetTreatmentstypes()
+        public async Task<List<Treatmentstype>> GetAllTreatmentstypes()
         {
-            throw new NotImplementedException();
+            return await _context.Treatmentstypes.ToListAsync();
         }
 
         public Task<ActionResult<Treatmentstype>> PostTreatmentstype(Treatmentstype treatmentstype)

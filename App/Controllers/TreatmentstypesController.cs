@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
+using Services.TreatmentsType;
 
 namespace App.Controllers
 {
@@ -14,40 +15,36 @@ namespace App.Controllers
     public class TreatmentstypesController : ControllerBase
     {
         private readonly ClinicDBContext _context;
+        private readonly ITreatmentsTypeData _iTreatmentsTypeData;
 
-        public TreatmentstypesController(ClinicDBContext context)
+        public TreatmentstypesController(ClinicDBContext context, ITreatmentsTypeData treatmentsTypeData)
         {
             _context = context;
+            _iTreatmentsTypeData = treatmentsTypeData;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Treatmentstype>>> GetTreatmentstypes()
+        [Route("/api/treatmentstypes/gettretmentstype")]
+        public async Task<ActionResult<IEnumerable<Treatmentstype>>> GetAllTreatmentstypes()
         {
-          if (_context.Treatmentstypes == null)
-          {
-              return NotFound();
-          }
-            return await _context.Treatmentstypes.ToListAsync();
-        }
-
-        [HttpGet]
-        [Route("/api/Treatmentstypes/getalltretmentstype")]
-        public async Task<ActionResult<IEnumerable<string>>> GetlistTreatmentstypes()
-        {
-            if (_context.Treatmentstypes == null)
+            var treatmentstypes = await _iTreatmentsTypeData.GetAllTreatmentstypes();
+            if (treatmentstypes == null)
             {
                 return NotFound();
             }
-            var res = await _context.Treatmentstypes.ToListAsync();
-            var list = new List<string>();
-            foreach(var item in res)
+            return treatmentstypes;
+        }
+
+        [HttpGet]
+        [Route("/api/treatmentstypes/getalltretmentstype")]
+        public async Task<ActionResult<IEnumerable<string>>> GetlistTreatmentstypes()
+        {
+            var treatmentstypes = await _iTreatmentsTypeData.GetlistTreatmentstypes();
+            if(treatmentstypes == null)
             {
-                if(item != null && item.Nametreatment != null)
-                {
-                    list.Add(item.Nametreatment);
-                }
+                return NotFound();
             }
-            return list;
+            return treatmentstypes;
         }
 
 

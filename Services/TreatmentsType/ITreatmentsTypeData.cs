@@ -11,7 +11,9 @@ namespace Services.TreatmentsType
     public interface ITreatmentsTypeData
     {
 
-        Task<ActionResult<IEnumerable<Treatmentstype>>> GetTreatmentstypes();
+        Task<List<string>> GetlistTreatmentstypes();
+
+        Task<List<Treatmentstype>> GetAllTreatmentstypes();
 
         Task<ActionResult<Treatmentstype>> GetTreatmentstype(int id);
 

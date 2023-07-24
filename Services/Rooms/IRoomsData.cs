@@ -12,6 +12,7 @@ namespace Services.Rooms
     {
         Task<List<Room>> GetAllRooms();
         Task<bool> ChangeRooms(List<List<RoomDto>> rooms);
+        Task<List<List<RoomDto>>> GetAllRoomsWithTypes();
         Task<Room?> GetRoomById(int id);
         Task<bool> CreateRoom(Room room);
         Task<string?> GetNameRoom(int id);
