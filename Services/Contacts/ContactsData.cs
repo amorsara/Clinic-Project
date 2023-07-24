@@ -164,14 +164,19 @@ namespace Services.Contacts
             {
                 c.Laser = true;
             }
-            if (type == 'E' || type == 'e')
+            else
             {
-                c.Electrolysis = true;
+                if (type == 'E' || type == 'e')
+                {
+                    c.Electrolysis = true;
+                }
+                else
+                    //(type == 'W' || type == 'w')
+                {
+                    c.Waxing = true;
+                }
             }
-            if (type == 'W' || type == 'w')
-            {
-                c.Waxing = true;
-            }
+           
 
             await UpdateContact(id, c);
             return c;
