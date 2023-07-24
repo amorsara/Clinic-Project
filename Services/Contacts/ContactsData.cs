@@ -93,7 +93,7 @@ namespace Services.Contacts
                 contactDates.Sem = contact.Sem.ToString();
                 contactDates.Email = contact.Email;
                 contactDates.Remark = contact.Remark;
-                contact.Isactive = contact.Isactive;
+                contactDates.Isactive = contact.Isactive;
                 contactDates.ListDates = listDates.ToList();
                 listContacts.Add(contactDates);
             }
