@@ -81,10 +81,10 @@ public partial class ClinicDBContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("Appointments_employee_id_fkey");
 
-            //entity.HasOne(d => d.IdroomNavigation).WithMany(p => p.Appointments)
-            //    .HasForeignKey(d => d.Idroom)
-            //    .OnDelete(DeleteBehavior.ClientSetNull)
-            //    .HasConstraintName("Appointments_room_id_fkey");
+            entity.HasOne(d => d.IdroomNavigation).WithMany(p => p.Appointments)
+                .HasForeignKey(d => d.Idroom)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("Appointments_room_id_fkey");
         });
 
         modelBuilder.Entity<Contact>(entity =>

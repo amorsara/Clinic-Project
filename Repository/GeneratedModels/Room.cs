@@ -12,6 +12,6 @@ public partial class Room
 
     public string? Treatmentstype { get; set; }
 
-    //[JsonIgnore]
-    //public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
+    [JsonIgnore]
+    public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 }
