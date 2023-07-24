@@ -11,13 +11,16 @@ namespace Services.Rooms
     public interface IRoomsData
     {
         Task<List<Room>> GetAllRooms();
+        Task<bool> ChangeRooms(List<List<RoomDto>> rooms);
         Task<Room?> GetRoomById(int id);
         Task<bool> CreateRoom(Room room);
         Task<string?> GetNameRoom(int id);
+        Task<Room?> GetRoomByName(string? name);
         Task<List<string>> GetAllNameRooms();
-        Task<List<string?>> GetTreatmentsForRoom(int id); 
+        Task<List<string>?> GetTreatmentsForRoom(int id); 
         Task<List<Employee>> GetAllEmployeesForRoom(int id);
         Task<List<RoomFieldsDto>> GetAllFieldsForRoom();
+        Task<bool> UpdateRoom(int id, Room room);
         bool RoomExists(int id);
     }
 }

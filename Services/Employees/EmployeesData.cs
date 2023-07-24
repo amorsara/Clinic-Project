@@ -53,7 +53,7 @@ namespace Services.Employees
             return await _context.Employees.ToListAsync();
         }
 
-        public async Task<List<Employee>> GetAllEmployeesForRoom(List<string?> treatmentsType)
+        public async Task<List<Employee>> GetAllEmployeesForRoom(List<string>? treatmentsType)
         {
             var employees = await GetAllEmployees();
             var list = new List<Employee>();
@@ -63,26 +63,26 @@ namespace Services.Employees
                 {
                     continue;
                 }
-                if(employee.Laser == true && treatmentsType != null && treatmentsType.Contains("Laser"))
-                {
-                    list.Add(employee);
-                    continue;
-                }
-                if (employee.Waxing == true && treatmentsType != null && treatmentsType.Contains("Waxing"))
-                {
-                    list.Add(employee);
-                    continue;
-                }
-                if (employee.Electrolysis == true && treatmentsType != null && treatmentsType.Contains("Electrolysis"))
-                {
-                    list.Add(employee);
-                    continue;
-                }
-                if (employee.Advancedelectrolysis == true && treatmentsType != null && treatmentsType.Contains("Advancedelectrolysis"))
-                {
-                    list.Add(employee);
-                    continue;
-                }
+                //if(employee.Laser == true && treatmentsType != null && treatmentsType.Contains("Laser"))
+                //{
+                //    list.Add(employee);
+                //    continue;
+                //}
+                //if (employee.Waxing == true && treatmentsType != null && treatmentsType.Contains("Waxing"))
+                //{
+                //    list.Add(employee);
+                //    continue;
+                //}
+                //if (employee.Electrolysis == true && treatmentsType != null && treatmentsType.Contains("Electrolysis"))
+                //{
+                //    list.Add(employee);
+                //    continue;
+                //}
+                //if (employee.Advancedelectrolysis == true && treatmentsType != null && treatmentsType.Contains("Advancedelectrolysis"))
+                //{
+                //    list.Add(employee);
+                //    continue;
+                //}
             }
             return list;
         }
@@ -115,22 +115,22 @@ namespace Services.Employees
                 {
                     continue;
                 }
-                if(employee?.Laser == true)
-                {
-                    list.Add("Laser");
-                }
-                if (employee?.Waxing == true)
-                {
-                    list.Add("Waxing");
-                }
-                if (employee?.Electrolysis == true)
-                {
-                    list.Add("Electrolysis");
-                }
-                if (employee?.Advancedelectrolysis == true)
-                {
-                    list.Add("Advancedelectrolysis");
-                }
+                //if(employee?.Laser == true)
+                //{
+                //    list.Add("Laser");
+                //}
+                //if (employee?.Waxing == true)
+                //{
+                //    list.Add("Waxing");
+                //}
+                //if (employee?.Electrolysis == true)
+                //{
+                //    list.Add("Electrolysis");
+                //}
+                //if (employee?.Advancedelectrolysis == true)
+                //{
+                //    list.Add("Advancedelectrolysis");
+                //}
                 employeeFieldesDto.fields = list;
                 listEmployeeFields.Add(employeeFieldesDto);
             }

@@ -25,6 +25,14 @@ namespace App.Controllers
         }
 
         [HttpGet]
+        [Route("/api/rooms/changerooms")]
+        public async Task<IActionResult> ChangeRooms(List<List<RoomDto>> rooms) 
+        {
+            var res = await _iRoomsData.ChangeRooms(rooms);
+            return Ok("ok");
+        }
+
+        [HttpGet]
         [Route("/api/rooms/getallrooms")]
         public async Task<ActionResult<IEnumerable<Room>>> GetAllRooms()
         {
@@ -78,28 +86,15 @@ namespace App.Controllers
         {
             if (id != room.Idroom)
             {
+                return NoContent();
+            }
+
+            var res = await _iRoomsData.UpdateRoom(id, room);
+            if (res == false)
+            {
                 return BadRequest();
             }
-
-            _context.Entry(room).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!_iRoomsData.RoomExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return Ok();
         }
 
         [HttpPost]

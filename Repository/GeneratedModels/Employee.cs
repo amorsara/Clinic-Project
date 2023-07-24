@@ -16,13 +16,7 @@ public partial class Employee
 
     public bool? Permission { get; set; }
 
-    public bool? Laser { get; set; }
-
-    public bool? Electrolysis { get; set; }
-
-    public bool? Waxing { get; set; }
-
-    public bool? Advancedelectrolysis { get; set; }
+    public string? Treatmentstype { get; set; }
 
     [JsonIgnore]
     public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();

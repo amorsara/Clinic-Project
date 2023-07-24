@@ -27,6 +27,8 @@ public partial class ClinicDBContext : DbContext
 
     public virtual DbSet<Room> Rooms { get; set; }
 
+    public virtual DbSet<Treatmentstype> Treatmentstypes { get; set; }
+
     public virtual DbSet<Waiting> Waitings { get; set; }
 
     public virtual DbSet<Workhour> Workhours { get; set; }
@@ -79,10 +81,10 @@ public partial class ClinicDBContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("Appointments_employee_id_fkey");
 
-            entity.HasOne(d => d.IdroomNavigation).WithMany(p => p.Appointments)
-                .HasForeignKey(d => d.Idroom)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("Appointments_room_id_fkey");
+            //entity.HasOne(d => d.IdroomNavigation).WithMany(p => p.Appointments)
+            //    .HasForeignKey(d => d.Idroom)
+            //    .OnDelete(DeleteBehavior.ClientSetNull)
+            //    .HasConstraintName("Appointments_room_id_fkey");
         });
 
         modelBuilder.Entity<Contact>(entity =>
@@ -133,12 +135,9 @@ public partial class ClinicDBContext : DbContext
             entity.ToTable("employees");
 
             entity.Property(e => e.Idemployee).HasColumnName("idemployee");
-            entity.Property(e => e.Advancedelectrolysis).HasColumnName("advancedelectrolysis");
             entity.Property(e => e.Color)
                 .HasMaxLength(50)
                 .HasColumnName("color");
-            entity.Property(e => e.Electrolysis).HasColumnName("electrolysis");
-            entity.Property(e => e.Laser).HasColumnName("laser");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .HasColumnName("name");
@@ -146,7 +145,9 @@ public partial class ClinicDBContext : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("password");
             entity.Property(e => e.Permission).HasColumnName("permission");
-            entity.Property(e => e.Waxing).HasColumnName("waxing");
+            entity.Property(e => e.Treatmentstype)
+                .HasColumnType("character varying")
+                .HasColumnName("treatmentstype");
         });
 
         modelBuilder.Entity<Epilationarea>(entity =>
@@ -180,13 +181,24 @@ public partial class ClinicDBContext : DbContext
             entity.ToTable("rooms");
 
             entity.Property(e => e.Idroom).HasColumnName("idroom");
-            entity.Property(e => e.Advancedelectrolysis).HasColumnName("advancedelectrolysis");
-            entity.Property(e => e.Electrolysis).HasColumnName("electrolysis");
-            entity.Property(e => e.Laser).HasColumnName("laser");
             entity.Property(e => e.Nameroom)
                 .HasMaxLength(50)
                 .HasColumnName("nameroom");
-            entity.Property(e => e.Waxing).HasColumnName("waxing");
+            entity.Property(e => e.Treatmentstype)
+                .HasColumnType("character varying")
+                .HasColumnName("treatmentstype");
+        });
+
+        modelBuilder.Entity<Treatmentstype>(entity =>
+        {
+            entity.HasKey(e => e.Idtreatmenttype).HasName("treatmentstype_pkey");
+
+            entity.ToTable("treatmentstype");
+
+            entity.Property(e => e.Idtreatmenttype).HasColumnName("idtreatmenttype");
+            entity.Property(e => e.Nametreatment)
+                .HasColumnType("character varying")
+                .HasColumnName("nametreatment");
         });
 
         modelBuilder.Entity<Waiting>(entity =>

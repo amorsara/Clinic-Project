@@ -10,14 +10,8 @@ public partial class Room
 
     public string? Nameroom { get; set; }
 
-    public bool? Laser { get; set; }
+    public string? Treatmentstype { get; set; }
 
-    public bool? Electrolysis { get; set; }
-
-    public bool? Waxing { get; set; }
-
-    public bool? Advancedelectrolysis { get; set; }
-
-    [JsonIgnore]
-    public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
+    //[JsonIgnore]
+    //public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 }

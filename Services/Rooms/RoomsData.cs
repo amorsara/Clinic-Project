@@ -65,26 +65,15 @@ namespace Services.Rooms
             return room?.Nameroom;
         }
 
-        public async Task<List<string?>> GetTreatmentsForRoom(int id)
+        public async Task<List<string>?> GetTreatmentsForRoom(int id)
         {
             var room = await GetRoomById(id);
-            var list = new List<string?>();
-            if(room?.Laser == true)
+            var list = new List<string>();
+            if (room == null || room.Treatmentstype == null)
             {
-                list.Add("Laser");
+                return list;
             }
-            if (room?.Waxing == true)
-            {
-                list.Add("Waxing");
-            }
-            if (room?.Electrolysis == true)
-            {
-                list.Add("Electrolysis");
-            }
-            if (room?.Advancedelectrolysis == true)
-            {
-                list.Add("Advancedelectrolysis");
-            }
+            list = room.Treatmentstype.Split(',').ToList();
             return list;
         }
 
@@ -111,24 +100,7 @@ namespace Services.Rooms
                 roomFieldsDto.Id = i++;
                 roomFieldsDto.IdRoom = room.Idroom;
                 roomFieldsDto.nameRoom = room.Nameroom;
-
-                if (room?.Laser == true)
-                {
-                    list.Add("Laser");
-                }
-                if (room?.Waxing == true)
-                {
-                    list.Add("Waxing");
-                }
-                if (room?.Electrolysis == true)
-                {
-                    list.Add("Electrolysis");
-                }
-                if (room?.Advancedelectrolysis == true)
-                {
-                    list.Add("Advancedelectrolysis");
-                }
-                roomFieldsDto.fields = list;
+                roomFieldsDto.fields = room?.Treatmentstype?.Split(',').ToList();
                 listRoomFieldsDto.Add(roomFieldsDto);
             }
             return listRoomFieldsDto;
@@ -148,5 +120,107 @@ namespace Services.Rooms
             }
             return list;
         }
+
+        public async Task<bool> ChangeRooms(List<List<RoomDto>> rooms)
+        {
+            foreach(var room in rooms)
+            {
+                var size = room.Count();
+                var newRoom = new Room();
+                newRoom.Nameroom = room[size - 1].c;
+                var list = new List<string>();
+                foreach(var r in room)
+                {
+                    if(r.c == "true" && r.name != null)
+                    {
+                        list.Add(r.name);
+                    }
+                }
+                newRoom.Treatmentstype = String.Join(",", list);
+                var res = await GetRoomByName(newRoom.Nameroom);
+                if(res != null) // room is exist - go to update...
+                {
+                    newRoom.Idroom = res.Idroom;
+                    var result = await UpdateRoom(res.Idroom, newRoom);
+                }
+                else // room isnt exist - go to create...
+                {
+                    var s = await CreateRoom(newRoom);
+                }
+            }
+            return true;
+        }
+
+        public async Task<bool> UpdateRoom(int id, Room room)
+        {
+            _context.Entry(room).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!RoomExists(id))
+                {
+                    return false;
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return true;
+        }
+
+        public async Task<Room?> GetRoomByName(string? name)
+        {
+            var rooms = await GetAllRooms();
+            foreach(var room in rooms)
+            {
+                if(room != null &&  room.Nameroom == name)
+                {
+                    return room;
+                }
+            }
+            return null;
+        }
     }
 }
+
+
+
+//if(room?.Laser == true)
+//{
+//    list.Add("Laser");
+//}
+//if (room?.Waxing == true)
+//{
+//    list.Add("Waxing");
+//}
+//if (room?.Electrolysis == true)
+//{
+//    list.Add("Electrolysis");
+//}
+//if (room?.Advancedelectrolysis == true)
+//{
+//    list.Add("Advancedelectrolysis");
+//}
+
+//if(room?.Laser == true)
+//{
+//    list.Add("Laser");
+//}
+//if (room?.Waxing == true)
+//{
+//    list.Add("Waxing");
+//}
+//if (room?.Electrolysis == true)
+//{
+//    list.Add("Electrolysis");
+//}
+//if (room?.Advancedelectrolysis == true)
+//{
+//    list.Add("Advancedelectrolysis");
+//}

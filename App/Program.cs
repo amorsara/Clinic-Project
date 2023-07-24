@@ -7,6 +7,7 @@ using Services.Epilations;
 using Services.Lesers;
 using Services.Rooms;
 using Services.Schedule;
+using Services.TreatmentsType;
 using Services.Waitings;
 using Services.WorkHours;
 
@@ -33,6 +34,7 @@ builder.Services.AddScoped<IScheduleData, ScheduleData>();
 builder.Services.AddScoped<IWaitingsData, WaitingsData>();
 builder.Services.AddScoped<IEpilationData, EpilationData>();
 builder.Services.AddScoped<ILeserData, LeserData>();
+builder.Services.AddScoped<ITreatmentsTypeData, TreatmentsTypeData>();
 
 
 var app = builder.Build();
