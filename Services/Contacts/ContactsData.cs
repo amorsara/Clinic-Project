@@ -155,6 +155,7 @@ namespace Services.Contacts
 
         public async Task<ActionResult<Contact?>> UpdateTreatementNameForContact(int id, char? type)
         {
+            Console.WriteLine(type);
             var c = await GetContactById(id);
             if (c == null)
             {
