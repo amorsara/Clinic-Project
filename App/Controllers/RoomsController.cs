@@ -24,7 +24,7 @@ namespace App.Controllers
             _iRoomsData = roomsData;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("/api/rooms/changerooms")]
         public async Task<IActionResult> ChangeRooms(List<List<RoomDto>> rooms) 
         {
