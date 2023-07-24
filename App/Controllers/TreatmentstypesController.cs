@@ -31,7 +31,7 @@ namespace App.Controllers
         }
 
         [HttpGet]
-        [Route("api/Treatmentstypes/getalltretmentstype")]
+        [Route("/api/Treatmentstypes/getalltretmentstype")]
         public async Task<ActionResult<IEnumerable<string>>> GetlistTreatmentstypes()
         {
             if (_context.Treatmentstypes == null)
