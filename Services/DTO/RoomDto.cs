@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Services.DTO
 {
-    public class RoomDto
+    public class RoomEmployeeDto
     {
         public string? c { get; set; }
 

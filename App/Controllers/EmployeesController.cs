@@ -24,6 +24,26 @@ namespace App.Controllers
             _iEmployeesData = employeesData;
         }
 
+        [HttpPost]
+        [Route("/api/employees/changerooms")]
+        public async Task<IActionResult> ChangeRooms(List<List<RoomEmployeeDto>> employees)
+        {
+            var res = await _iEmployeesData.ChangeEmployees(employees);
+            return Ok("ok");
+        }
+
+        [HttpGet]
+        [Route("/api/employees/getallemployeeswithtypes")]
+        public async Task<ActionResult<IEnumerable<List<RoomEmployeeDto>>>> GetAllEmployeesWithTypes()
+        {
+            var employees = await _iEmployeesData.GetAllEmployeesWithTypes();
+            if (employees == null)
+            {
+                return NotFound();
+            }
+            return employees;
+        }
+
         [HttpGet]
         [Route("/api/employees/getallemployees")]
         public async Task<ActionResult<IEnumerable<Employee>>> GetAllEmployees()
@@ -81,26 +101,12 @@ namespace App.Controllers
             {
                 return BadRequest();
             }
-
-            _context.Entry(employee).State = EntityState.Modified;
-
-            try
+            var res = await _iEmployeesData.UpdateEmployee(id, employee);
+            if (res == false)
             {
-                await _context.SaveChangesAsync();
+                return BadRequest();
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!_iEmployeesData.EmployeeExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return Ok();
         }
 
         [HttpPost]

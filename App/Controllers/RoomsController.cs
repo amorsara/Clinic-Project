@@ -26,7 +26,7 @@ namespace App.Controllers
 
         [HttpPost]
         [Route("/api/rooms/changerooms")]
-        public async Task<IActionResult> ChangeRooms(List<List<RoomDto>> rooms) 
+        public async Task<IActionResult> ChangeRooms(List<List<RoomEmployeeDto>> rooms) 
         {
             var res = await _iRoomsData.ChangeRooms(rooms);
             return Ok("ok");
@@ -46,7 +46,7 @@ namespace App.Controllers
 
         [HttpGet]
         [Route("/api/rooms/getallroomswithtypes")]
-        public async Task<ActionResult<IEnumerable<List<RoomDto>>>> GetAllRoomsWithTypes()
+        public async Task<ActionResult<IEnumerable<List<RoomEmployeeDto>>>> GetAllRoomsWithTypes()
         {
             var rooms = await _iRoomsData.GetAllRoomsWithTypes();
             if (rooms == null)

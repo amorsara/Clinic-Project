@@ -13,6 +13,7 @@ namespace Services.Employees
         Task<List<Employee>> GetAllEmployees();
         Task<Employee?> GetEmployeeById(int id);
         Task<string?> GetColorById(int id);
+        Task<Employee?> GetEmployeeByName(string? name);
         Task<int?> GetEmployeIdByName(string? name);
         Task<List<string>> GetAllNameEmployees();
         Task<bool> CreateEmployee(Employee employee);
@@ -20,5 +21,8 @@ namespace Services.Employees
         Task<List<Employee>> GetAllEmployeesForRoom(List<String>? treatmentsType);
         Task<List<EmployeeDto>> GetEmployeesForSchedule(List<Employee> employees);
         Task<List<EmployeeFieldsDto>> GetAllEmployeesFields();
+        Task<bool> UpdateEmployee(int id, Employee employee);
+        Task<bool> ChangeEmployees(List<List<RoomEmployeeDto>> employees);
+        Task<List<List<RoomEmployeeDto>>> GetAllEmployeesWithTypes();
     }
 }

@@ -124,7 +124,7 @@ namespace Services.Rooms
             return list;
         }
 
-        public async Task<bool> ChangeRooms(List<List<RoomDto>> rooms)
+        public async Task<bool> ChangeRooms(List<List<RoomEmployeeDto>> rooms)
         {
             foreach(var room in rooms)
             {
@@ -210,19 +210,19 @@ namespace Services.Rooms
             return null;
         }
 
-        public async Task<List<List<RoomDto>>> GetAllRoomsWithTypes()
+        public async Task<List<List<RoomEmployeeDto>>> GetAllRoomsWithTypes()
         {
             var rooms = await GetAllRooms();
             var types = await _iTreatmentsTypeData.GetlistTreatmentstypes();
-            var listRooms = new List<List<RoomDto>>();
+            var listRooms = new List<List<RoomEmployeeDto>>();
             foreach(var room in rooms)
             {
                 if (room == null || room.Treatmentstype == null) { continue; }
-                var list = new List<RoomDto>();
+                var list = new List<RoomEmployeeDto>();
                 foreach(var item in types)
                 {
                     if(item == null) continue;
-                    var roomDto = new RoomDto();
+                    var roomDto = new RoomEmployeeDto();
                     roomDto.name = item;
                     if (room.Treatmentstype.Contains(item))
                     {
@@ -234,7 +234,7 @@ namespace Services.Rooms
                     }
                     list.Add(roomDto);
                 }
-                var roomDto1 = new RoomDto();
+                var roomDto1 = new RoomEmployeeDto();
                 roomDto1.c = room.Nameroom;
                 roomDto1.name = "Room Name";
                 list.Add(roomDto1);
