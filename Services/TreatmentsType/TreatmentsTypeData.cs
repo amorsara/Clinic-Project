@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
 using System;
 using System.Collections.Generic;
@@ -33,14 +32,10 @@ namespace Services.TreatmentsType
             return list;
         }
 
-        public Task<IActionResult> DeleteTreatmentstype(int id)
+        public async Task<Treatmentstype?> GetTreatmentstypeById(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<ActionResult<Treatmentstype>> GetTreatmentstype(int id)
-        {
-            throw new NotImplementedException();
+            var treatmentstype = await _context.Treatmentstypes.FindAsync(id);
+            return treatmentstype;
         }
 
         public async Task<List<Treatmentstype>> GetAllTreatmentstypes()
@@ -48,19 +43,53 @@ namespace Services.TreatmentsType
             return await _context.Treatmentstypes.ToListAsync();
         }
 
-        public Task<ActionResult<Treatmentstype>> PostTreatmentstype(Treatmentstype treatmentstype)
+        public async Task<bool> CreateTreatmentstype(Treatmentstype treatmentstype)
         {
-            throw new NotImplementedException();
+            var isExsists = TreatmentstypeExists(treatmentstype.Idtreatmenttype);
+            if (isExsists)
+            {
+                return false;
+            }
+            await _context.AddAsync(treatmentstype);
+            var isOk = await _context.SaveChangesAsync() >= 0;
+            if (isOk)
+            {
+                return true;
+            }
+            return false;
         }
 
-        public Task<IActionResult> PutTreatmentstype(int id, Treatmentstype treatmentstype)
+        public async Task<bool> UpdatetTreatmentstype(int id, Treatmentstype treatmentstype)
         {
-            throw new NotImplementedException();
+            _context.Entry(treatmentstype).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!TreatmentstypeExists(id))
+                {
+                    return false;
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return true;
         }
 
         public bool TreatmentstypeExists(int id)
         {
-            throw new NotImplementedException();
+            var treatmentstypes = _context.Treatmentstypes.Where(t => t.Idtreatmenttype == id).FirstOrDefault();
+            if (treatmentstypes == null)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

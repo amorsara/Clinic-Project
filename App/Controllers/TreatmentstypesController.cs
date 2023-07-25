@@ -48,66 +48,52 @@ namespace App.Controllers
         }
 
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Treatmentstype>> GetTreatmentstype(int id)
+        [HttpGet]
+        [Route("/api/treatmentstypes/gettreatmentstypebyid/{id}")]
+        public async Task<ActionResult<Treatmentstype>> GetTreatmentstypeById(int id)
         {
-          if (_context.Treatmentstypes == null)
-          {
-              return NotFound();
-          }
-            var treatmentstype = await _context.Treatmentstypes.FindAsync(id);
-
+            var treatmentstype = await _iTreatmentsTypeData.GetTreatmentstypeById(id);
             if (treatmentstype == null)
             {
                 return NotFound();
             }
-
             return treatmentstype;
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTreatmentstype(int id, Treatmentstype treatmentstype)
-        {
+        [HttpPut]
+        [Route("/api/treatmentstypes/updatettreatmentstype/{id}")]
+        public async Task<IActionResult> UpdatetTreatmentstype(int id, Treatmentstype treatmentstype)
+        {    
             if (id != treatmentstype.Idtreatmenttype)
             {
                 return BadRequest();
             }
 
-            _context.Entry(treatmentstype).State = EntityState.Modified;
-
-            try
+            var res = await _iTreatmentsTypeData.UpdatetTreatmentstype(id, treatmentstype);
+            if (res == false)
             {
-                await _context.SaveChangesAsync();
+                return BadRequest();
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TreatmentstypeExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return Ok();
         }
 
         [HttpPost]
+        [Route("/api/treatmentstypes/createtreatmentstype")]
         public async Task<ActionResult<Treatmentstype>> CreateTreatmentstype(Treatmentstype treatmentstype)
         {
-          if (_context.Treatmentstypes == null)
-          {
-              return Problem("Entity set 'ClinicDBContext.Treatmentstypes'  is null.");
-          }
-            _context.Treatmentstypes.Add(treatmentstype);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("CreateTreatmentstype", new { id = treatmentstype.Idtreatmenttype }, treatmentstype);
+            var result = await _iTreatmentsTypeData.CreateTreatmentstype(treatmentstype);
+            if (result)
+            {
+                return CreatedAtAction("CreateTreatmentstype", new { id = treatmentstype.Idtreatmenttype }, treatmentstype);
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("/api/treatmentstypes/deletetreatmentstype/{id}")]
         public async Task<IActionResult> DeleteTreatmentstype(int id)
         {
             if (_context.Treatmentstypes == null)
@@ -126,9 +112,6 @@ namespace App.Controllers
             return NoContent();
         }
 
-        private bool TreatmentstypeExists(int id)
-        {
-            return (_context.Treatmentstypes?.Any(e => e.Idtreatmenttype == id)).GetValueOrDefault();
-        }
+
     }
 }

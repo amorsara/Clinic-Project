@@ -132,9 +132,20 @@ namespace Services.Rooms
                 var newRoom = new Room();
                 newRoom.Nameroom = room[size - 1].c;
                 var list = new List<string>();
-                foreach(var r in room)
+                var t = await _iTreatmentsTypeData.GetlistTreatmentstypes();
+                var types = String.Join(",", t);
+                foreach (var r in room)
                 {
-                    if(r.c == "true" && r.name != null)
+                    if(r == null || r?.name == null) {
+                        continue;
+                    }
+                    if (r.name != "Room Name" && !types.Contains(r.name))
+                    {
+                        var treatmentstype = new Treatmentstype();
+                        treatmentstype.Nametreatment = r.name;
+                        var flage = await _iTreatmentsTypeData.CreateTreatmentstype(treatmentstype);
+                    }
+                    if(r.c == "true")
                     {
                         list.Add(r.name);
                     }

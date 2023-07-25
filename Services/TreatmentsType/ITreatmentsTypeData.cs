@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Repository.GeneratedModels;
+﻿using Repository.GeneratedModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,13 +14,11 @@ namespace Services.TreatmentsType
 
         Task<List<Treatmentstype>> GetAllTreatmentstypes();
 
-        Task<ActionResult<Treatmentstype>> GetTreatmentstype(int id);
+        Task<Treatmentstype?> GetTreatmentstypeById(int id);
 
-        Task<IActionResult> PutTreatmentstype(int id, Treatmentstype treatmentstype);
+        Task<bool> UpdatetTreatmentstype(int id, Treatmentstype treatmentstype);
 
-        Task<ActionResult<Treatmentstype>> PostTreatmentstype(Treatmentstype treatmentstype);
-
-        Task<IActionResult> DeleteTreatmentstype(int id);
+        Task<bool> CreateTreatmentstype(Treatmentstype treatmentstype);
 
         bool TreatmentstypeExists(int id);
     }
