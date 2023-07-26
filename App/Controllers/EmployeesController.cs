@@ -25,8 +25,8 @@ namespace App.Controllers
         }
 
         [HttpPost]
-        [Route("/api/employees/changerooms")]
-        public async Task<IActionResult> ChangeRooms(List<List<RoomEmployeeDto>> employees)
+        [Route("/api/employees/changeemployees")]
+        public async Task<IActionResult> ChangeEmployees(List<List<RoomEmployeeDto>> employees)
         {
             var res = await _iEmployeesData.ChangeEmployees(employees);
             return Ok("ok");
