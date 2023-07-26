@@ -62,30 +62,15 @@ namespace Services.Employees
             var list = new List<Employee>();
             foreach (var employee in employees)
             {
-                if(employee == null)
+                if(employee == null || employee.Treatmentstype == null)
                 {
                     continue;
                 }
-                //if(employee.Laser == true && treatmentsType != null && treatmentsType.Contains("Laser"))
-                //{
-                //    list.Add(employee);
-                //    continue;
-                //}
-                //if (employee.Waxing == true && treatmentsType != null && treatmentsType.Contains("Waxing"))
-                //{
-                //    list.Add(employee);
-                //    continue;
-                //}
-                //if (employee.Electrolysis == true && treatmentsType != null && treatmentsType.Contains("Electrolysis"))
-                //{
-                //    list.Add(employee);
-                //    continue;
-                //}
-                //if (employee.Advancedelectrolysis == true && treatmentsType != null && treatmentsType.Contains("Advancedelectrolysis"))
-                //{
-                //    list.Add(employee);
-                //    continue;
-                //}
+                var flag = treatmentsType?.Where(t => employee.Treatmentstype.Contains(t));
+                if(flag?.Count() > 0)
+                {
+                    list.Add(employee);
+                }
             }
             return list;
         }
@@ -113,28 +98,11 @@ namespace Services.Employees
                 employeeFieldesDto.Id = i++;
                 employeeFieldesDto.nameWorker = employee.Name;
                 employeeFieldesDto.colorWorker = employee.Color;
-                var list = new List<string>();
                 if(employee == null)
                 {
                     continue;
                 }
-                //if(employee?.Laser == true)
-                //{
-                //    list.Add("Laser");
-                //}
-                //if (employee?.Waxing == true)
-                //{
-                //    list.Add("Waxing");
-                //}
-                //if (employee?.Electrolysis == true)
-                //{
-                //    list.Add("Electrolysis");
-                //}
-                //if (employee?.Advancedelectrolysis == true)
-                //{
-                //    list.Add("Advancedelectrolysis");
-                //}
-                employeeFieldesDto.fields = list;
+                employeeFieldesDto.fields = employee.Treatmentstype?.Split(",").ToList();
                 listEmployeeFields.Add(employeeFieldesDto);
             }
             return listEmployeeFields;
@@ -307,3 +275,27 @@ namespace Services.Employees
         }
     }
 }
+
+
+
+
+//if(employee.Laser == true && treatmentsType != null && treatmentsType.Contains("Laser"))
+//{
+//    list.Add(employee);
+//    continue;
+//}
+//if (employee.Waxing == true && treatmentsType != null && treatmentsType.Contains("Waxing"))
+//{
+//    list.Add(employee);
+//    continue;
+//}
+//if (employee.Electrolysis == true && treatmentsType != null && treatmentsType.Contains("Electrolysis"))
+//{
+//    list.Add(employee);
+//    continue;
+//}
+//if (employee.Advancedelectrolysis == true && treatmentsType != null && treatmentsType.Contains("Advancedelectrolysis"))
+//{
+//    list.Add(employee);
+//    continue;
+//}

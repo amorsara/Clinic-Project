@@ -12,7 +12,7 @@ namespace Services.DTO
 
         public string? nameRoom { get; set; }
 
-        public List<string?>? listTreatments { get; set; }
+        public List<string>? listTreatments { get; set; }
 
         public List<EmployeeDto>? Employees { get; set; }
     }

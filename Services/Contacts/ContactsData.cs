@@ -172,7 +172,7 @@ namespace Services.Contacts
                     c.Electrolysis = true;
                 }
                 else
-                    //(type == 'W' || type == 'w')
+                    //(type == 'W' || type == 'w') and other...
                 {
                     c.Waxing = true;
                 }
