@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
+using Services.DTO;
 using Services.WorkHours;
 
 namespace App.Controllers
@@ -51,26 +52,16 @@ namespace App.Controllers
         [Route("/api/workhours/updateworkhour/{id}")]
         public async Task<IActionResult> UpdateWorkhour(int id, Workhour workhour)
         {
-
-            _context.Entry(workhour).State = EntityState.Modified;
-
-            try
+            if (id != workhour.Idworkhour)
             {
-                await _context.SaveChangesAsync();
+                return NoContent();
             }
-            catch (DbUpdateConcurrencyException)
+            var res = await _iWorkHoursData.UpdateWorkhour(id, workhour);
+            if (res == false)
             {
-                if (!_iWorkHoursData.WorkHourExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return BadRequest();
             }
-
-            return NoContent();
+            return Ok();
         }
 
 
@@ -93,21 +84,33 @@ namespace App.Controllers
         [Route("/api/workhours/deleteworkhour/{id}")]
         public async Task<IActionResult> DeleteWorkhour(int id)
         {
-            if (_context.Workhours == null)
+            if (id == 0)
             {
-                return NotFound();
+                return BadRequest();
             }
-            var workhour = await _context.Workhours.FindAsync(id);
-            if (workhour == null)
+            var res = await _iWorkHoursData.DeleteWorkhour(id);
+            if (res == false)
             {
-                return NotFound();
+                return BadRequest();
             }
-
-            _context.Workhours.Remove(workhour);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return Ok(res);
         }
 
+        [HttpPost]
+        [Route("/api/workhours/deleteshiftByHour/{idWorker}/{day}")]
+        public async Task<IActionResult> DeleteshiftByHour(int idWorker, int day, TimeOnly start)
+        {
+            if (idWorker == 0 || day == 0)
+            {
+                return BadRequest();
+            }
+            var res = await _iWorkHoursData.DeleteShift(idWorker, day, start);
+            if (res == false)
+            {
+                return BadRequest();
+            }
+            return Ok(res);
+
+        }
     }
 }

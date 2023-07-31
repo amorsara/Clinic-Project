@@ -103,5 +103,96 @@ namespace Services.WorkHours
             }
             return true;
         }
+
+        public async Task<bool> DeleteShift(int id, int day, TimeOnly time)
+        {
+            var shift = _context.Workhours.Where(w => w.Idemployee == id && w.Day == day && w.Starthour == time).FirstOrDefault();
+            if(shift == null)
+            {
+                return false;
+            }
+            var isOk = await DeleteWorkhour(shift.Idworkhour);
+            if (shift.Shift == 'e') // last shift...
+            {
+                return isOk;
+            }
+            else
+            {
+                if(shift.Shift == 'a') // mid shift and check if this shift is last...
+                {
+                    var s = _context.Workhours.Where(w => w.Idemployee == id && w.Day == day && w.Shift == 'e').FirstOrDefault();
+                    if(s != null) // not last, need to update the shift - e...
+                    {
+                        s.Shift = 'a';
+                        var okUpdate = await UpdateWorkhour(s.Idworkhour, s);
+                    }
+                    return isOk;
+                }
+                else // this shift is - m
+                {
+                    var sh = _context.Workhours.Where(w => w.Idemployee == id && w.Day == day).ToList();
+                    if(sh != null)
+                    {
+                        foreach(var item in sh)
+                        {
+                            if(item.Shift == 'a')
+                            {
+                                item.Shift = 'm';
+                                var okUpdate = await UpdateWorkhour(item.Idworkhour, item);
+                            }
+                            else
+                            {
+                                item.Shift = 'a';
+                                var okUpdate = await UpdateWorkhour(item.Idworkhour, item);
+                            }
+                        }
+                    }
+                }
+            }
+            return isOk;
+        }
+
+
+        public async Task<bool> DeleteWorkhour(int id)
+        {
+            if (_context.Workhours == null)
+            {
+                return false;
+            }
+            var workhour = await _context.Workhours.FindAsync(id);
+            if (workhour == null)
+            {
+                return false;
+            }
+
+            _context.Workhours.Remove(workhour);
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<bool> UpdateWorkhour(int id, Workhour workhour)
+        {
+            _context.Entry(workhour).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!WorkHourExists(id))
+                {
+                    return false;
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return true;
+        }
+
     }
 }
