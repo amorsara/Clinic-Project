@@ -10,6 +10,6 @@ namespace Services.Schedule
     public interface IScheduleData
     {
         Task<List<ScheduleDto>> GetAllDates();
-        Task <List<RoomScheduleDto>> GetAllSchedules();
+        Task <List<RoomScheduleDto>> GetAllSchedules(bool regular);
     }
 }

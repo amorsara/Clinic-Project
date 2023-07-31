@@ -108,7 +108,7 @@ namespace Services.Employees
             return listEmployeeFields;
         }
 
-        public async Task<List<EmployeeDto>> GetEmployeesForSchedule(List<Employee> employees)
+        public async Task<List<EmployeeDto>> GetEmployeesForSchedule(List<Employee> employees, bool regular)
         {
             var list = new List<EmployeeDto>();
             int i = 0;
@@ -119,7 +119,7 @@ namespace Services.Employees
                 emp.IdWorker = e.Idemployee;
                 emp.nameWorker = e.Name;
                 emp.colorWorker = e.Color;
-                emp.weeklyHouers = await _iWorkHoursData.GetWorkHourByEmployee(e.Idemployee);
+                emp.weeklyHouers = await _iWorkHoursData.GetWorkHourByEmployee(e.Idemployee, regular);
                 list.Add(emp);
             }
             return list;

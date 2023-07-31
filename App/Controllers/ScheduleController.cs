@@ -33,7 +33,7 @@ namespace App.Controllers
         [Route("/api/schedule/getschedule")]
         public async Task<ActionResult<IEnumerable<RoomScheduleDto>>> GetSchedule()
         {
-            var schedules = await _iScheduleData.GetAllSchedules();
+            var schedules = await _iScheduleData.GetAllSchedules(true);
             if (schedules == null)
             {
                 return NotFound();
@@ -41,5 +41,16 @@ namespace App.Controllers
             return schedules;
         }
 
+        [HttpGet]
+        [Route("/api/schedule/getscheduleextra")]
+        public async Task<ActionResult<IEnumerable<RoomScheduleDto>>> GetScheduleExtra()
+        {
+            var schedules = await _iScheduleData.GetAllSchedules(false);
+            if (schedules == null)
+            {
+                return NotFound();
+            }
+            return schedules;
+        }
     }
 }

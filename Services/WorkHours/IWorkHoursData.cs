@@ -17,7 +17,7 @@ namespace Services.WorkHours
         Task<bool> CreateWorkHour(Workhour workHour);
         Task <char?> GetShiftEmployee(int id, TimeOnly? time);
         bool WorkHourExists(int id);
-        Task<List<EmployeeShiftDto>> GetWorkHourByEmployee(int id);
+        Task<List<EmployeeShiftDto>> GetWorkHourByEmployee(int id, bool regular);
         Task<List<Workhour>> GetShiftByDay(int id, int day);
         Task<bool> DeleteShift(int id, int day, TimeOnly time);
         Task<bool> DeleteWorkhour(int id);

@@ -61,7 +61,7 @@ namespace Services.Schedule
             return list;
         }
 
-        public async Task<List<RoomScheduleDto>> GetAllSchedules()
+        public async Task<List<RoomScheduleDto>> GetAllSchedules(bool regular)
         {
             var rooms = await _iRoomsData.GetAllRooms();
             var list = new List<RoomScheduleDto>();
@@ -76,7 +76,7 @@ namespace Services.Schedule
                 roomScheduleDto.nameRoom = room.Nameroom;
                 roomScheduleDto.listTreatments = await _iRoomsData.GetTreatmentsForRoom(room.Idroom);
                 var employees = await _iRoomsData.GetAllEmployeesForRoom(room.Idroom);
-                roomScheduleDto.Employees = await _iEmployeesData.GetEmployeesForSchedule(employees);
+                roomScheduleDto.Employees = await _iEmployeesData.GetEmployeesForSchedule(employees, regular);
                 list.Add(roomScheduleDto);
             }
             return list;

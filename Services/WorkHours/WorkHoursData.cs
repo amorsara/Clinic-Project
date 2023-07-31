@@ -30,10 +30,73 @@ namespace Services.WorkHours
             await _context.AddAsync(workHour);
             var isOk = await _context.SaveChangesAsync() >= 0;
             if (isOk)
-            {
+            { 
+                if(workHour.Shift != 'm') // if have other shift...
+                {
+                    var checkOk = await CheckAndUpdate(workHour);
+                    return checkOk;
+                }
+                
                 return true;
             }
             return false;
+        }
+
+        public async Task<bool> CheckAndUpdate(Workhour workhour)
+        {
+            var shifts = _context.Workhours.Where(w => w.Idemployee == workhour.Idemployee && w.Day == workhour.Day && w.Regularwork == workhour.Regularwork).ToList();
+            var shiftM = shifts.Where(s => s.Shift == 'm').FirstOrDefault();
+            var shiftA = shifts.Where(s => s.Shift == 'a').FirstOrDefault();
+            if(shiftM == null)
+            {
+                return false;
+            }
+            if(workhour.Shift == 'a' && workhour.Starthour < shiftM.Starthour)
+            {
+                // update a=>m m=>a
+                workhour.Shift = 'm';
+                var updateOk1 = await UpdateWorkhour(workhour.Idworkhour, workhour);
+                shiftM.Shift = 'a';
+                var updateOk2 = await UpdateWorkhour(shiftM.Idworkhour, shiftM);
+                if (!updateOk1 || !updateOk2)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if(shiftA == null)
+                {
+                    return false;
+                }
+                if (shiftM != null && workhour.Starthour <= shiftM.Starthour)
+                {
+                    // update e=>m m=>a a=>e
+                    workhour.Shift = 'm';
+                    var updateOk1 = await UpdateWorkhour(workhour.Idworkhour, workhour);
+                    shiftM.Shift = 'a';
+                    var updateOk2 = await UpdateWorkhour(shiftM.Idworkhour, shiftM);
+                    shiftA.Shift = 'e';
+                    var updateOk3 = await UpdateWorkhour(shiftA.Idworkhour, shiftA);
+                    if (!updateOk1 || !updateOk2 || !updateOk3)
+                    {
+                        return false;
+                    }
+                }
+                if (shiftA != null && workhour.Starthour <= shiftA.Starthour)
+                {
+                    // update e=>a a=>e
+                    workhour.Shift = 'a';
+                    var updateOk1 = await UpdateWorkhour(workhour.Idworkhour, workhour);
+                    shiftA.Shift = 'e';
+                    var updateOk3 = await UpdateWorkhour(shiftA.Idworkhour, shiftA);
+                    if (!updateOk1 || !updateOk3)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
 
         public async Task<List<Workhour>> GetAllWorkHours()
@@ -53,7 +116,7 @@ namespace Services.WorkHours
             return res?.Shift;
         }
 
-        public async Task<List<EmployeeShiftDto>> GetWorkHourByEmployee(int id)
+        public async Task<List<EmployeeShiftDto>> GetWorkHourByEmployee(int id, bool regular)
         {
             var list = new List<EmployeeShiftDto>();
             for (int i = 1; i < 7; i++)
@@ -62,7 +125,10 @@ namespace Services.WorkHours
                 var shifts = await GetShiftByDay(id, i);
                 foreach (var s in shifts)
                 {
-                    Console.WriteLine(s);
+                    if(s.Regularwork == !regular)
+                    {
+                        continue;
+                    }
                     if(s == null)
                     {
                         continue;
