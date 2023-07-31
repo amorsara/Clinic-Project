@@ -36,8 +36,6 @@ builder.Services.AddScoped<IEpilationData, EpilationData>();
 builder.Services.AddScoped<ILeserData, LeserData>();
 builder.Services.AddScoped<ITreatmentsTypeData, TreatmentsTypeData>();
 
-var builder1 = new ConfigurationBuilder().AddJsonFile($"appsettings.json", true, true);
-
 
 var app = builder.Build();
 
