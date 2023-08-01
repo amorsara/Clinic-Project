@@ -25,5 +25,7 @@ namespace Services.DTO
         public string? Techniqe { get; set; }
 
         public string? Results { get; set; }
+
+        public string? remarkElecr { get; set; }
     }
 }

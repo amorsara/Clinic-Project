@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
+using Services.Contacts;
 using Services.DTO;
 using Services.LaserTreatments;
 
@@ -17,10 +18,12 @@ namespace App.Controllers
     {
 
         private readonly ILaserTreatmentData _iLaserTreatmentData;
+        private readonly IContactsData _iContactsData;
 
-        public LasertreatmentsController(ILaserTreatmentData iLaserTreatmentData)
+        public LasertreatmentsController(ILaserTreatmentData iLaserTreatmentData, IContactsData contactsData)
         {
             _iLaserTreatmentData = iLaserTreatmentData;
+            _iContactsData = contactsData;
         }
 
         [HttpGet]
@@ -75,7 +78,12 @@ namespace App.Controllers
                 return NotFound();
             }
 
-            //lasertreatment.Idlasertreatment = lasertreatmentDto.Idlasertreatment;
+            var okContact = await _iContactsData.UpdateRemark(lasertreatmentDto.idClient, lasertreatmentDto.remarkLaser, "laser");
+            if (okContact == false)
+            {
+                return BadRequest();
+            }
+
             lasertreatment.Idcontact = lasertreatmentDto.idClient;
             lasertreatment.Date = lasertreatmentDto.Date;
             lasertreatment.Area = lasertreatmentDto.Area?.Count != null ? String.Join(",", lasertreatmentDto.Area) : null;
@@ -97,6 +105,11 @@ namespace App.Controllers
         [Route("/api/lasertreatments/createlasertreatment")]
         public async Task<ActionResult<Lasertreatment>> CreateLasertreatment(LasertreatmentDto lasertreatmentDto)
         {
+            var okContact = await _iContactsData.UpdateRemark(lasertreatmentDto.idClient, lasertreatmentDto.remarkLaser, "laser");
+            if (okContact == false)
+            {
+                return BadRequest();
+            }
             var lasertreatment = new Lasertreatment();
             lasertreatment.Idlasertreatment = lasertreatmentDto.Idlasertreatment;
             lasertreatment.Idcontact = lasertreatmentDto.idClient;

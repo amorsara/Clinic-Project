@@ -36,6 +36,10 @@ public partial class Contact
 
     public string? Urlfile { get; set; }
 
+    public string? Remarkelecr { get; set; }
+
+    public string? Remarklaser { get; set; }
+
     [JsonIgnore]
     public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 

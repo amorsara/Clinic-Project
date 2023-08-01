@@ -25,5 +25,7 @@ namespace Services.DTO
         public string? Energy { get; set; }
 
         public string? Results { get; set; }
+
+        public string? remarkLaser { get; set; }
     }
 }

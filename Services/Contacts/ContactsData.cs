@@ -184,6 +184,35 @@ namespace Services.Contacts
 
         }
 
+        public async Task<bool> UpdateRemark(int id, string? remark, string type)
+        {
+            var contact = await GetContactById(id);
+            if(contact == null)
+            {
+                return false;
+            }
+            if(type == "laser")
+            {
+                contact.Remarklaser = remark;
+            }
+            else
+            {
+                contact.Remarkelecr = remark;
+            }
+   
+            var ok = await UpdateContact(id, contact);
+            return ok;
+        }
+
+        public async Task<string?> GetRemark(int id, string type)
+        {
+            var contact = await GetContactById(id);
+            if(type == "laser")
+            {
+                return contact?.Remarklaser;
+            }
+            return contact?.Remarkelecr;
+        }
     }
 }
 

@@ -18,7 +18,9 @@ namespace Services.Contacts
         Task<List<DateOnly>> GetAllFutureDates();
         Task<List<ContactDateDto>> GetContactsWithDates();
         Task <Contact?> GetContactById(int id);
+        Task<bool> UpdateRemark(int id, string? remark, string type);
         Task<bool> CreateContact(Contact contact);
+        Task<string?> GetRemark(int id, string type);
         bool ContactExists(int id);
         Task<bool> UpdateContact(int id, Contact contact);
         Task<ActionResult<Contact?>> UpdateTreatementNameForContact(int id, char? type);

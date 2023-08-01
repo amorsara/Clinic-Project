@@ -125,6 +125,12 @@ public partial class ClinicDBContext : DbContext
             entity.Property(e => e.Remark)
                 .HasColumnType("character varying")
                 .HasColumnName("remark");
+            entity.Property(e => e.Remarkelecr)
+                .HasColumnType("character varying")
+                .HasColumnName("remarkelecr");
+            entity.Property(e => e.Remarklaser)
+                .HasColumnType("character varying")
+                .HasColumnName("remarklaser");
             entity.Property(e => e.Sem).HasColumnName("sem");
             entity.Property(e => e.Urlfile)
                 .HasColumnType("character varying")

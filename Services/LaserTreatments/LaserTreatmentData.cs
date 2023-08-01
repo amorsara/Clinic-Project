@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
+using Services.Contacts;
 using Services.DTO;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,12 @@ namespace Services.LaserTreatments
     {
 
         private readonly ClinicDBContext _context;
+        private readonly IContactsData _iContactsData;
 
-        public LaserTreatmentData(ClinicDBContext context)
+        public LaserTreatmentData(ClinicDBContext context, IContactsData iContactsData)
         {
             _context = context;
+            _iContactsData = iContactsData;
         }
 
         public async Task<bool> CreateLasertreatments(Lasertreatment lasertreatment)
@@ -58,6 +61,7 @@ namespace Services.LaserTreatments
             var laserCard = new LaserCardDto();
             var list = new List<LasertreatmentDto>();
             var laserTreatments = await GetLasertreatments();
+            var remark = await _iContactsData.GetRemark(id, "laser");
             foreach(var lasertreatment in laserTreatments)
             {
                 var laserDto = new LasertreatmentDto();
@@ -76,7 +80,7 @@ namespace Services.LaserTreatments
                 }
             }
             laserCard.idClient = id;
-            laserCard.remarkLaser = "";
+            laserCard.remarkLaser = remark;
             laserCard.listTreatments = list;
             return laserCard;
         }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
+using Services.Contacts;
 using Services.DTO;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,12 @@ namespace Services.EpilationTreatments
     {
 
         private readonly ClinicDBContext _context;
+        private readonly IContactsData _iContactsData;
 
-        public EpilationTreatmentData(ClinicDBContext context)
+        public EpilationTreatmentData(ClinicDBContext context, IContactsData contactsData)
         {
             _context = context;
+            _iContactsData = contactsData;
         }
         public async Task<bool> CreateEpilationtreatment(Epilationtreatment epilationtreatment)
         {
@@ -67,6 +70,7 @@ namespace Services.EpilationTreatments
             var epilationCard = new EpilationCardDto();
             var list = new List<EpilationtreatmentDto>();
             var epilationTreatments = await GetEpilationtreatments();
+            var remark = await _iContactsData.GetRemark(id, "epilation");
             foreach (var epilationTreatment in epilationTreatments)
             {
                 var epilationDto = new EpilationtreatmentDto();
@@ -85,7 +89,7 @@ namespace Services.EpilationTreatments
                 }
             }
             epilationCard.idClient = id;
-            epilationCard.remarkElec = "";
+            epilationCard.remarkElec = remark;
             epilationCard.listTreatments = list;
             return epilationCard;
         }
