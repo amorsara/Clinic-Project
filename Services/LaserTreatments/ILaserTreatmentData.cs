@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Repository.GeneratedModels;
+using Services.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace Services.LaserTreatments
     public interface ILaserTreatmentData
     {
         Task<List<Lasertreatment>> GetLasertreatments();
+        Task<LaserCardDto> GetAllLaserTreatment(int id);
         Task<Lasertreatment?> GetLasertreatmentById(int id);
         Task<bool> UpdateLasertreatment(int id, Lasertreatment lasertreatment);
         Task<bool> CreateLasertreatments(Lasertreatment lasertreatment);

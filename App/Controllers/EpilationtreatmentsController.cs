@@ -35,6 +35,18 @@ namespace App.Controllers
             return epilationtreatment;
         }
 
+        [HttpGet]
+        [Route("/api/epilationtreatments/getallepilationtreatments/{id}")]
+        public async Task<ActionResult<EpilationCardDto>> GetAllEpilationtreatments(int id)
+        {
+            var epilationtreatments = await _iEpilationTreatmentData.GetAllEpilationTreatment(id);
+            if (epilationtreatments == null)
+            {
+                return NotFound();
+            }
+            return epilationtreatments;
+        }
+
 
         [HttpGet]
         [Route("/api/epilationtreatments/getepilationtreatmentbyid/{id}")]

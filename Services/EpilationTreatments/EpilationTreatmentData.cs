@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
+using Services.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,6 +60,34 @@ namespace Services.EpilationTreatments
                 return false;
             }
             return true;
+        }
+
+        public async Task<EpilationCardDto> GetAllEpilationTreatment(int id)
+        {
+            var epilationCard = new EpilationCardDto();
+            var list = new List<EpilationtreatmentDto>();
+            var epilationTreatments = await GetEpilationtreatments();
+            foreach (var epilationTreatment in epilationTreatments)
+            {
+                var epilationDto = new EpilationtreatmentDto();
+                epilationDto.Idepilationtreatment = epilationTreatment.Idepilationtreatment;
+                epilationDto.idClient = id;
+                epilationDto.Date = epilationTreatment.Date;
+                epilationDto.colorWorker = epilationTreatment.Coloremployee;
+                epilationDto.Results = epilationTreatment.Results;
+                epilationDto.Area = epilationTreatment.Area?.Split(",").ToList();
+                epilationDto.Machine = epilationTreatment.Machine;
+                epilationDto.Techniqe = epilationTreatment.Techniqe;
+                epilationDto.Time = epilationTreatment.Time;
+                if (epilationTreatment != null && epilationTreatment.Idcontact == id)
+                {
+                    list.Add(epilationDto);
+                }
+            }
+            epilationCard.idClient = id;
+            epilationCard.remarkElec = "";
+            epilationCard.listTreatments = list;
+            return epilationCard;
         }
 
         public async Task<Epilationtreatment?> GetEpilationtreatmentById(int id)

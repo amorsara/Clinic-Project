@@ -35,6 +35,18 @@ namespace App.Controllers
             return lasertreatments;
         }
 
+        [HttpGet]
+        [Route("/api/lasertreatments/getalllasertreatments/{id}")]
+        public async Task<ActionResult<LaserCardDto>> GetAllLasertreatments(int id)
+        {
+            var lasertreatments = await _iLaserTreatmentData.GetAllLaserTreatment(id);
+            if (lasertreatments == null)
+            {
+                return NotFound();
+            }
+            return lasertreatments;
+        }
+
 
         [HttpGet]
         [Route("/api/lasertreatments/getlasertreatmentsbyid/{id}")]

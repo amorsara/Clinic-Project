@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
+using Services.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,6 +51,34 @@ namespace Services.LaserTreatments
             await _context.SaveChangesAsync();
 
             return true;
+        }
+
+        public async Task<LaserCardDto> GetAllLaserTreatment(int id)
+        {
+            var laserCard = new LaserCardDto();
+            var list = new List<LasertreatmentDto>();
+            var laserTreatments = await GetLasertreatments();
+            foreach(var lasertreatment in laserTreatments)
+            {
+                var laserDto = new LasertreatmentDto();
+                laserDto.Idlasertreatment = lasertreatment.Idlasertreatment;
+                laserDto.idClient = id;
+                laserDto.Date = lasertreatment.Date;
+                laserDto.Energy = lasertreatment.Energy;
+                laserDto.colorWorker = lasertreatment.Coloremployee;
+                laserDto.Results = lasertreatment.Results;
+                laserDto.Area = lasertreatment.Area?.Split(",").ToList();
+                laserDto.Ms = lasertreatment.Ms;
+                laserDto.Spotsize = lasertreatment.Spotsize;
+                if (lasertreatment != null && lasertreatment.Idcontact == id)
+                {
+                    list.Add(laserDto);
+                }
+            }
+            laserCard.idClient = id;
+            laserCard.remarkLaser = "";
+            laserCard.listTreatments = list;
+            return laserCard;
         }
 
         public async Task<Lasertreatment?> GetLasertreatmentById(int id)
