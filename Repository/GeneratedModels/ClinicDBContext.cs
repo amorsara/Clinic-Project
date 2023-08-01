@@ -23,6 +23,10 @@ public partial class ClinicDBContext : DbContext
 
     public virtual DbSet<Epilationarea> Epilationareas { get; set; }
 
+    public virtual DbSet<Epilationtreatment> Epilationtreatments { get; set; }
+
+    public virtual DbSet<Lasertreatment> Lasertreatments { get; set; }
+
     public virtual DbSet<Leserarea> Leserareas { get; set; }
 
     public virtual DbSet<Room> Rooms { get; set; }
@@ -160,6 +164,70 @@ public partial class ClinicDBContext : DbContext
             entity.Property(e => e.Namearea)
                 .HasColumnType("character varying")
                 .HasColumnName("namearea");
+        });
+
+        modelBuilder.Entity<Epilationtreatment>(entity =>
+        {
+            entity.HasKey(e => e.Idepilationtreatment).HasName("epilationtreatments_pkey");
+
+            entity.ToTable("epilationtreatments");
+
+            entity.Property(e => e.Idepilationtreatment).HasColumnName("idepilationtreatment");
+            entity.Property(e => e.Area)
+                .HasColumnType("character varying")
+                .HasColumnName("area");
+            entity.Property(e => e.Coloremployee)
+                .HasColumnType("character varying")
+                .HasColumnName("coloremployee");
+            entity.Property(e => e.Date).HasColumnName("date");
+            entity.Property(e => e.Idcontact).HasColumnName("idcontact");
+            entity.Property(e => e.Machine)
+                .HasColumnType("character varying")
+                .HasColumnName("machine");
+            entity.Property(e => e.Results)
+                .HasColumnType("character varying")
+                .HasColumnName("results");
+            entity.Property(e => e.Techniqe)
+                .HasColumnType("character varying")
+                .HasColumnName("techniqe");
+            entity.Property(e => e.Time).HasColumnName("time");
+
+            entity.HasOne(d => d.IdcontactNavigation).WithMany(p => p.Epilationtreatments)
+                .HasForeignKey(d => d.Idcontact)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("EpilationTreatments_contact_id_fkey");
+        });
+
+        modelBuilder.Entity<Lasertreatment>(entity =>
+        {
+            entity.HasKey(e => e.Idlasertreatment).HasName("lasertreatments_pkey");
+
+            entity.ToTable("lasertreatments");
+
+            entity.Property(e => e.Idlasertreatment).HasColumnName("idlasertreatment");
+            entity.Property(e => e.Area)
+                .HasColumnType("character varying")
+                .HasColumnName("area");
+            entity.Property(e => e.Coloremployee)
+                .HasColumnType("character varying")
+                .HasColumnName("coloremployee");
+            entity.Property(e => e.Date).HasColumnName("date");
+            entity.Property(e => e.Energy)
+                .HasColumnType("character varying")
+                .HasColumnName("energy");
+            entity.Property(e => e.Idcontact).HasColumnName("idcontact");
+            entity.Property(e => e.Ms).HasColumnName("ms");
+            entity.Property(e => e.Results)
+                .HasColumnType("character varying")
+                .HasColumnName("results");
+            entity.Property(e => e.Spotsize)
+                .HasColumnType("character varying")
+                .HasColumnName("spotsize");
+
+            entity.HasOne(d => d.IdcontactNavigation).WithMany(p => p.Lasertreatments)
+                .HasForeignKey(d => d.Idcontact)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("LaserTreatments_contact_id_fkey");
         });
 
         modelBuilder.Entity<Leserarea>(entity =>

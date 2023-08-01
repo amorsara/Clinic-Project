@@ -15,12 +15,11 @@ namespace App.Controllers
     [ApiController]
     public class WorkhoursController : ControllerBase
     {
-        private readonly ClinicDBContext _context;
+
         private readonly IWorkHoursData _iWorkHoursData;
 
-        public WorkhoursController(ClinicDBContext context, IWorkHoursData workHoursData)
+        public WorkhoursController( IWorkHoursData workHoursData)
         {
-            _context = context;
             _iWorkHoursData = workHoursData;
         }
 

@@ -38,4 +38,10 @@ public partial class Contact
 
     [JsonIgnore]
     public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
+
+    [JsonIgnore]
+    public virtual ICollection<Epilationtreatment> Epilationtreatments { get; set; } = new List<Epilationtreatment>();
+
+    [JsonIgnore]
+    public virtual ICollection<Lasertreatment> Lasertreatments { get; set; } = new List<Lasertreatment>();
 }
