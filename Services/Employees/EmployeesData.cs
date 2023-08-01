@@ -277,6 +277,9 @@ namespace Services.Employees
 }
 
 
+///////////////
+
+
 
 
 //if(employee.Laser == true && treatmentsType != null && treatmentsType.Contains("Laser"))
