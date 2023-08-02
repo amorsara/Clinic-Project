@@ -78,10 +78,13 @@ namespace App.Controllers
                 return NotFound();
             }
 
-            var okContact = await _iContactsData.UpdateRemark(lasertreatmentDto.idClient, lasertreatmentDto.remarkLaser, "laser");
-            if (okContact == false)
+            if(lasertreatmentDto.remarkLaser != null)
             {
-                return BadRequest();
+                var okContact = await _iContactsData.UpdateRemark(lasertreatmentDto.idClient, lasertreatmentDto.remarkLaser, "laser");
+                if (okContact == false)
+                {
+                    return BadRequest();
+                }
             }
 
             lasertreatment.Idcontact = lasertreatmentDto.idClient;
@@ -105,11 +108,16 @@ namespace App.Controllers
         [Route("/api/lasertreatments/createlasertreatment")]
         public async Task<ActionResult<Lasertreatment>> CreateLasertreatment(LasertreatmentDto lasertreatmentDto)
         {
-            var okContact = await _iContactsData.UpdateRemark(lasertreatmentDto.idClient, lasertreatmentDto.remarkLaser, "laser");
-            if (okContact == false)
+
+            if (lasertreatmentDto.remarkLaser != null)
             {
-                return BadRequest();
+                var okContact = await _iContactsData.UpdateRemark(lasertreatmentDto.idClient, lasertreatmentDto.remarkLaser, "laser");
+                if (okContact == false)
+                {
+                    return BadRequest();
+                }
             }
+
             var lasertreatment = new Lasertreatment();
             lasertreatment.Idlasertreatment = lasertreatmentDto.Idlasertreatment;
             lasertreatment.Idcontact = lasertreatmentDto.idClient;

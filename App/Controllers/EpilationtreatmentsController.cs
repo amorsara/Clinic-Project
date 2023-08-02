@@ -72,16 +72,22 @@ namespace App.Controllers
             {
                 return NoContent();
             }
+
             var epilationtreatment = await _iEpilationTreatmentData.GetEpilationtreatmentById(epilationtreatmentDto.Idepilationtreatment);
             if(epilationtreatment == null)
             {
                 return NotFound();
             }
-            var okContact = await _iContactsData.UpdateRemark(epilationtreatmentDto.idClient ,epilationtreatmentDto.remarkElecr,"epilation");
-            if(okContact == false)
+
+            if(epilationtreatmentDto.remarkElecr != null)
             {
-                return BadRequest();
+                var okContact = await _iContactsData.UpdateRemark(epilationtreatmentDto.idClient, epilationtreatmentDto.remarkElecr, "epilation");
+                if (okContact == false)
+                {
+                    return BadRequest();
+                }
             }
+          
             epilationtreatment.Idcontact = epilationtreatmentDto.idClient;
             epilationtreatment.Date = epilationtreatmentDto.Date;
             epilationtreatment.Time = epilationtreatmentDto.Time;
@@ -107,11 +113,15 @@ namespace App.Controllers
         [Route("/api/epilationtreatments/createepilationtreatment")]
         public async Task<ActionResult<Epilationtreatment>> CreateEpilationtreatment(EpilationtreatmentDto epilationtreatmentDto)
         {
-            var okContact = await _iContactsData.UpdateRemark(epilationtreatmentDto.idClient, epilationtreatmentDto.remarkElecr, "epilation");
-            if (okContact == false)
+            if (epilationtreatmentDto.remarkElecr != null)
             {
-                return BadRequest();
+                var okContact = await _iContactsData.UpdateRemark(epilationtreatmentDto.idClient, epilationtreatmentDto.remarkElecr, "epilation");
+                if (okContact == false)
+                {
+                    return BadRequest();
+                }
             }
+
             var epilationtreatment = new Epilationtreatment();
             epilationtreatment.Idcontact = epilationtreatmentDto.idClient;
             epilationtreatment.Date = epilationtreatmentDto.Date;
