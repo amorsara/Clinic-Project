@@ -104,9 +104,9 @@ namespace Services.WorkHours
             return await _context.Workhours.ToListAsync();
         }
 
-        public async Task<List<Workhour>> GetShiftByDay(int id, int day)
+        public async Task<List<Workhour>> GetShiftByDay(int idRoom, int id, int day)
         {
-            var shifts = await _context.Workhours.Where(w => w.Idemployee == id && w.Day == day).ToListAsync();
+            var shifts = await _context.Workhours.Where(w => w.Idemployee == id && w.Day == day && w.Idroom == idRoom).ToListAsync();
             return shifts;
         }
 
@@ -116,13 +116,13 @@ namespace Services.WorkHours
             return res?.Shift;
         }
 
-        public async Task<List<EmployeeShiftDto>> GetWorkHourByEmployee(int id, bool regular)
+        public async Task<List<EmployeeShiftDto>> GetWorkHourByEmployee(int idRoom, int id, bool regular)
         {
             var list = new List<EmployeeShiftDto>();
             for (int i = 1; i < 7; i++)
             {
                 var employeeShiftDto = new EmployeeShiftDto() { IdEmployeeShift = i};
-                var shifts = await GetShiftByDay(id, i);
+                var shifts = await GetShiftByDay(idRoom,id, i);
                 foreach (var s in shifts)
                 {
                     if(s.Regularwork == !regular)

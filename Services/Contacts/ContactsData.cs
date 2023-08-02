@@ -213,6 +213,19 @@ namespace Services.Contacts
             }
             return contact?.Remarkelecr;
         }
+
+        public async Task<bool> UpdateAllCredit(int id, int allCredit)
+        {
+            var contact = await GetContactById(id);
+            if(contact == null)
+            {
+                return false;
+            }
+            
+            contact.Credit = allCredit;
+            var isOk = await UpdateContact(id, contact);
+            return isOk;
+        }
     }
 }
 

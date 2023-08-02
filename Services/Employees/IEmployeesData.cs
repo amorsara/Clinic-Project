@@ -19,7 +19,7 @@ namespace Services.Employees
         Task<bool> CreateEmployee(Employee employee);
         bool EmployeeExists(int id);
         Task<List<Employee>> GetAllEmployeesForRoom(List<String>? treatmentsType);
-        Task<List<EmployeeDto>> GetEmployeesForSchedule(List<Employee> employees, bool regular);
+        Task<List<EmployeeDto>> GetEmployeesForSchedule(List<Employee> employees, bool regular, int idRoom);
         Task<List<EmployeeFieldsDto>> GetAllEmployeesFields();
         Task<bool> UpdateEmployee(int id, Employee employee);
         Task<bool> ChangeEmployees(List<List<RoomEmployeeDto>> employees);

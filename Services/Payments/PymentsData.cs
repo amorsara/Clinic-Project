@@ -34,6 +34,11 @@ namespace Services.Payments
             return false;
         }
 
+        public Task<bool> CreatePayment(Payment payment)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<bool> DeletePayment(int id)
         {
             if (_context.Payments == null)

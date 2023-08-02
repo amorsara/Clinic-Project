@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
+using Services.Contacts;
 using Services.DTO;
 using Services.Payments;
 
@@ -17,11 +18,13 @@ namespace App.Controllers
     {
         private readonly ClinicDBContext _context;
         private readonly IPymentsData _iPymentsData;
+        private readonly IContactsData _iContactsData;
 
-        public PaymentsController(ClinicDBContext context, IPymentsData pymentsData)
+        public PaymentsController(ClinicDBContext context, IPymentsData pymentsData, IContactsData contactsData)
         {
             _context = context;
             _iPymentsData = pymentsData;
+            _iContactsData = contactsData;
         }
 
        
@@ -69,12 +72,26 @@ namespace App.Controllers
 
         [HttpPost]
         [Route("/api/payments/createpayment")]
-        public async Task<ActionResult<PaymentsDto>> CreatePayment(PaymentsDto payment)
+        public async Task<ActionResult<PaymentsDto>> CreatePayment(PaymentsDto paymentDto)
         {
+            var payment = new Payment();
+            payment.Idcontact = paymentDto.idContact;
+            payment.Datepayment = paymentDto.datePayment;
+            payment.Date = paymentDto.date;
+            payment.Credit = payment.Credit;
+            payment.R = paymentDto.r;
+            payment.Owes = paymentDto.owes;
+            payment.Pay = paymentDto.pay;
+            payment.Treatment = paymentDto.treatment?.Count != null ? String.Join(",",paymentDto.treatment) : null;
+            payment.Area = paymentDto.area?.Count != null ? String.Join(",", paymentDto.area) : null;
+            payment.Type = paymentDto.type;
+
+            //var okAllCredit = await _iContactsData.UpdateAllCredit(paymentDto.idContact, paymentDto.allCredit);
+
             var result = await _iPymentsData.CreatePayment(payment);
             if (result)
             {
-                return CreatedAtAction("CreatePayment", new { id = payment.Id }, payment);
+                return CreatedAtAction("CreatePayment", new { id = payment.Idpayment }, payment);
             }
             else
             {

@@ -76,7 +76,7 @@ namespace Services.Schedule
                 roomScheduleDto.nameRoom = room.Nameroom;
                 roomScheduleDto.listTreatments = await _iRoomsData.GetTreatmentsForRoom(room.Idroom);
                 var employees = await _iRoomsData.GetAllEmployeesForRoom(room.Idroom);
-                roomScheduleDto.Employees = await _iEmployeesData.GetEmployeesForSchedule(employees, regular);
+                roomScheduleDto.Employees = await _iEmployeesData.GetEmployeesForSchedule(employees, regular, room.Idroom);
                 list.Add(roomScheduleDto);
             }
             return list;

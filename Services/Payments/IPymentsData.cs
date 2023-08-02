@@ -14,7 +14,7 @@ namespace Services.Payments
         Task<List<Payment>> GetPayments();
         Task<Payment?> GetPaymentById(int id);
         Task<bool> UpdatePayment(int id, Payment payment);
-        Task<bool> CreatePayment(PaymentsDto paymentDto);
+        Task<bool> CreatePayment(Payment payment);
         Task<bool> DeletePayment(int id);
         bool PaymentExists(int id);
 
