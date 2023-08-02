@@ -18,25 +18,20 @@ namespace Services.Payments
             _context = context;
         }
 
-        public async Task<bool> CreatePayment(PaymentsDto paymentDto)
+        public async Task<bool> CreatePayment(Payment payment)
         {
-            var isExsists = PaymentExists(paymentDto.Id);
+            var isExsists = PaymentExists(payment.Idpayment);
             if (isExsists)
             {
                 return false;
             }
-            await _context.AddAsync(paymentDto);
+            await _context.AddAsync(payment);
             var isOk = await _context.SaveChangesAsync() >= 0;
             if (isOk)
             {
                 return true;
             }
             return false;
-        }
-
-        public Task<bool> CreatePayment(Payment payment)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<bool> DeletePayment(int id)

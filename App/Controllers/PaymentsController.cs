@@ -86,7 +86,11 @@ namespace App.Controllers
             payment.Area = paymentDto.area?.Count != null ? String.Join(",", paymentDto.area) : null;
             payment.Type = paymentDto.type;
 
-            //var okAllCredit = await _iContactsData.UpdateAllCredit(paymentDto.idContact, paymentDto.allCredit);
+            var okAllCredit = await _iContactsData.UpdateAllCredit(paymentDto.idContact, paymentDto.allCredit);
+            if(okAllCredit == false)
+            {
+                return BadRequest();
+            }
 
             var result = await _iPymentsData.CreatePayment(payment);
             if (result)

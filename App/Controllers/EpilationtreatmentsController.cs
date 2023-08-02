@@ -96,10 +96,6 @@ namespace App.Controllers
             epilationtreatment.Results = epilationtreatmentDto.Results;
             epilationtreatment.Techniqe = epilationtreatmentDto.Techniqe;
             epilationtreatment.Area = epilationtreatmentDto.Area?.Count != null ? String.Join(",", epilationtreatmentDto.Area) : null;
-            if (epilationtreatment == null)
-            {
-                return NotFound();
-            }
 
             var res = await _iEpilationTreatmentData.UpdateEpilationtreatment(id, epilationtreatment);
             if (res == false)

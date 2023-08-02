@@ -96,14 +96,14 @@ namespace App.Controllers
         }
 
         [HttpPost]
-        [Route("/api/workhours/deleteshiftByHour/{idWorker}/{day}")]
-        public async Task<IActionResult> DeleteshiftByHour(int idWorker, int day, TimeOnly start)
+        [Route("/api/workhours/deleteshiftByHour")]
+        public async Task<IActionResult> DeleteshiftByHour(DeleteShiftDto deleteShift)
         {
-            if (idWorker == 0 || day == 0)
+            if (deleteShift.idWorker == 0 || deleteShift.day == 0)
             {
                 return BadRequest();
             }
-            var res = await _iWorkHoursData.DeleteShift(idWorker, day, start);
+            var res = await _iWorkHoursData.DeleteShift(deleteShift.idWorker, deleteShift.day, deleteShift.start);
             if (res == false)
             {
                 return BadRequest();
