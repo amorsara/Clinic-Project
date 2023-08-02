@@ -29,6 +29,8 @@ public partial class ClinicDBContext : DbContext
 
     public virtual DbSet<Leserarea> Leserareas { get; set; }
 
+    public virtual DbSet<Payment> Payments { get; set; }
+
     public virtual DbSet<Room> Rooms { get; set; }
 
     public virtual DbSet<Treatmentstype> Treatmentstypes { get; set; }
@@ -246,6 +248,34 @@ public partial class ClinicDBContext : DbContext
             entity.Property(e => e.Namearea)
                 .HasColumnType("character varying")
                 .HasColumnName("namearea");
+        });
+
+        modelBuilder.Entity<Payment>(entity =>
+        {
+            entity.HasKey(e => e.Idpayment).HasName("payments_pkey");
+
+            entity.ToTable("payments");
+
+            entity.Property(e => e.Idpayment).HasColumnName("idpayment");
+            entity.Property(e => e.Area)
+                .HasColumnType("character varying")
+                .HasColumnName("area");
+            entity.Property(e => e.Date).HasColumnName("date");
+            entity.Property(e => e.Datepayment).HasColumnName("datepayment");
+            entity.Property(e => e.Idcontact).HasColumnName("idcontact");
+            entity.Property(e => e.Owes).HasColumnName("owes");
+            entity.Property(e => e.Pay).HasColumnName("pay");
+            entity.Property(e => e.Treatment)
+                .HasColumnType("character varying")
+                .HasColumnName("treatment");
+            entity.Property(e => e.Type)
+                .HasColumnType("character varying")
+                .HasColumnName("type");
+
+            entity.HasOne(d => d.IdcontactNavigation).WithMany(p => p.Payments)
+                .HasForeignKey(d => d.Idcontact)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("Payments_contact_id_fkey");
         });
 
         modelBuilder.Entity<Room>(entity =>

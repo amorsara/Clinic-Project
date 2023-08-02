@@ -48,4 +48,7 @@ public partial class Contact
 
     [JsonIgnore]
     public virtual ICollection<Lasertreatment> Lasertreatments { get; set; } = new List<Lasertreatment>();
+
+    [JsonIgnore]
+    public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
 }

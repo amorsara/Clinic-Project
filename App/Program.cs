@@ -7,6 +7,7 @@ using Services.Epilations;
 using Services.EpilationTreatments;
 using Services.LaserTreatments;
 using Services.Lesers;
+using Services.Payments;
 using Services.Rooms;
 using Services.Schedule;
 using Services.TreatmentsType;
@@ -39,6 +40,7 @@ builder.Services.AddScoped<ILeserData, LeserData>();
 builder.Services.AddScoped<ITreatmentsTypeData, TreatmentsTypeData>();
 builder.Services.AddScoped<ILaserTreatmentData, LaserTreatmentData>();
 builder.Services.AddScoped<IEpilationTreatmentData, EpilationTreatmentData>();
+builder.Services.AddScoped<IPymentsData, PymentsData>();
 
 
 var app = builder.Build();
