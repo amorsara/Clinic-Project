@@ -12,7 +12,7 @@ public partial class Payment
 
     public DateOnly? Date { get; set; }
 
-    public DateOnly? Datepayment { get; set; }
+    public DateTime? Datepayment { get; set; }
 
     public string? Treatment { get; set; }
 
@@ -23,6 +23,10 @@ public partial class Payment
     public int? Pay { get; set; }
 
     public int? Owes { get; set; }
+
+    public int? Credit { get; set; }
+
+    public bool? R { get; set; }
 
     [JsonIgnore]
     public virtual Contact IdcontactNavigation { get; set; } = null!;

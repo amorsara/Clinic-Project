@@ -14,4 +14,7 @@ public partial class Room
 
     [JsonIgnore]
     public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
+
+    [JsonIgnore]
+    public virtual ICollection<Workhour> Workhours { get; set; } = new List<Workhour>();
 }

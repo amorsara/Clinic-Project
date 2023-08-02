@@ -40,6 +40,8 @@ public partial class Contact
 
     public string? Remarklaser { get; set; }
 
+    public int? Credit { get; set; }
+
     [JsonIgnore]
     public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 

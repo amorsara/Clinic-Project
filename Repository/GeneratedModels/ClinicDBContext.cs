@@ -100,6 +100,7 @@ public partial class ClinicDBContext : DbContext
             entity.ToTable("contacts");
 
             entity.Property(e => e.Idcontact).HasColumnName("idcontact");
+            entity.Property(e => e.Credit).HasColumnName("credit");
             entity.Property(e => e.Electrolysis).HasColumnName("electrolysis");
             entity.Property(e => e.Email)
                 .HasMaxLength(100)
@@ -260,11 +261,15 @@ public partial class ClinicDBContext : DbContext
             entity.Property(e => e.Area)
                 .HasColumnType("character varying")
                 .HasColumnName("area");
+            entity.Property(e => e.Credit).HasColumnName("credit");
             entity.Property(e => e.Date).HasColumnName("date");
-            entity.Property(e => e.Datepayment).HasColumnName("datepayment");
+            entity.Property(e => e.Datepayment)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("datepayment");
             entity.Property(e => e.Idcontact).HasColumnName("idcontact");
             entity.Property(e => e.Owes).HasColumnName("owes");
             entity.Property(e => e.Pay).HasColumnName("pay");
+            entity.Property(e => e.R).HasColumnName("r");
             entity.Property(e => e.Treatment)
                 .HasColumnType("character varying")
                 .HasColumnName("treatment");
@@ -340,6 +345,7 @@ public partial class ClinicDBContext : DbContext
             entity.Property(e => e.Day).HasColumnName("day");
             entity.Property(e => e.Endhour).HasColumnName("endhour");
             entity.Property(e => e.Idemployee).HasColumnName("idemployee");
+            entity.Property(e => e.Idroom).HasColumnName("idroom");
             entity.Property(e => e.Regularwork).HasColumnName("regularwork");
             entity.Property(e => e.Shift)
                 .HasMaxLength(1)
@@ -350,6 +356,11 @@ public partial class ClinicDBContext : DbContext
                 .HasForeignKey(d => d.Idemployee)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("WorkHours_id_fkey");
+
+            entity.HasOne(d => d.IdroomNavigation).WithMany(p => p.Workhours)
+                .HasForeignKey(d => d.Idroom)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("workhours_room_id_fkey");
         });
 
         OnModelCreatingPartial(modelBuilder);
