@@ -20,7 +20,7 @@ namespace Services.DTO
 
         public int credit { get; set; }
 
-        public DateTime datePayment { get; set;}
+        public string? datePayment { get; set;}
 
         public DateOnly date { get; set; }
 

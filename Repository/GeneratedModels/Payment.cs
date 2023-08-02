@@ -12,7 +12,7 @@ public partial class Payment
 
     public DateOnly? Date { get; set; }
 
-    public DateTime? Datepayment { get; set; }
+    public string? Datepayment { get; set; }
 
     public string? Treatment { get; set; }
 

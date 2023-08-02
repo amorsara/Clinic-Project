@@ -78,7 +78,7 @@ namespace App.Controllers
             payment.Idcontact = paymentDto.idContact;
             payment.Datepayment = paymentDto.datePayment;
             payment.Date = paymentDto.date;
-            payment.Credit = payment.Credit;
+            payment.Credit = paymentDto.credit;
             payment.R = paymentDto.r;
             payment.Owes = paymentDto.owes;
             payment.Pay = paymentDto.pay;

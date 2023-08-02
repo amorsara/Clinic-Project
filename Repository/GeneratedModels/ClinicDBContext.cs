@@ -264,7 +264,7 @@ public partial class ClinicDBContext : DbContext
             entity.Property(e => e.Credit).HasColumnName("credit");
             entity.Property(e => e.Date).HasColumnName("date");
             entity.Property(e => e.Datepayment)
-                .HasColumnType("timestamp without time zone")
+                .HasColumnType("character varying")
                 .HasColumnName("datepayment");
             entity.Property(e => e.Idcontact).HasColumnName("idcontact");
             entity.Property(e => e.Owes).HasColumnName("owes");
