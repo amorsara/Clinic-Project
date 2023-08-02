@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
+using Services.DTO;
 using Services.Payments;
 
 namespace App.Controllers
@@ -68,12 +69,12 @@ namespace App.Controllers
 
         [HttpPost]
         [Route("/api/payments/createpayment")]
-        public async Task<ActionResult<Payment>> CreatePayment(Payment payment)
+        public async Task<ActionResult<PaymentsDto>> CreatePayment(PaymentsDto payment)
         {
             var result = await _iPymentsData.CreatePayment(payment);
             if (result)
             {
-                return CreatedAtAction("CreatePayment", new { id = payment.Idpayment }, payment);
+                return CreatedAtAction("CreatePayment", new { id = payment.Id }, payment);
             }
             else
             {

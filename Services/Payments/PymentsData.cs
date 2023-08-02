@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
+using Services.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,14 +18,14 @@ namespace Services.Payments
             _context = context;
         }
 
-        public async Task<bool> CreatePayment(Payment payment)
+        public async Task<bool> CreatePayment(PaymentsDto paymentDto)
         {
-            var isExsists = PaymentExists(payment.Idpayment);
+            var isExsists = PaymentExists(paymentDto.Id);
             if (isExsists)
             {
                 return false;
             }
-            await _context.AddAsync(payment);
+            await _context.AddAsync(paymentDto);
             var isOk = await _context.SaveChangesAsync() >= 0;
             if (isOk)
             {
