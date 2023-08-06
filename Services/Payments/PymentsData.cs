@@ -66,6 +66,7 @@ namespace Services.Payments
                     continue;
                 }
                 var accountsDto = new AccountsDto();
+                accountsDto.id = payment.Idpayment;
                 accountsDto.datePayment = payment.Datepayment;
                 accountsDto.date = payment.Date;
                 accountsDto.tretment = payment.Treatment?.Split(",").ToList();

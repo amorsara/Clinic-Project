@@ -8,6 +8,8 @@ namespace Services.DTO
 {
     public class AccountsDto
     {
+        public int id { get; set; }
+
         public string? datePayment {get; set;}
 
         public DateOnly? date { get; set;}
