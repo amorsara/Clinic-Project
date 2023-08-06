@@ -210,8 +210,10 @@ namespace Services.Contacts
             var contact = await GetContactById(id);
             if(type == "laser")
             {
+                var c1 = await UpdateTreatementNameForContact(id, 'l');
                 return contact?.Remarklaser;
             }
+            var c2 = await UpdateTreatementNameForContact(id, 'e');
             return contact?.Remarkelecr;
         }
 

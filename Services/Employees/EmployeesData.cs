@@ -273,6 +273,21 @@ namespace Services.Employees
             }
             return listEmployees;
         }
+
+        public async Task<List<EmployeeDetails>> GetEmployeeDetails()
+        {
+            var employees = await GetAllEmployees();
+            var list = new List<EmployeeDetails>();
+            foreach(var employee in employees)
+            {
+                var emp = new EmployeeDetails();
+                emp.Id = employee.Idemployee;
+                emp.Name = employee.Name;
+                emp.Color = employee.Color;
+                list.Add(emp);
+            }
+            return list;
+        }
     }
 }
 
