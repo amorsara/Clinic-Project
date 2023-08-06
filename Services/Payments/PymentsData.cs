@@ -73,6 +73,7 @@ namespace Services.Payments
                 accountsDto.Payed = payment.Pay;
                 accountsDto.Debt = payment.Owes;
                 accountsDto.credit = payment.Credit;
+                accountsDto.employee = payment.Employee;
                 var contact = await _iContactsData.GetContactById(payment.Idcontact);
                 if(contact != null)
                 {

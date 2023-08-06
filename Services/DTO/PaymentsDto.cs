@@ -14,6 +14,8 @@ namespace Services.DTO
 
         public int allCredit { get; set; }
 
+        public string? employee { get; set; }
+
         public int pay { get; set; }
 
         public int owes { get; set; }

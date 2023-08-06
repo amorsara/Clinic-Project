@@ -94,6 +94,7 @@ namespace App.Controllers
             payment.R = paymentDto.r;
             payment.Owes = paymentDto.owes;
             payment.Pay = paymentDto.pay;
+            payment.Employee = paymentDto.employee;
             payment.Treatment = paymentDto.treatment?.Count != null ? String.Join(",",paymentDto.treatment) : null;
             payment.Area = paymentDto.area?.Count != null ? String.Join(",", paymentDto.area) : null;
             payment.Type = paymentDto.type;
