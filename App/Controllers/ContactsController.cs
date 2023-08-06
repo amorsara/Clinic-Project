@@ -101,7 +101,11 @@ namespace App.Controllers
         [Route("/api/contacts/updatecontactwrapper")]
         public async Task<IActionResult> UpdateContactWrapper(ContactDto contact)
         {
-            var newContact = new Contact();
+            var newContact = await _iContactsData.GetContactById(contact.id);
+            if(newContact == null)
+            {
+                return BadRequest();
+            }
             newContact.Idcontact = contact.id;
             newContact.Remark = contact.Values[0]?.field1;
             newContact.Phonenumber1 = contact.Values[0]?.field2;
