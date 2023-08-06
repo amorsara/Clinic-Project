@@ -175,6 +175,7 @@ namespace App.Controllers
         {
             Console.WriteLine(contactDetails);
             var newContact = new Contact();
+            newContact.Credit = 0;
             newContact.Laser = newContact.Waxing = newContact.Electrolysis = false;
             newContact.Remark = contactDetails.Values[0]?.field1;
             newContact.Firstname = contactDetails.Values[0]?.field3;
