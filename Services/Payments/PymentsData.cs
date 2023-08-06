@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
+using Services.Contacts;
 using Services.DTO;
 using System;
 using System.Collections.Generic;
@@ -12,10 +13,12 @@ namespace Services.Payments
     public class PymentsData : IPymentsData
     {
         private readonly ClinicDBContext _context;
+        private readonly IContactsData _iContactsData;
 
-        public PymentsData(ClinicDBContext context)
+        public PymentsData(ClinicDBContext context, IContactsData contactsData)
         {
             _context = context;
+            _iContactsData = contactsData;
         }
 
         public async Task<bool> CreatePayment(Payment payment)
@@ -52,7 +55,37 @@ namespace Services.Payments
             return true;
         }
 
-        public async Task<Payment?> GetPaymentById(int id)
+        public async Task<List<AccountsDto>> GetAllPayments()
+        {
+            var payments = await GetPayments();
+            var list = new List<AccountsDto>();
+            foreach(var payment in payments)
+            {
+                if(payment == null || payment.R == false)
+                {
+                    continue;
+                }
+                var accountsDto = new AccountsDto();
+                accountsDto.datePayment = payment.Datepayment;
+                accountsDto.date = payment.Date;
+                accountsDto.tretment = payment.Treatment?.Split(",").ToList();
+                accountsDto.type = payment.Type;
+                accountsDto.Payed = payment.Pay;
+                accountsDto.Debt = payment.Owes;
+                accountsDto.credit = payment.Credit;
+                var contact = await _iContactsData.GetContactById(payment.Idcontact);
+                if(contact != null)
+                {
+                    accountsDto.phone = contact.Phonenumber1;
+                    accountsDto.fullName =  contact.Firstname + " " + contact.Lastname;
+                }
+                list.Add(accountsDto);
+            }
+            return list;
+        }
+
+
+    public async Task<Payment?> GetPaymentById(int id)
         {
             var payment = await _context.Payments.FindAsync(id);
             return payment;

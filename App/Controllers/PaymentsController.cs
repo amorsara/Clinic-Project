@@ -41,6 +41,18 @@ namespace App.Controllers
         }
 
         [HttpGet]
+        [Route("/api/payments/getallpayments")]
+        public async Task<ActionResult<IEnumerable<AccountsDto>>> GetAllPayments()
+        {
+            var payments = await _iPymentsData.GetAllPayments();
+            if (payments == null)
+            {
+                return NotFound();
+            }
+            return payments;
+        }
+
+        [HttpGet]
         [Route("/api/payments/getpaymentsbyid/{id}")]
         public async Task<ActionResult<Payment>> GetPaymentById(int id)
         {
