@@ -28,6 +28,8 @@ public partial class Payment
 
     public bool? R { get; set; }
 
+    public string? Employee { get; set; }
+
     [JsonIgnore]
     public virtual Contact IdcontactNavigation { get; set; } = null!;
 }

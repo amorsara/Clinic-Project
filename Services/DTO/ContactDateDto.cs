@@ -31,6 +31,8 @@ namespace Services.DTO
 
         public bool? Isactive { get; set; }
 
+        public int? allCredit { get; set; }
+
         public List<DateOnly>? ListDates { get; set; }
     }
 }

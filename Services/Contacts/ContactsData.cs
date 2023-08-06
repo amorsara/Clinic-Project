@@ -95,6 +95,7 @@ namespace Services.Contacts
                 contactDates.Remark = contact.Remark;
                 contactDates.Isactive = contact.Isactive;
                 contactDates.ListDates = listDates.ToList();
+                contactDates.allCredit = contact.Credit;
                 listContacts.Add(contactDates);
             }
             return listContacts;

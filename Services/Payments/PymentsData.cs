@@ -61,7 +61,7 @@ namespace Services.Payments
             var list = new List<AccountsDto>();
             foreach(var payment in payments)
             {
-                if(payment == null || payment.R == false)
+                if(payment == null)
                 {
                     continue;
                 }
