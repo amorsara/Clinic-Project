@@ -73,6 +73,7 @@ namespace App.Controllers
                 return NoContent();
             }
 
+          
             var epilationtreatment = await _iEpilationTreatmentData.GetEpilationtreatmentById(epilationtreatmentDto.Idepilationtreatment);
             if(epilationtreatment == null)
             {
@@ -109,6 +110,14 @@ namespace App.Controllers
         [Route("/api/epilationtreatments/createepilationtreatment")]
         public async Task<ActionResult<Epilationtreatment>> CreateEpilationtreatment(EpilationtreatmentDto epilationtreatmentDto)
         {
+
+            var c = await _iContactsData.UpdateTreatementNameForContact(epilationtreatmentDto.idClient, 'e');
+            if (c == null)
+            {
+                return BadRequest();
+            }
+
+
             if (epilationtreatmentDto.remarkElecr != null)
             {
                 var okContact = await _iContactsData.UpdateRemark(epilationtreatmentDto.idClient, epilationtreatmentDto.remarkElecr, "epilation");
