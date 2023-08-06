@@ -66,14 +66,14 @@ namespace App.Controllers
 
         [HttpPut]
         [Route("/api/payments/updatepayment/{id}")]
-        public async Task<IActionResult> UpdatePayment(int id, Payment payment)
+        public async Task<IActionResult> UpdatePayment(int id, AccountsDto accountsDto)
         {
-            if (id != payment.Idpayment)
+            if (id != accountsDto.id)
             {
                 return NoContent();
             }
 
-            var res = await _iPymentsData.UpdatePayment(id, payment);
+            var res = await _iPymentsData.UpdatePayment(id, accountsDto);
             if (res == false)
             {
                 return BadRequest();

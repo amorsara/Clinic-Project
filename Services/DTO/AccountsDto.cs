@@ -20,6 +20,8 @@ namespace Services.DTO
 
         public List<string>? tretment { get; set;}
 
+        public List<string>? area { get; set; }
+
         public string? employee { get; set;}
 
         public int? Payed { get; set;}
@@ -31,6 +33,7 @@ namespace Services.DTO
         public int? credit { get; set;}
     }
 }
+
 
 
 

@@ -70,6 +70,7 @@ namespace Services.Payments
                 accountsDto.datePayment = payment.Datepayment;
                 accountsDto.date = payment.Date;
                 accountsDto.tretment = payment.Treatment?.Split(",").ToList();
+                accountsDto.area = payment.Area?.Split(",").ToList();
                 accountsDto.type = payment.Type;
                 accountsDto.Payed = payment.Pay;
                 accountsDto.Debt = payment.Owes;
@@ -108,8 +109,25 @@ namespace Services.Payments
             return true;
         }
 
-        public async Task<bool> UpdatePayment(int id, Payment payment)
+        public async Task<bool> UpdatePayment(int id, AccountsDto accountsDto)
         {
+            var payment = await GetPaymentById(id);
+            if(payment == null)
+            {
+                return false;
+            }
+
+            payment.Datepayment = accountsDto.datePayment;
+            payment.Date = accountsDto.date;
+            payment.Employee = accountsDto.employee;
+            payment.Pay = accountsDto.Payed;
+            payment.Type = accountsDto.type;
+            payment.Owes = accountsDto.Debt;
+            payment.Credit = accountsDto.credit;
+            payment.Treatment = accountsDto.tretment?.Count != null ? String.Join(",", accountsDto.tretment) : null;
+            payment.Area = accountsDto.area?.Count != null ? String.Join(",", accountsDto.area) : null;
+
+
             _context.Entry(payment).State = EntityState.Modified;
 
             try
