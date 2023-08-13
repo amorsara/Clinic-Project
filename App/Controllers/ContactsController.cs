@@ -118,6 +118,7 @@ namespace App.Controllers
             newContact.Email = contact.Values[2]?.field3;
             newContact.Sem = contact.Sem;
             newContact.Isactive = contact.Active;
+            newContact.Credit = contact.credit;
             var c = await UpdateContact(newContact.Idcontact, newContact);
             return c;
         }
@@ -188,7 +189,8 @@ namespace App.Controllers
             newContact.Urlfile = contactDetails.Values[2]?.field1;
             newContact.Email = contactDetails.Values[2]?.field3;
             newContact.Sem = contactDetails.Sem;
-            newContact.Isactive = true;         
+            newContact.Isactive = true;
+            newContact.Credit = 0;
             if(contactDetails.Priority == "Phonenumber1")
             {
                 newContact.Phonenumber1 = contactDetails.Values[0]?.field2;

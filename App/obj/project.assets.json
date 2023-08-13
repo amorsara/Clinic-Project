@@ -11512,11 +11512,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\Clinic Project\\Clinic\\App\\App.csproj",
+      "projectUniqueName": "D:\\Clinic Project\\Clinic\\App\\App.csproj",
       "projectName": "App",
-      "projectPath": "F:\\Clinic Project\\Clinic\\App\\App.csproj",
+      "projectPath": "D:\\Clinic Project\\Clinic\\App\\App.csproj",
       "packagesPath": "C:\\Users\\user1\\.nuget\\packages\\",
-      "outputPath": "F:\\Clinic Project\\Clinic\\App\\obj\\",
+      "outputPath": "D:\\Clinic Project\\Clinic\\App\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\user1\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -11533,11 +11533,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "F:\\Clinic Project\\Clinic\\Repository\\Repository.csproj": {
-              "projectPath": "F:\\Clinic Project\\Clinic\\Repository\\Repository.csproj"
+            "D:\\Clinic Project\\Clinic\\Repository\\Repository.csproj": {
+              "projectPath": "D:\\Clinic Project\\Clinic\\Repository\\Repository.csproj"
             },
-            "F:\\Clinic Project\\Clinic\\Services\\Services.csproj": {
-              "projectPath": "F:\\Clinic Project\\Clinic\\Services\\Services.csproj"
+            "D:\\Clinic Project\\Clinic\\Services\\Services.csproj": {
+              "projectPath": "D:\\Clinic Project\\Clinic\\Services\\Services.csproj"
             }
           }
         }
