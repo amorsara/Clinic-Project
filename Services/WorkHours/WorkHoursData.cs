@@ -30,72 +30,43 @@ namespace Services.WorkHours
             await _context.AddAsync(workHour);
             var isOk = await _context.SaveChangesAsync() >= 0;
             if (isOk)
-            { 
-                if(workHour.Shift != 'm') // if have other shift...
-                {
-                    var checkOk = await CheckAndUpdate(workHour);
-                    return checkOk;
-                }
-                
-                return true;
+            {
+                var checkOk = await CheckAndUpdate(workHour);
+                return checkOk;
             }
             return false;
         }
 
         public async Task<bool> CheckAndUpdate(Workhour workhour)
         {
-            var shifts = _context.Workhours.Where(w => w.Idemployee == workhour.Idemployee && w.Day == workhour.Day && w.Regularwork == workhour.Regularwork).ToList();
-            var shiftM = shifts.Where(s => s.Shift == 'm').FirstOrDefault();
-            var shiftA = shifts.Where(s => s.Shift == 'a' && workhour.Idworkhour != s.Idworkhour).FirstOrDefault();
-            if(shiftM == null)
+            var shifts = await _context.Workhours.Where(w => w.Idemployee == workhour.Idemployee && w.Day == workhour.Day && w.Regularwork == workhour.Regularwork).ToListAsync();
+
+            bool updateOk1 = true, updateOk2 = true, updateOk3 = true;
+        
+            shifts = shifts.OrderBy(shift => shift.Starthour).ToList();
+            if(shifts.Count >= 1)
+            {
+                var m = shifts[0];
+                m.Shift = 'm';
+                updateOk1 = await UpdateWorkhour(m.Idworkhour, m);
+            }
+            if (shifts.Count >= 2)
+            {
+                var a = shifts[1];
+                a.Shift = 'a';
+                updateOk2 = await UpdateWorkhour(a.Idworkhour, a);
+            }
+            if (shifts.Count >= 3)
+            {
+                var e = shifts[2];
+                e.Shift = 'e';
+                updateOk3 = await UpdateWorkhour(e.Idworkhour, e);
+            }
+            if(!updateOk1 || !updateOk2 || !updateOk3)
             {
                 return false;
             }
-            if(workhour.Shift == 'a' && workhour.Starthour < shiftM.Starthour)
-            {
-                // update a=>m m=>a
-                workhour.Shift = 'm';
-                var updateOk1 = await UpdateWorkhour(workhour.Idworkhour, workhour);
-                shiftM.Shift = 'a';
-                var updateOk2 = await UpdateWorkhour(shiftM.Idworkhour, shiftM);
-                if (!updateOk1 || !updateOk2)
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                if(shiftA == null && workhour.Shift == 'e')
-                {
-                    return false;
-                }
-                if (shiftM != null && shiftA != null && workhour.Starthour <= shiftM.Starthour)
-                {
-                    // update e=>m m=>a a=>e
-                    workhour.Shift = 'm';
-                    var updateOk1 = await UpdateWorkhour(workhour.Idworkhour, workhour);
-                    shiftM.Shift = 'a';
-                    var updateOk2 = await UpdateWorkhour(shiftM.Idworkhour, shiftM);
-                    shiftA.Shift = 'e';
-                    var updateOk3 = await UpdateWorkhour(shiftA.Idworkhour, shiftA);
-                    if (!updateOk1 || !updateOk2 || !updateOk3)
-                    {
-                        return false;
-                    }
-                }
-                if (shiftA != null && workhour.Starthour <= shiftA.Starthour)
-                {
-                    // update e=>a a=>e
-                    workhour.Shift = 'a';
-                    var updateOk1 = await UpdateWorkhour(workhour.Idworkhour, workhour);
-                    shiftA.Shift = 'e';
-                    var updateOk3 = await UpdateWorkhour(shiftA.Idworkhour, shiftA);
-                    if (!updateOk1 || !updateOk3)
-                    {
-                        return false;
-                    }
-                }
-            }
+
             return true;
         }
 
@@ -173,49 +144,18 @@ namespace Services.WorkHours
         public async Task<bool> DeleteShift(int id, int day, TimeOnly time)
         {
             var shift = _context.Workhours.Where(w => w.Idemployee == id && w.Day == day && w.Starthour == time).FirstOrDefault();
-            if(shift == null)
+            var s = shift;
+            if(s == null || shift == null)
             {
                 return false;
             }
             var isOk = await DeleteWorkhour(shift.Idworkhour);
-            if (shift.Shift == 'e') // last shift...
+            var isOk1 = await CheckAndUpdate(s);
+            if(!isOk || !isOk1)
             {
-                return isOk;
+                return false;
             }
-            else
-            {
-                if(shift.Shift == 'a') // mid shift and check if this shift is last...
-                {
-                    var s = _context.Workhours.Where(w => w.Idemployee == id && w.Day == day && w.Shift == 'e').FirstOrDefault();
-                    if(s != null) // not last, need to update the shift - e...
-                    {
-                        s.Shift = 'a';
-                        var okUpdate = await UpdateWorkhour(s.Idworkhour, s);
-                    }
-                    return isOk;
-                }
-                else // this shift is - m
-                {
-                    var sh = _context.Workhours.Where(w => w.Idemployee == id && w.Day == day).ToList();
-                    if(sh != null)
-                    {
-                        foreach(var item in sh)
-                        {
-                            if(item.Shift == 'a')
-                            {
-                                item.Shift = 'm';
-                                var okUpdate = await UpdateWorkhour(item.Idworkhour, item);
-                            }
-                            else
-                            {
-                                item.Shift = 'a';
-                                var okUpdate = await UpdateWorkhour(item.Idworkhour, item);
-                            }
-                        }
-                    }
-                }
-            }
-            return isOk;
+            return true;
         }
 
 
@@ -262,3 +202,144 @@ namespace Services.WorkHours
 
     }
 }
+
+
+
+
+//if (shifts.Count == 0) // the first shift...
+//{
+//    workhour.Shift = 'm';
+//    var updateOk1 = await UpdateWorkhour(workhour.Idworkhour, workhour);
+//    return updateOk1;
+//}
+//else
+//{
+//    if (shifts.Count == 1) // there is one shift in m - need check the time...
+//    {
+//        if (shifts[0].Starthour <= workhour.Starthour)
+//        {
+//            workhour.Shift = 'a';
+//            var updateOk1 = await UpdateWorkhour(workhour.Idworkhour, workhour);
+//            return updateOk1;
+//        }
+//        else // need to update the shift - m=>a & a=>m
+//        {
+//            workhour.Shift = 'm';
+//            var updateOk1 = await UpdateWorkhour(workhour.Idworkhour, workhour);
+//            shifts[0].Shift = 'a';
+//            var updateOk2 = await UpdateWorkhour(workhour.Idworkhour, workhour);
+//            if (!updateOk1 || !updateOk2)
+//            {
+//                return false;
+//            }
+//        }
+//    }
+//}
+
+
+//public async Task<bool> CheckAndUpdate(Workhour workhour)
+//{
+//    var shifts = _context.Workhours.Where(w => w.Idemployee == workhour.Idemployee && w.Day == workhour.Day && w.Regularwork == workhour.Regularwork).ToList();
+//    var shiftM = shifts.Where(s => s.Shift == 'm').FirstOrDefault();
+//    var shiftA = shifts.Where(s => s.Shift == 'a' && workhour.Idworkhour != s.Idworkhour).FirstOrDefault();
+//    if (shiftM == null)
+//    {
+//        return false;
+//    }
+//    if (workhour.Shift == 'a' && workhour.Starthour < shiftM.Starthour)
+//    {
+//        // update a=>m m=>a
+//        workhour.Shift = 'm';
+//        var updateOk1 = await UpdateWorkhour(workhour.Idworkhour, workhour);
+//        shiftM.Shift = 'a';
+//        var updateOk2 = await UpdateWorkhour(shiftM.Idworkhour, shiftM);
+//        if (!updateOk1 || !updateOk2)
+//        {
+//            return false;
+//        }
+//    }
+//    else
+//    {
+//        if (shiftA == null && workhour.Shift == 'e')
+//        {
+//            return false;
+//        }
+//        if (shiftM != null && shiftA != null && workhour.Starthour <= shiftM.Starthour)
+//        {
+//            // update e=>m m=>a a=>e
+//            workhour.Shift = 'm';
+//            var updateOk1 = await UpdateWorkhour(workhour.Idworkhour, workhour);
+//            shiftM.Shift = 'a';
+//            var updateOk2 = await UpdateWorkhour(shiftM.Idworkhour, shiftM);
+//            shiftA.Shift = 'e';
+//            var updateOk3 = await UpdateWorkhour(shiftA.Idworkhour, shiftA);
+//            if (!updateOk1 || !updateOk2 || !updateOk3)
+//            {
+//                return false;
+//            }
+//        }
+//        if (shiftA != null && workhour.Starthour <= shiftA.Starthour)
+//        {
+//            // update e=>a a=>e
+//            workhour.Shift = 'a';
+//            var updateOk1 = await UpdateWorkhour(workhour.Idworkhour, workhour);
+//            shiftA.Shift = 'e';
+//            var updateOk3 = await UpdateWorkhour(shiftA.Idworkhour, shiftA);
+//            if (!updateOk1 || !updateOk3)
+//            {
+//                return false;
+//            }
+//        }
+//    }
+//    return true;
+//}
+
+
+
+//public async Task<bool> DeleteShift(int id, int day, TimeOnly time)
+//{
+//    var shift = _context.Workhours.Where(w => w.Idemployee == id && w.Day == day && w.Starthour == time).FirstOrDefault();
+//    if (shift == null)
+//    {
+//        return false;
+//    }
+//    var isOk = await DeleteWorkhour(shift.Idworkhour);
+//    if (shift.Shift == 'e') // last shift...
+//    {
+//        return isOk;
+//    }
+//    else
+//    {
+//        if (shift.Shift == 'a') // mid shift and check if this shift is last...
+//        {
+//            var s = _context.Workhours.Where(w => w.Idemployee == id && w.Day == day && w.Shift == 'e').FirstOrDefault();
+//            if (s != null) // not last, need to update the shift - e...
+//            {
+//                s.Shift = 'a';
+//                var okUpdate = await UpdateWorkhour(s.Idworkhour, s);
+//            }
+//            return isOk;
+//        }
+//        else // this shift is - m
+//        {
+//            var sh = _context.Workhours.Where(w => w.Idemployee == id && w.Day == day).ToList();
+//            if (sh != null)
+//            {
+//                foreach (var item in sh)
+//                {
+//                    if (item.Shift == 'a')
+//                    {
+//                        item.Shift = 'm';
+//                        var okUpdate = await UpdateWorkhour(item.Idworkhour, item);
+//                    }
+//                    else
+//                    {
+//                        item.Shift = 'a';
+//                        var okUpdate = await UpdateWorkhour(item.Idworkhour, item);
+//                    }
+//                }
+//            }
+//        }
+//    }
+//    return isOk;
+//}
