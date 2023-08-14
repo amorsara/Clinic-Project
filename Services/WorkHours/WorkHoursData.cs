@@ -46,7 +46,7 @@ namespace Services.WorkHours
         {
             var shifts = _context.Workhours.Where(w => w.Idemployee == workhour.Idemployee && w.Day == workhour.Day && w.Regularwork == workhour.Regularwork).ToList();
             var shiftM = shifts.Where(s => s.Shift == 'm').FirstOrDefault();
-            var shiftA = shifts.Where(s => s.Shift == 'a').FirstOrDefault();
+            var shiftA = shifts.Where(s => s.Shift == 'a' && workhour.Idworkhour != s.Idworkhour).FirstOrDefault();
             if(shiftM == null)
             {
                 return false;
@@ -65,11 +65,11 @@ namespace Services.WorkHours
             }
             else
             {
-                if(shiftA == null)
+                if(shiftA == null && workhour.Shift == 'e')
                 {
                     return false;
                 }
-                if (shiftM != null && workhour.Starthour <= shiftM.Starthour)
+                if (shiftM != null && shiftA != null && workhour.Starthour <= shiftM.Starthour)
                 {
                     // update e=>m m=>a a=>e
                     workhour.Shift = 'm';
