@@ -48,6 +48,18 @@ namespace App.Controllers
             return waiting;
         }
 
+        [HttpGet]
+        [Route("/api/waitings/deleteallwaitingspastdate")]
+        public async Task<IActionResult> DeleteAllWaitingWithPastDate()
+        {
+            var isOk = await _iWaitingsData.DeleteAllWaitingWithPastDate();
+            if (isOk == false)
+            {
+                return NotFound();
+            }
+            return Ok(isOk);
+        }
+
         [HttpPut]
         [Route("/api/waitings/updatewaiting/{id}")]
         public async Task<IActionResult> UpdateWaiting(int id, Waiting waiting)
@@ -97,20 +109,23 @@ namespace App.Controllers
         [Route("/api/waitings/deletewaiting/{id}")]
         public async Task<IActionResult> DeleteWaiting(int id)
         {
-            if (_context.Waitings == null)
+            if (id == 0)
             {
-                return NotFound();
-            }
-            var waiting = await _context.Waitings.FindAsync(id);
-            if (waiting == null)
-            {
-                return NotFound();
+                return BadRequest();
             }
 
-            _context.Waitings.Remove(waiting);
-            await _context.SaveChangesAsync();
+            var witting = await _context.Waitings.Where(w => w.Idwaiting == id).FirstOrDefaultAsync();
+            if(witting == null)
+            {
+                return NoContent();
+            }
 
-            return NoContent();
+            var res = await _iWaitingsData.DeleteWaiting(witting);
+            if (res == false)
+            {
+                return BadRequest();
+            }
+            return Ok(res);
         }
     }
 }

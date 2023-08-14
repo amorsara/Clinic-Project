@@ -57,5 +57,39 @@ namespace Services.Waitings
             }
             return true;
         }
+
+        public async Task<bool> DeleteWaiting(Waiting waiting)
+        {
+            if (_context.Waitings == null)
+            {
+                return false;
+            }
+            var ok = await _context.Waitings.FindAsync(waiting.Idwaiting);
+            if (ok == null)
+            {
+                return false;
+            }
+
+            _context.Waitings.Remove(waiting);
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<bool> DeleteAllWaitingWithPastDate()
+        {
+            DateOnly today = DateOnly.FromDateTime(DateTime.Now);
+            var waitings = await _context.Waitings.Where(w => w.Untildate < today).ToListAsync();
+            var isOk = true;
+            foreach(var waiting in waitings)
+            {
+                var okDel = await DeleteWaiting(waiting);
+                if(okDel == false)
+                {
+                    isOk = false;
+                }
+            }
+            return isOk;
+        }
     }
 }

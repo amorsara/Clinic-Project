@@ -16,6 +16,10 @@ namespace Services.Waitings
 
         Task<bool> CreateWaiting(Waiting waiting);
 
+        Task<bool> DeleteWaiting(Waiting waiting);
+
+        Task<bool> DeleteAllWaitingWithPastDate();
+
         bool WaitingExists(int id);
 
     }
