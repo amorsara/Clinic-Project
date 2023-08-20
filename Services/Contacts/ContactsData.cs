@@ -155,7 +155,7 @@ namespace Services.Contacts
             return true;
         }
 
-        public async Task<ActionResult<Contact?>> UpdateTreatementNameForContact(int id, char? type)
+        public async Task<ActionResult<Contact?>> UpdateTreatementNameForContact(int id, string? type)
         {
             Console.WriteLine(type);
             var c = await GetContactById(id);
@@ -163,13 +163,13 @@ namespace Services.Contacts
             {
                 return c;
             }
-            if (type == 'L' || type == 'l')
+            if (type == "Laser" || type == "laser")
             {
                 c.Laser = true;
             }
             else
             {
-                if (type == 'E' || type == 'e')
+                if (type == "Electrolysis" || type == "electrolysis")
                 {
                     c.Electrolysis = true;
                 }

@@ -23,6 +23,6 @@ namespace Services.Contacts
         Task<string?> GetRemark(int id, string type);
         bool ContactExists(int id);
         Task<bool> UpdateContact(int id, Contact contact);
-        Task<ActionResult<Contact?>> UpdateTreatementNameForContact(int id, char? type);
+        Task<ActionResult<Contact?>> UpdateTreatementNameForContact(int id, string? type);
     }
 }
