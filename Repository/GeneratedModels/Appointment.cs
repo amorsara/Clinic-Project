@@ -36,9 +36,12 @@ public partial class Appointment
 
     public int? Duration { get; set; }
 
+    [JsonIgnore]
     public virtual Contact IdcontactNavigation { get; set; } = null!;
 
+    [JsonIgnore]
     public virtual Employee IdemployeeNavigation { get; set; } = null!;
 
+    [JsonIgnore]
     public virtual Room IdroomNavigation { get; set; } = null!;
 }
