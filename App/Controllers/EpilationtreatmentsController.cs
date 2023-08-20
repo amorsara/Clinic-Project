@@ -111,7 +111,7 @@ namespace App.Controllers
         public async Task<ActionResult<Epilationtreatment>> CreateEpilationtreatment(EpilationtreatmentDto epilationtreatmentDto)
         {
 
-            var c = await _iContactsData.UpdateTreatementNameForContact(epilationtreatmentDto.idClient, 'e');
+            var c = await _iContactsData.UpdateTreatementNameForContact(epilationtreatmentDto.idClient, "Electrolysis");
             if (c == null)
             {
                 return BadRequest();

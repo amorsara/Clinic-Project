@@ -108,7 +108,7 @@ namespace App.Controllers
         [Route("/api/lasertreatments/createlasertreatment")]
         public async Task<ActionResult<Lasertreatment>> CreateLasertreatment(LasertreatmentDto lasertreatmentDto)
         {
-            var c = await _iContactsData.UpdateTreatementNameForContact(lasertreatmentDto.idClient, 'l');
+            var c = await _iContactsData.UpdateTreatementNameForContact(lasertreatmentDto.idClient, "Laser");
             if (c == null)
             {
                 return BadRequest();
