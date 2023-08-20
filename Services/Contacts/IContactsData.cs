@@ -12,8 +12,8 @@ namespace Services.Contacts
     public interface IContactsData
     {
         Task<List<Contact>> GetAllContacts();
-        Task<List<Contact>> GetSemContacts();
-        Task<List<Contact>> GetActiveContacts();
+        //Task<List<Contact>> GetSemContacts();
+        //Task<List<Contact>> GetActiveContacts();
         //Task<List<WaitTreatmentsDto>> GetAllWaitDates();
         Task<List<ContactDateDto>> GetContactsWithDates();
         Task <Contact?> GetContactById(int id);

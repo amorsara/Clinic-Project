@@ -60,29 +60,29 @@ namespace App.Controllers
             return contact;
         }
 
-        [HttpGet]
-        [Route("/api/contacts/getsemcontacts")]
-        public async Task<ActionResult<IEnumerable<Contact>>> GetSemContacts()
-        {
-            var result = await _iContactsData.GetSemContacts();
-            if (result == null)
-            {
-                return NotFound();
-            }
-            return result;
-        }
+        //[HttpGet]
+        //[Route("/api/contacts/getsemcontacts")]
+        //public async Task<ActionResult<IEnumerable<Contact>>> GetSemContacts()
+        //{
+        //    var result = await _iContactsData.GetSemContacts();
+        //    if (result == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return result;
+        //}
 
-        [HttpGet]
-        [Route("/api/contacts/getactivecontacts")]
-        public async Task<ActionResult<IEnumerable<Contact>>> GetActiveContacts()
-        {
-            var result = await _iContactsData.GetActiveContacts();
-            if (result == null)
-            {
-                return NotFound();
-            }
-            return result;
-        }
+        //[HttpGet]
+        //[Route("/api/contacts/getactivecontacts")]
+        //public async Task<ActionResult<IEnumerable<Contact>>> GetActiveContacts()
+        //{
+        //    var result = await _iContactsData.GetActiveContacts();
+        //    if (result == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return result;
+        //}
 
         //[HttpGet]
         //[Route("/api/contacts/getallwaitdates")]
@@ -162,7 +162,7 @@ namespace App.Controllers
             Console.WriteLine(contactDetails);
             var newContact = new Contact();
             newContact.Credit = 0;
-            newContact.Isshow = contactDetails.IsShow;
+            newContact.Isshow = true;
             newContact.Laser = newContact.Waxing = newContact.Electrolysis = false;
             newContact.Remark = contactDetails.Values[0]?.field1;
             newContact.Firstname = contactDetails.Values[0]?.field3;

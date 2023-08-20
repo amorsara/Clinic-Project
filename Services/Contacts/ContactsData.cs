@@ -63,15 +63,15 @@ namespace Services.Contacts
             return await _context.Contacts.ToListAsync();
         }
 
-        public async Task<List<Contact>> GetSemContacts()
-        {
-            return await _context.Contacts.Where(c => c.Sem == true).ToListAsync();            
-        }
+        //public async Task<List<Contact>> GetSemContacts()
+        //{
+        //    return await _context.Contacts.Where(c => c.Sem == true && c.Isshow == true).ToListAsync();            
+        //}
 
-        public async Task<List<Contact>> GetActiveContacts()
-        {
-            return await _context.Contacts.Where(c => c.Isactive == true).ToListAsync();
-        }
+        //public async Task<List<Contact>> GetActiveContacts()
+        //{
+        //    return await _context.Contacts.Where(c => c.Isactive == true && c.Isshow == true).ToListAsync();
+        //}
 
         public async Task<List<ContactDateDto>> GetContactsWithDates()
         {

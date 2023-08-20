@@ -56,6 +56,7 @@ namespace Services.Schedule
                 scheduleDto.phone1 = contact?.Phonenumber1;
                 scheduleDto.phonen2 = contact?.Phonenumber2;
                 scheduleDto.phone3 = contact?.Phonenumber3;
+                scheduleDto.detailsType = appointment.Area != null ? appointment.Area : (appointment.Duration != null ? appointment.Duration.ToString() : null);
                 list.Add(scheduleDto);
             }
             return list;

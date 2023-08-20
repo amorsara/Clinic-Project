@@ -43,5 +43,7 @@ namespace Services.DTO
         public char? shift { get; set; }
 
         public bool? cancel { get; set; }
+
+        public string? detailsType { get; set; }
     }
 }
