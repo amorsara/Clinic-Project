@@ -191,7 +191,7 @@ namespace App.Controllers
             newContact.Urlfile = contactDetails.Values[2]?.field1;
             newContact.Email = contactDetails.Values[2]?.field3;
             newContact.Sem = contactDetails.Sem;
-            newContact.Isactive = true;
+            newContact.Isactive = contactDetails.Active;
             newContact.Credit = 0;
             if(contactDetails.Priority == "Phonenumber1")
             {

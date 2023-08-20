@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 namespace Repository.GeneratedModels;
 
@@ -8,7 +7,7 @@ public partial class Appointment
 {
     public int Idappointment { get; set; }
 
-    public char? Treatmentname { get; set; }
+    public string? Treatmentname { get; set; }
 
     public int Idemployee { get; set; }
 
@@ -36,12 +35,9 @@ public partial class Appointment
 
     public int? Duration { get; set; }
 
-    [JsonIgnore]
     public virtual Contact IdcontactNavigation { get; set; } = null!;
 
-    [JsonIgnore]
     public virtual Employee IdemployeeNavigation { get; set; } = null!;
 
-    [JsonIgnore]
     public virtual Room IdroomNavigation { get; set; } = null!;
 }

@@ -73,7 +73,7 @@ public partial class ClinicDBContext : DbContext
             entity.Property(e => e.Timeend).HasColumnName("timeend");
             entity.Property(e => e.Timestart).HasColumnName("timestart");
             entity.Property(e => e.Treatmentname)
-                .HasMaxLength(1)
+                .HasColumnType("character varying")
                 .HasColumnName("treatmentname");
             entity.Property(e => e.Wait).HasColumnName("wait");
 
