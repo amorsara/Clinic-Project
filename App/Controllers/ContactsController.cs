@@ -217,12 +217,26 @@ namespace App.Controllers
             return contact;       
         }
 
-       
-
 
         [HttpDelete]
         [Route("/api/contacts/deletecontact/{id}")]
         public async Task<IActionResult> DeleteContact(int id)
+        {
+            var contact = await _iContactsData.GetContactById(id);
+            if(contact == null)
+            {
+                return BadRequest();
+            }
+            contact.Isshow = false;
+            var isOk = await UpdateContact(contact.Idcontact, contact);
+            return Ok(isOk);
+        }
+
+
+
+        [HttpDelete]
+        [Route("/api/contacts/deletecontactbyid/{id}")]
+        public async Task<IActionResult> DeleteContactById(int id)
         {
             if (_context.Contacts == null)
             {
