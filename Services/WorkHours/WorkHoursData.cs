@@ -27,12 +27,28 @@ namespace Services.WorkHours
             {
                 return false;
             }
+            var res = await Check(workHour);
+            if(res == false)
+            {
+                return res;
+            }
             await _context.AddAsync(workHour);
             var isOk = await _context.SaveChangesAsync() >= 0;
             if (isOk)
             {
-                var checkOk = await CheckAndUpdate(workHour);
-                return checkOk;
+                return true;
+                //var checkOk = await CheckAndUpdate(workHour);
+                //return checkOk;
+            }
+            return false;
+        }
+
+        public async Task<bool> Check(Workhour workhour)
+        {
+            var shift = await _context.Workhours.Where(w => w.Idemployee == workhour.Idemployee && w.Day == workhour.Day && w.Shift == workhour.Shift && w.Regularwork == workhour.Regularwork).FirstOrDefaultAsync();
+            if(shift == null)
+            {
+                return true;
             }
             return false;
         }
