@@ -274,6 +274,9 @@ public partial class ClinicDBContext : DbContext
             entity.Property(e => e.Owes).HasColumnName("owes");
             entity.Property(e => e.Pay).HasColumnName("pay");
             entity.Property(e => e.R).HasColumnName("r");
+            entity.Property(e => e.Remark)
+                .HasColumnType("character varying")
+                .HasColumnName("remark");
             entity.Property(e => e.Treatment)
                 .HasColumnType("character varying")
                 .HasColumnName("treatment");

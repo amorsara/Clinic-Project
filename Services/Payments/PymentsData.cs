@@ -76,6 +76,7 @@ namespace Services.Payments
                 accountsDto.Debt = payment.Owes;
                 accountsDto.credit = payment.Credit;
                 accountsDto.employee = payment.Employee;
+                accountsDto.remark = payment.Remark;
                 var contact = await _iContactsData.GetContactById(payment.Idcontact);
                 if(contact != null)
                 {

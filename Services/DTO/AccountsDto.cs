@@ -31,6 +31,8 @@ namespace Services.DTO
         public int? Debt { get; set;}
 
         public int? credit { get; set;}
+
+        public string? remark { get; set;}  
     }
 }
 

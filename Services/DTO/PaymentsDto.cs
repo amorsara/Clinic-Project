@@ -34,6 +34,8 @@ namespace Services.DTO
 
         public bool r { get; set; }
 
+        public string? remark { get; set; }
+
     }
 }
 

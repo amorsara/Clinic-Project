@@ -30,6 +30,8 @@ public partial class Payment
 
     public string? Employee { get; set; }
 
+    public string? Remark { get; set; }
+
     [JsonIgnore]
     public virtual Contact IdcontactNavigation { get; set; } = null!;
 }
