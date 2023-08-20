@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Repository.GeneratedModels;
 
@@ -43,11 +44,15 @@ public partial class Contact
 
     public bool? Isshow { get; set; }
 
+    [JsonIgnore]
     public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 
+    [JsonIgnore]
     public virtual ICollection<Epilationtreatment> Epilationtreatments { get; set; } = new List<Epilationtreatment>();
 
+    [JsonIgnore]
     public virtual ICollection<Lasertreatment> Lasertreatments { get; set; } = new List<Lasertreatment>();
 
+    [JsonIgnore]
     public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
 }

@@ -138,26 +138,6 @@ namespace App.Controllers
                 return BadRequest();
             }
             return Ok();
-
-            //_context.Entry(contact).State = EntityState.Modified;
-
-            //try
-            //{
-            //    await _context.SaveChangesAsync();
-            //}
-            //catch (DbUpdateConcurrencyException)
-            //{
-            //    if (!_iContactsData.ContactExists(id))
-            //    {
-            //        return NotFound();
-            //    }
-            //    else
-            //    {
-            //        throw;
-            //    }
-            //}
-
-            //return NoContent();
         }
 
         [HttpPost]

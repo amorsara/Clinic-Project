@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Repository.GeneratedModels;
 
@@ -21,7 +22,9 @@ public partial class Workhour
 
     public int? Idroom { get; set; }
 
+    [JsonIgnore]
     public virtual Employee IdemployeeNavigation { get; set; } = null!;
 
+    [JsonIgnore]
     public virtual Room? IdroomNavigation { get; set; }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Repository.GeneratedModels;
 
@@ -17,7 +18,9 @@ public partial class Employee
 
     public string? Treatmentstype { get; set; }
 
+    [JsonIgnore]
     public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 
+    [JsonIgnore]
     public virtual ICollection<Workhour> Workhours { get; set; } = new List<Workhour>();
 }
