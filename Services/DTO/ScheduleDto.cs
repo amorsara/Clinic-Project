@@ -32,7 +32,7 @@ namespace Services.DTO
 
         public string? note { get; set; }
 
-        public char? type { get; set; }
+        public string? type { get; set; }
 
         public string? phone1 { get; set; }
 
