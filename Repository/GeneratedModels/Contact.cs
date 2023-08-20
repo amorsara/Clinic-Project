@@ -42,6 +42,8 @@ public partial class Contact
 
     public int? Credit { get; set; }
 
+    public bool? Isshow { get; set; }
+
     [JsonIgnore]
     public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 

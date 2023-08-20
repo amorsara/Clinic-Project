@@ -112,6 +112,7 @@ public partial class ClinicDBContext : DbContext
                 .HasColumnType("character varying")
                 .HasColumnName("howcomeus");
             entity.Property(e => e.Isactive).HasColumnName("isactive");
+            entity.Property(e => e.Isshow).HasColumnName("isshow");
             entity.Property(e => e.Laser).HasColumnName("laser");
             entity.Property(e => e.Lastname)
                 .HasMaxLength(50)

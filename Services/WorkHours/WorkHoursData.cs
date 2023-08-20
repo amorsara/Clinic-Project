@@ -166,8 +166,8 @@ namespace Services.WorkHours
                 return false;
             }
             var isOk = await DeleteWorkhour(shift.Idworkhour);
-            var isOk1 = await CheckAndUpdate(s);
-            if(!isOk || !isOk1)
+            //var isOk1 = await CheckAndUpdate(s);
+            if(!isOk)
             {
                 return false;
             }
