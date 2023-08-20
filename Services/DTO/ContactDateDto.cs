@@ -33,6 +33,8 @@ namespace Services.DTO
 
         public int? allCredit { get; set; }
 
+        public bool? isshow { get; set; }
+
         public List<DateOnly>? ListDates { get; set; }
     }
 }

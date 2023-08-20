@@ -16,6 +16,8 @@ namespace Services.DTO
 
         public string? Priority { get; set; }
 
+        public bool? IsShow { get; set; }
+
         public List<ListFieldsDto?> Values { get; set; } = new List<ListFieldsDto?>();
 
         public int? credit { get; set; }

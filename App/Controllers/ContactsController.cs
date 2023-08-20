@@ -84,17 +84,17 @@ namespace App.Controllers
             return result;
         }
 
-        [HttpGet]
-        [Route("/api/contacts/getallwaitdates")]
-        public async Task<ActionResult<IEnumerable<WaitTreatmentsDto>>> GetAllWaitDates()
-        {
-            var result = await _iContactsData.GetAllWaitDates();
-            if (result == null)
-            {
-                return NotFound();
-            }
-            return result;
-        }
+        //[HttpGet]
+        //[Route("/api/contacts/getallwaitdates")]
+        //public async Task<ActionResult<IEnumerable<WaitTreatmentsDto>>> GetAllWaitDates()
+        //{
+        //    var result = await _iContactsData.GetAllWaitDates();
+        //    if (result == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return result;
+        //}
 
 
         [HttpPost]
@@ -119,6 +119,7 @@ namespace App.Controllers
             newContact.Sem = contact.Sem;
             newContact.Isactive = contact.Active;
             newContact.Credit = contact.credit;
+            newContact.Isshow = contact.IsShow;
             var c = await UpdateContact(newContact.Idcontact, newContact);
             return c;
         }
@@ -181,6 +182,7 @@ namespace App.Controllers
             Console.WriteLine(contactDetails);
             var newContact = new Contact();
             newContact.Credit = 0;
+            newContact.Isshow = contactDetails.IsShow;
             newContact.Laser = newContact.Waxing = newContact.Electrolysis = false;
             newContact.Remark = contactDetails.Values[0]?.field1;
             newContact.Firstname = contactDetails.Values[0]?.field3;

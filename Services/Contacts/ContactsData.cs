@@ -79,6 +79,10 @@ namespace Services.Contacts
             var listContacts = new List<ContactDateDto>();
             foreach (var contact in contacts)
             {
+                if(contact.Isshow == false)
+                {
+                    continue;
+                }
                 var contactDates = new ContactDateDto();
                 var listDates = await _iAppointmentsData.GetDatesOfAppointments(contact.Idcontact);
                 contactDates.Idcontact = contact.Idcontact;
@@ -96,40 +100,37 @@ namespace Services.Contacts
                 contactDates.Isactive = contact.Isactive;
                 contactDates.ListDates = listDates.ToList();
                 contactDates.allCredit = contact.Credit;
+                contactDates.isshow = contact.Isshow;
                 listContacts.Add(contactDates);
             }
             return listContacts;
         }
 
-        public async Task<List<WaitTreatmentsDto>> GetAllWaitDates()
-        {
-            var appointments = await _iAppointmentsData.GetAllWaitDates();
-            var list = new List<WaitTreatmentsDto>();
-            int cnt = 0;
-            foreach (var appointment in appointments)
-            {
-                var contact = await GetContactById(appointment.Idcontact);
-                if (contact == null || appointment.Date == null)
-                {
-                    continue;
-                }
-                var waitTreatment = new WaitTreatmentsDto() ;
-                waitTreatment.Id = cnt++;
-                waitTreatment.FullName = contact.Firstname + " " + contact.Lastname;
-                waitTreatment.Phonenumber1 = contact.Phonenumber1;
-                waitTreatment.Phonenumber2 = contact.Phonenumber2;
-                waitTreatment.Type = appointment.Treatmentname;
-                waitTreatment.Date = (DateOnly)appointment.Date;
-                waitTreatment.Remark = contact.Remark;
-                list.Add(waitTreatment);
-            }
-            return list;
-        }
+        //public async Task<List<WaitTreatmentsDto>> GetAllWaitDates()
+        //{
+        //    var appointments = await _iAppointmentsData.GetAllWaitDates();
+        //    var list = new List<WaitTreatmentsDto>();
+        //    int cnt = 0;
+        //    foreach (var appointment in appointments)
+        //    {
+        //        var contact = await GetContactById(appointment.Idcontact);
+        //        if (contact == null || appointment.Date == null)
+        //        {
+        //            continue;
+        //        }
+        //        var waitTreatment = new WaitTreatmentsDto() ;
+        //        waitTreatment.Id = cnt++;
+        //        waitTreatment.FullName = contact.Firstname + " " + contact.Lastname;
+        //        waitTreatment.Phonenumber1 = contact.Phonenumber1;
+        //        waitTreatment.Phonenumber2 = contact.Phonenumber2;
+        //        waitTreatment.Type = appointment.Treatmentname;
+        //        waitTreatment.Date = (DateOnly)appointment.Date;
+        //        waitTreatment.Remark = contact.Remark;
+        //        list.Add(waitTreatment);
+        //    }
+        //    return list;
+        //}
 
-        public Task<List<DateOnly>> GetAllFutureDates()
-        {
-            throw new NotImplementedException();
-        }
 
         public async Task<bool> UpdateContact(int id, Contact contact)
         {
