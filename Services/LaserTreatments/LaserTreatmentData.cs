@@ -73,8 +73,8 @@ namespace Services.LaserTreatments
                 laserDto.colorWorker = lasertreatment.Coloremployee;
                 laserDto.Results = lasertreatment.Results;
                 laserDto.Area = lasertreatment.Area?.Split(",").ToList();
-                laserDto.Ms = lasertreatment.Ms;
-                laserDto.Spotsize = lasertreatment.Spotsize;
+                laserDto.Ms = lasertreatment.Ms?.Split(",").ToList();
+                laserDto.Spotsize = lasertreatment.Spotsize?.Split(",").ToList();
                 if (lasertreatment != null && lasertreatment.Idcontact == id)
                 {
                     list.Add(laserDto);

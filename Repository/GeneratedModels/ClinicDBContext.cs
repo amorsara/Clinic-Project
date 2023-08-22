@@ -226,7 +226,9 @@ public partial class ClinicDBContext : DbContext
                 .HasColumnType("character varying")
                 .HasColumnName("energy");
             entity.Property(e => e.Idcontact).HasColumnName("idcontact");
-            entity.Property(e => e.Ms).HasColumnName("ms");
+            entity.Property(e => e.Ms)
+                .HasColumnType("character varying")
+                .HasColumnName("ms");
             entity.Property(e => e.Results)
                 .HasColumnType("character varying")
                 .HasColumnName("results");

@@ -93,8 +93,8 @@ namespace App.Controllers
             lasertreatment.Coloremployee = lasertreatmentDto.colorWorker;
             lasertreatment.Results = lasertreatmentDto.Results;
             lasertreatment.Energy = lasertreatmentDto.Energy;
-            lasertreatment.Spotsize = lasertreatmentDto.Spotsize;
-            lasertreatment.Ms = lasertreatmentDto.Ms;
+            lasertreatment.Spotsize = lasertreatmentDto.Spotsize?.Count != null ? String.Join(",", lasertreatmentDto.Spotsize) : null;
+            lasertreatment.Ms = lasertreatmentDto.Ms?.Count != null ? String.Join(",", lasertreatmentDto.Ms) : null;
 
             var res = await _iLaserTreatmentData.UpdateLasertreatment(id, lasertreatment);
             if (res == false)
@@ -132,8 +132,8 @@ namespace App.Controllers
             lasertreatment.Coloremployee = lasertreatmentDto.colorWorker;
             lasertreatment.Results = lasertreatmentDto.Results;
             lasertreatment.Energy = lasertreatmentDto.Energy;
-            lasertreatment.Spotsize = lasertreatmentDto.Spotsize;
-            lasertreatment.Ms = lasertreatmentDto.Ms;
+            lasertreatment.Spotsize = lasertreatmentDto.Spotsize?.Count != null ? String.Join(",", lasertreatmentDto.Spotsize) : null;
+            lasertreatment.Ms = lasertreatmentDto.Ms?.Count != null ? String.Join(",", lasertreatmentDto.Ms) : null;
             var result = await _iLaserTreatmentData.CreateLasertreatments(lasertreatment);
             if (result)
             {

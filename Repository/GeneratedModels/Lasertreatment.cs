@@ -16,7 +16,7 @@ public partial class Lasertreatment
 
     public string? Area { get; set; }
 
-    public int? Ms { get; set; }
+    public string? Ms { get; set; }
 
     public string? Spotsize { get; set; }
 

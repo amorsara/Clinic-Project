@@ -18,9 +18,9 @@ namespace Services.DTO
 
         public List<string>? Area { get; set; }
 
-        public int? Ms { get; set; }
+        public List<string>? Ms { get; set; }
 
-        public string? Spotsize { get; set; }
+        public List<string>? Spotsize { get; set; }
 
         public string? Energy { get; set; }
 
