@@ -237,7 +237,7 @@ namespace Services.Contacts
                 return false;
             }
 
-            contact.Remarklaser = laserDetailsDto.remarkLaser + "," + laserDetailsDto.hair + "," + laserDetailsDto.skin;
+            contact.Remarklaser = laserDetailsDto.remarkLaser + "," + laserDetailsDto.hair?.name + "," + laserDetailsDto.hair?.color + "," + laserDetailsDto.skin;
 
             var isOk = await UpdateContact(contact.Idcontact,contact);
             return isOk;

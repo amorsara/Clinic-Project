@@ -12,7 +12,7 @@ namespace Services.DTO
 
         public string? remarkLaser { get; set; }
 
-        public string? hair { get; set; }
+        public HairDto? hair { get; set; }
 
         public string? skin { get; set; }
 

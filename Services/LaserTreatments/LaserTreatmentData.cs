@@ -82,8 +82,11 @@ namespace Services.LaserTreatments
             }
             laserCard.idClient = id;
             laserCard.remarkLaser = listRemark != null ? listRemark[0] : null;
-            laserCard.hair = listRemark != null ? listRemark[1] : null;
-            laserCard.skin = listRemark != null ? listRemark[2] : null;
+            var hair = new HairDto();
+            hair.name = listRemark != null ? listRemark[1] : null;
+            hair.color = listRemark != null ? listRemark[2] : null;
+            laserCard.hair = hair;
+            laserCard.skin = listRemark != null ? listRemark[3] : null;
             laserCard.listTreatments = list;
             return laserCard;
         }
