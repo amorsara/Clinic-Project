@@ -52,7 +52,7 @@ namespace Services.Schedule
                 scheduleDto.shift = (char?)await _iWorkHoursData.GetShiftEmployee(appointment.Idemployee, appointment.Timestart);
                 scheduleDto.firstName = contact?.Firstname;
                 scheduleDto.lastName = contact?.Lastname;
-                scheduleDto.note = contact?.Remark;
+                scheduleDto.note = appointment.Remark;
                 scheduleDto.phone1 = contact?.Phonenumber1;
                 scheduleDto.phonen2 = contact?.Phonenumber2;
                 scheduleDto.phone3 = contact?.Phonenumber3;
