@@ -22,6 +22,7 @@ namespace Services.Contacts
         Task<bool> UpdateAllCredit(int id, int allCredit);
         Task<bool> CreateContact(Contact contact);
         Task<string?> GetRemark(int id, string type);
+        Task<int?> GetAllCredit(int id);
         bool ContactExists(int id);
         Task<bool> UpdateContact(int id, Contact contact);
         Task<ActionResult<Contact?>> UpdateTreatementNameForContact(int id, string? type);

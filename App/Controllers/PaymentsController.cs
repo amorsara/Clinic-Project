@@ -41,6 +41,18 @@ namespace App.Controllers
         }
 
         [HttpGet]
+        [Route("/api/payments/updateallcredit")]
+        public async Task<IActionResult> UpdateAllCredit(int id, int allCredit)
+        {
+            var payments = await _iContactsData.UpdateAllCredit(id, allCredit);
+            if (payments == true)
+            {
+                return Ok(true);
+            }
+            return BadRequest();
+        }
+
+        [HttpGet]
         [Route("/api/payments/getallpayments")]
         public async Task<ActionResult<IEnumerable<AccountsDto>>> GetAllPayments()
         {

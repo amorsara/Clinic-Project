@@ -243,6 +243,12 @@ namespace Services.Contacts
             return isOk;
         }
 
+        public async Task<int?> GetAllCredit(int id)
+        {
+            var contact = await GetContactById(id);
+            return contact?.Credit;
+        }
+
         //public async Task<int?> GetAllCredit(int id)
         //{
         //    var contact = await GetContactById(id);

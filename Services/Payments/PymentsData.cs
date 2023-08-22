@@ -80,6 +80,7 @@ namespace Services.Payments
                 accountsDto.Advanced = payment.Advanced;
                 accountsDto.electrolysis = payment.Electrolysis;
                 accountsDto.waxing = payment.Waxing?.Split(",").ToList();
+                accountsDto.allCredit = await _iContactsData.GetAllCredit(payment.Idcontact);
                 var contact = await _iContactsData.GetContactById(payment.Idcontact);
                 if(contact != null)
                 {

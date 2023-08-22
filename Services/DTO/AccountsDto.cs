@@ -38,6 +38,8 @@ namespace Services.DTO
 
         public int? credit { get; set;}
 
+        public int? allCredit { get; set; }
+
         public string? remark { get; set;}  
     }
 }
