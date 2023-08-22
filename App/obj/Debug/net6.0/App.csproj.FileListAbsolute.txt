@@ -524,3 +524,4 @@ F:\Clinic Project\Clinic\App\obj\Debug\net6.0\App.genruntimeconfig.cache
 F:\Clinic Project\Clinic\App\obj\Debug\net6.0\ref\App.dll
 F:\Clinic Project\Clinic\App\bin\Debug\net6.0\Microsoft.Office.Interop.Excel.dll
 D:\Clinic Project\Clinic\App\bin\Debug\net6.0\Microsoft.Office.Interop.Excel.dll
+D:\Clinic Project\Clinic\App\bin\Debug\net6.0\Quartz.dll

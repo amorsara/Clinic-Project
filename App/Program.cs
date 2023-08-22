@@ -1,4 +1,7 @@
+﻿using App.AutoFunctions;
 using Microsoft.EntityFrameworkCore;
+using Quartz;
+using Quartz.Impl;
 using Repository.GeneratedModels;
 using Services.Appointments;
 using Services.Contacts;
@@ -47,7 +50,7 @@ var schedulerFactory = new StdSchedulerFactory();
 var scheduler = await schedulerFactory.GetScheduler();
 await scheduler.Start();
 
-var job = JobBuilder.Create<ScheduledJob>()
+var job = JobBuilder.Create<AutoFunctions>()
     .WithIdentity("job1", "group1")
     .Build();
 
@@ -55,7 +58,7 @@ var trigger = TriggerBuilder.Create()
     .WithIdentity("trigger1", "group1")
     .StartNow()
     .WithSimpleSchedule(x => x
-        .WithIntervalInHours(24) // ???? ??? ?? ??????? ??? ???? ????????? ????? (??? ????)
+        .WithIntervalInMinutes(5)
         .RepeatForever())
     .Build();
 
@@ -77,3 +80,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
+/*.WithIntervalInHours(1)*/ // הגדר כאן את התדירות שבה תרצה שהפונקציה תופעל (פעם ביום)
