@@ -1,5 +1,4 @@
-﻿using App.AutoFunction;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Quartz;
 using Quartz.Impl;
 using Repository.GeneratedModels;
@@ -44,8 +43,6 @@ builder.Services.AddScoped<ITreatmentsTypeData, TreatmentsTypeData>();
 builder.Services.AddScoped<ILaserTreatmentData, LaserTreatmentData>();
 builder.Services.AddScoped<IEpilationTreatmentData, EpilationTreatmentData>();
 builder.Services.AddScoped<IPymentsData, PymentsData>();
-
-builder.Services.AddHostedService<TimerJob>();
 
 var app = builder.Build();
 
