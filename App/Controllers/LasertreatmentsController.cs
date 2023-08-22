@@ -145,6 +145,18 @@ namespace App.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("/api/lasertreatments/updatelasertreatmentdetails")]
+        public async Task<ActionResult<Lasertreatment>> UpdateLasertreatmentDetails(LaserDetailsDto laserDetailsDto)
+        {
+            var isOk = await _iContactsData.UpdateRemarkLaser(laserDetailsDto);
+            if(isOk == false)
+            {
+                return BadRequest();
+            }
+            return Ok(true);
+        }
+
         [HttpDelete]
         [Route("/api/lasertreatments/deletelasertreatment/{id}")]
         public async Task<IActionResult> DeleteLasertreatment(int id)

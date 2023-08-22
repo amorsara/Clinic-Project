@@ -62,6 +62,7 @@ namespace Services.LaserTreatments
             var list = new List<LasertreatmentDto>();
             var laserTreatments = await GetLasertreatments();
             var remark = await _iContactsData.GetRemark(id, "laser");
+            var listRemark = remark?.Split(",").ToList();
             foreach(var lasertreatment in laserTreatments)
             {
                 var laserDto = new LasertreatmentDto();
@@ -80,7 +81,9 @@ namespace Services.LaserTreatments
                 }
             }
             laserCard.idClient = id;
-            laserCard.remarkLaser = remark;
+            laserCard.remarkLaser = listRemark != null ? listRemark[0] : null;
+            laserCard.hair = listRemark != null ? listRemark[1] : null;
+            laserCard.skin = listRemark != null ? listRemark[2] : null;
             laserCard.listTreatments = list;
             return laserCard;
         }

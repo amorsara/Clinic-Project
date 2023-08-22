@@ -6,16 +6,14 @@ using System.Threading.Tasks;
 
 namespace Services.DTO
 {
-    public class LaserCardDto
+    public class LaserDetailsDto
     {
-        public int idClient { get; set; }
+        public int idTreated { get; set; }
 
         public string? remarkLaser { get; set; }
 
-        public string? hair { get; set; }
+        public string? hair { get; set; }   
 
         public string? skin { get; set; }
-
-        public List<LasertreatmentDto>? listTreatments { get; set;}
     }
 }

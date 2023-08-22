@@ -18,6 +18,7 @@ namespace Services.Contacts
         Task<List<ContactDateDto>> GetContactsWithDates();
         Task <Contact?> GetContactById(int id);
         Task<bool> UpdateRemark(int id, string? remark, string type);
+        Task<bool> UpdateRemarkLaser(LaserDetailsDto laserDetailsDto);
         Task<bool> UpdateAllCredit(int id, int allCredit);
         Task<bool> CreateContact(Contact contact);
         Task<string?> GetRemark(int id, string type);

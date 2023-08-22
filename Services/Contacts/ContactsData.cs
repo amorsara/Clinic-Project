@@ -229,6 +229,20 @@ namespace Services.Contacts
             return isOk;
         }
 
+        public async Task<bool> UpdateRemarkLaser(LaserDetailsDto laserDetailsDto)
+        {
+            var contact = await GetContactById(laserDetailsDto.idTreated);
+            if(contact == null)
+            {
+                return false;
+            }
+
+            contact.Remarklaser = laserDetailsDto.remarkLaser + "," + laserDetailsDto.hair + "," + laserDetailsDto.skin;
+
+            var isOk = await UpdateContact(contact.Idcontact,contact);
+            return isOk;
+        }
+
         //public async Task<int?> GetAllCredit(int id)
         //{
         //    var contact = await GetContactById(id);
