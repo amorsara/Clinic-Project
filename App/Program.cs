@@ -1,4 +1,4 @@
-﻿using App.AutoFunctions;
+﻿using App.AutoFunction;
 using Microsoft.EntityFrameworkCore;
 using Quartz;
 using Quartz.Impl;
@@ -19,11 +19,11 @@ using Services.WorkHours;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
 
 builder.Services.AddControllers();
 builder.Services.AddSignalR();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -45,28 +45,10 @@ builder.Services.AddScoped<ILaserTreatmentData, LaserTreatmentData>();
 builder.Services.AddScoped<IEpilationTreatmentData, EpilationTreatmentData>();
 builder.Services.AddScoped<IPymentsData, PymentsData>();
 
+builder.Services.AddHostedService<TimerJob>();
 
-var schedulerFactory = new StdSchedulerFactory();
-var scheduler = await schedulerFactory.GetScheduler();
-await scheduler.Start();
-
-var job = JobBuilder.Create<AutoFunctions>()
-    .WithIdentity("job1", "group1")
-    .Build();
-
-var trigger = TriggerBuilder.Create()
-    .WithIdentity("trigger1", "group1")
-    .StartNow()
-    .WithSimpleSchedule(x => x
-        .WithIntervalInMinutes(5)
-        .RepeatForever())
-    .Build();
-
-
-await scheduler.ScheduleJob(job, trigger);
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -81,5 +63,3 @@ app.MapControllers();
 
 app.Run();
 
-
-/*.WithIntervalInHours(1)*/ // הגדר כאן את התדירות שבה תרצה שהפונקציה תופעל (פעם ביום)
