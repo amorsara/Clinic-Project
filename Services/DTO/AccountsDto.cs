@@ -22,6 +22,12 @@ namespace Services.DTO
 
         public List<string>? area { get; set; }
 
+        public List<string>? waxing { get; set; }
+
+        public string? electrolysis { get; set; }
+
+        public string? Advanced { get; set; }
+
         public string? employee { get; set;}
 
         public int? Payed { get; set;}

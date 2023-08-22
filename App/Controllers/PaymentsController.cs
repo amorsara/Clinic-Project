@@ -99,6 +99,9 @@ namespace App.Controllers
             payment.Area = paymentDto.area?.Count != null ? String.Join(",", paymentDto.area) : null;
             payment.Type = paymentDto.type;
             payment.Remark = paymentDto.remark;
+            payment.Waxing = paymentDto.waxing?.Count != null ? String.Join(",", paymentDto.waxing) : null; ;
+            payment.Electrolysis = paymentDto.electrolysis;
+            payment.Advanced = paymentDto.Advanced;
 
             var okAllCredit = await _iContactsData.UpdateAllCredit(paymentDto.idContact, paymentDto.allCredit);
             if(okAllCredit == false)

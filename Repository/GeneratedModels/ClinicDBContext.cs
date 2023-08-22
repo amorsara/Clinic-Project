@@ -259,6 +259,9 @@ public partial class ClinicDBContext : DbContext
             entity.ToTable("payments");
 
             entity.Property(e => e.Idpayment).HasColumnName("idpayment");
+            entity.Property(e => e.Advanced)
+                .HasColumnType("character varying")
+                .HasColumnName("advanced");
             entity.Property(e => e.Area)
                 .HasColumnType("character varying")
                 .HasColumnName("area");
@@ -267,6 +270,9 @@ public partial class ClinicDBContext : DbContext
             entity.Property(e => e.Datepayment)
                 .HasColumnType("character varying")
                 .HasColumnName("datepayment");
+            entity.Property(e => e.Electrolysis)
+                .HasColumnType("character varying")
+                .HasColumnName("electrolysis");
             entity.Property(e => e.Employee)
                 .HasColumnType("character varying")
                 .HasColumnName("employee");
@@ -283,6 +289,9 @@ public partial class ClinicDBContext : DbContext
             entity.Property(e => e.Type)
                 .HasColumnType("character varying")
                 .HasColumnName("type");
+            entity.Property(e => e.Waxing)
+                .HasColumnType("character varying")
+                .HasColumnName("waxing");
 
             entity.HasOne(d => d.IdcontactNavigation).WithMany(p => p.Payments)
                 .HasForeignKey(d => d.Idcontact)

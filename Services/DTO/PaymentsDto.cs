@@ -22,7 +22,7 @@ namespace Services.DTO
 
         public int credit { get; set; }
 
-        public string? datePayment { get; set;}
+        public string? datePayment { get; set; }
 
         public DateOnly date { get; set; }
 
@@ -35,6 +35,12 @@ namespace Services.DTO
         public bool r { get; set; }
 
         public string? remark { get; set; }
+
+        public List<string>? waxing { get; set; }
+
+        public string? electrolysis { get; set;}
+
+        public string? Advanced { get; set;}
 
     }
 }

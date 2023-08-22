@@ -77,6 +77,9 @@ namespace Services.Payments
                 accountsDto.credit = payment.Credit;
                 accountsDto.employee = payment.Employee;
                 accountsDto.remark = payment.Remark;
+                accountsDto.Advanced = payment.Advanced;
+                accountsDto.electrolysis = payment.Electrolysis;
+                accountsDto.waxing = payment.Waxing?.Split(",").ToList();
                 var contact = await _iContactsData.GetContactById(payment.Idcontact);
                 if(contact != null)
                 {

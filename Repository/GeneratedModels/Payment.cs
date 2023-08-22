@@ -32,6 +32,12 @@ public partial class Payment
 
     public string? Remark { get; set; }
 
+    public string? Electrolysis { get; set; }
+
+    public string? Waxing { get; set; }
+
+    public string? Advanced { get; set; }
+
     [JsonIgnore]
     public virtual Contact IdcontactNavigation { get; set; } = null!;
 }
