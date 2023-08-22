@@ -43,6 +43,24 @@ builder.Services.AddScoped<IEpilationTreatmentData, EpilationTreatmentData>();
 builder.Services.AddScoped<IPymentsData, PymentsData>();
 
 
+var schedulerFactory = new StdSchedulerFactory();
+var scheduler = await schedulerFactory.GetScheduler();
+await scheduler.Start();
+
+var job = JobBuilder.Create<ScheduledJob>()
+    .WithIdentity("job1", "group1")
+    .Build();
+
+var trigger = TriggerBuilder.Create()
+    .WithIdentity("trigger1", "group1")
+    .StartNow()
+    .WithSimpleSchedule(x => x
+        .WithIntervalInHours(24) // ???? ??? ?? ??????? ??? ???? ????????? ????? (??? ????)
+        .RepeatForever())
+    .Build();
+
+
+await scheduler.ScheduleJob(job, trigger);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
