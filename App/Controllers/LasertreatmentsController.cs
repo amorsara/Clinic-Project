@@ -91,8 +91,8 @@ namespace App.Controllers
             lasertreatment.Date = lasertreatmentDto.Date;
             lasertreatment.Area = lasertreatmentDto.Area?.Count != null ? String.Join(",", lasertreatmentDto.Area) : null;
             lasertreatment.Coloremployee = lasertreatmentDto.colorWorker;
-            lasertreatment.Results = lasertreatmentDto.Results;
-            lasertreatment.Energy = lasertreatmentDto.Energy;
+            lasertreatment.Results = lasertreatmentDto.Results?.Count != null ? String.Join(",", lasertreatmentDto.Results) : null;
+            lasertreatment.Energy = lasertreatmentDto.Energy?.Count != null ? String.Join(",", lasertreatmentDto.Energy) : null;
             lasertreatment.Spotsize = lasertreatmentDto.Spotsize?.Count != null ? String.Join(",", lasertreatmentDto.Spotsize) : null;
             lasertreatment.Ms = lasertreatmentDto.Ms?.Count != null ? String.Join(",", lasertreatmentDto.Ms) : null;
 
@@ -130,8 +130,8 @@ namespace App.Controllers
             lasertreatment.Date = lasertreatmentDto.Date;
             lasertreatment.Area = lasertreatmentDto.Area?.Count != null ? String.Join(",", lasertreatmentDto.Area) : null;
             lasertreatment.Coloremployee = lasertreatmentDto.colorWorker;
-            lasertreatment.Results = lasertreatmentDto.Results;
-            lasertreatment.Energy = lasertreatmentDto.Energy;
+            lasertreatment.Results = lasertreatmentDto.Results?.Count != null ? String.Join(",", lasertreatmentDto.Results) : null;
+            lasertreatment.Energy = lasertreatmentDto.Energy?.Count != null ? String.Join(",", lasertreatmentDto.Energy) : null;
             lasertreatment.Spotsize = lasertreatmentDto.Spotsize?.Count != null ? String.Join(",", lasertreatmentDto.Spotsize) : null;
             lasertreatment.Ms = lasertreatmentDto.Ms?.Count != null ? String.Join(",", lasertreatmentDto.Ms) : null;
             var result = await _iLaserTreatmentData.CreateLasertreatments(lasertreatment);

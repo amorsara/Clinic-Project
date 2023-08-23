@@ -69,9 +69,9 @@ namespace Services.LaserTreatments
                 laserDto.Idlasertreatment = lasertreatment.Idlasertreatment;
                 laserDto.idClient = id;
                 laserDto.Date = lasertreatment.Date;
-                laserDto.Energy = lasertreatment.Energy;
+                laserDto.Energy = lasertreatment.Energy?.Split(",").ToList();
                 laserDto.colorWorker = lasertreatment.Coloremployee;
-                laserDto.Results = lasertreatment.Results;
+                laserDto.Results = lasertreatment.Results?.Split(",").ToList();
                 laserDto.Area = lasertreatment.Area?.Split(",").ToList();
                 laserDto.Ms = lasertreatment.Ms?.Split(",").ToList();
                 laserDto.Spotsize = lasertreatment.Spotsize?.Split(",").ToList();

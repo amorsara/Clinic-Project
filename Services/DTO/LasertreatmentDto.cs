@@ -22,9 +22,9 @@ namespace Services.DTO
 
         public List<string>? Spotsize { get; set; }
 
-        public string? Energy { get; set; }
+        public List<string>? Energy { get; set; }
 
-        public string? Results { get; set; }
+        public List<string>? Results { get; set; }
 
         public string? remarkLaser { get; set; }
     }
