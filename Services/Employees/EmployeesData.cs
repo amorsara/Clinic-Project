@@ -62,7 +62,7 @@ namespace Services.Employees
             var list = new List<Employee>();
             foreach (var employee in employees)
             {
-                if(employee == null || employee.Treatmentstype == null)
+                if(employee == null || employee.Treatmentstype == null || employee.Isshow == false)
                 {
                     continue;
                 }
@@ -98,7 +98,7 @@ namespace Services.Employees
                 employeeFieldesDto.Id = i++;
                 employeeFieldesDto.nameWorker = employee.Name;
                 employeeFieldesDto.colorWorker = employee.Color;
-                if(employee == null)
+                if(employee == null || employee.Isshow == false)
                 {
                     continue;
                 }
@@ -137,7 +137,7 @@ namespace Services.Employees
             var list = new List<string>();
             foreach (var emp in employees)
             {
-                if (emp == null || emp.Name == null)
+                if (emp == null || emp.Name == null || emp.Isshow == false)
                 {
                     continue;
                 }
@@ -174,7 +174,7 @@ namespace Services.Employees
             var employees = await GetAllEmployees();
             foreach (var employee in employees)
             {
-                if (employee != null && employee.Name == name)
+                if (employee != null && employee.Name == name && employee.Isshow == true)
                 {
                     return employee;
                 }
@@ -238,7 +238,7 @@ namespace Services.Employees
             var listEmployees = new List<List<RoomEmployeeDto>>();
             foreach(var employee in employees)
             {
-                if(employee == null || employee.Treatmentstype == null)
+                if(employee == null || employee.Treatmentstype == null || employee.Isshow == false)
                 {
                     continue;
                 }
@@ -280,6 +280,10 @@ namespace Services.Employees
             var list = new List<EmployeeDetails>();
             foreach(var employee in employees)
             {
+                if(employee.Isshow == false)
+                {
+                    continue;
+                }
                 var emp = new EmployeeDetails();
                 emp.Id = employee.Idemployee;
                 emp.Name = employee.Name;
@@ -287,6 +291,18 @@ namespace Services.Employees
                 list.Add(emp);
             }
             return list;
+        }
+
+        public async Task<bool> DeleteEmployeeById(int id)
+        {
+            var emp = await GetEmployeeById(id);
+            if(emp == null)
+            {
+                return false;
+            }
+            emp.Isshow = false;
+            var isOk = await UpdateEmployee(emp.Idemployee, emp);
+            return isOk;
         }
     }
 }

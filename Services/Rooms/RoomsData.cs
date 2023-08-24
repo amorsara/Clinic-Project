@@ -64,7 +64,7 @@ namespace Services.Rooms
 
         public async Task<string?> GetNameRoom(int id)
         {
-            var room = await _context.Rooms.Where(r => r.Idroom == id).FirstOrDefaultAsync();
+            var room = await _context.Rooms.Where(r => r.Idroom == id && r.Isshow == true).FirstOrDefaultAsync();
             return room?.Nameroom;
         }
 
@@ -115,7 +115,7 @@ namespace Services.Rooms
             var list = new List<string>();
             foreach(var room in rooms)
             {
-                if(room == null || room.Nameroom == null)
+                if(room == null || room.Nameroom == null || room.Isshow == false)
                 {
                     continue;
                 }
@@ -202,7 +202,7 @@ namespace Services.Rooms
             var rooms = await GetAllRooms();
             foreach(var room in rooms)
             {
-                if(room != null &&  room.Nameroom == name)
+                if(room != null &&  room.Nameroom == name && room.Isshow == true)
                 {
                     return room;
                 }
@@ -217,7 +217,7 @@ namespace Services.Rooms
             var listRooms = new List<List<RoomEmployeeDto>>();
             foreach(var room in rooms)
             {
-                if (room == null || room.Treatmentstype == null) { continue; }
+                if (room == null || room.Treatmentstype == null || room.Isshow == false) { continue; }
                 var list = new List<RoomEmployeeDto>();
                 foreach(var item in types)
                 {
@@ -241,6 +241,18 @@ namespace Services.Rooms
                 listRooms.Add(list);
             }
             return listRooms;
+        }
+
+        public async Task<bool> CloseRoom(int id)
+        {
+            var room = await GetRoomById(id);
+            if(room == null)
+            {
+                return false;
+            }
+            room.Isshow = false;
+            var isOk = await UpdateRoom(room.Idroom, room);
+            return isOk;
         }
     }
 }

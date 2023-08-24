@@ -18,6 +18,8 @@ public partial class Employee
 
     public string? Treatmentstype { get; set; }
 
+    public bool? Isshow { get; set; }
+
     [JsonIgnore]
     public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 

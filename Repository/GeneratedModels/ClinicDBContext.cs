@@ -152,6 +152,7 @@ public partial class ClinicDBContext : DbContext
             entity.Property(e => e.Color)
                 .HasMaxLength(50)
                 .HasColumnName("color");
+            entity.Property(e => e.Isshow).HasColumnName("isshow");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .HasColumnName("name");
@@ -308,6 +309,7 @@ public partial class ClinicDBContext : DbContext
             entity.ToTable("rooms");
 
             entity.Property(e => e.Idroom).HasColumnName("idroom");
+            entity.Property(e => e.Isshow).HasColumnName("isshow");
             entity.Property(e => e.Nameroom)
                 .HasMaxLength(50)
                 .HasColumnName("nameroom");

@@ -24,6 +24,7 @@ namespace Services.Employees
         Task<List<EmployeeFieldsDto>> GetAllEmployeesFields();
         Task<bool> UpdateEmployee(int id, Employee employee);
         Task<bool> ChangeEmployees(List<List<RoomEmployeeDto>> employees);
+        Task<bool>DeleteEmployeeById(int id);
         Task<List<List<RoomEmployeeDto>>> GetAllEmployeesWithTypes();
     }
 }

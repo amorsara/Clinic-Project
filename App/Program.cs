@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Quartz;
-using Quartz.Impl;
 using Repository.GeneratedModels;
 using Services.Appointments;
 using Services.Contacts;

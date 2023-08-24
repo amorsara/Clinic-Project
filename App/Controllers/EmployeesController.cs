@@ -104,6 +104,18 @@ namespace App.Controllers
             return employee;
         }
 
+        [HttpGet]
+        [Route("/api/employees/deleteemployeebyid/{id}")]
+        public async Task<ActionResult<Employee>> DeleteEmployeeById(int id)
+        {
+            var isOk = await _iEmployeesData.DeleteEmployeeById(id);
+            if (isOk == false)
+            {
+                return BadRequest();
+            }
+            return Ok(true);
+        }
+
 
         [HttpPut]
         [Route("/api/employees/updateemployee/{id}")]
@@ -125,6 +137,7 @@ namespace App.Controllers
         [Route("/api/employees/createemployee")]
         public async Task<ActionResult<Employee>> CreateEmployee(Employee employee)
         {
+            employee.Isshow = true;
             var result = await _iEmployeesData.CreateEmployee(employee);
             if (result)
             {
