@@ -40,8 +40,8 @@ namespace App.Controllers
             return payments;
         }
 
-        [HttpPost]
-        [Route("/api/payments/updateallcredit")]
+        [HttpGet]
+        [Route("/api/payments/updateallcredit/{id}/{allCredit}")]
         public async Task<IActionResult> UpdateAllCredit(int id, int allCredit)
         {
             var payments = await _iContactsData.UpdateAllCredit(id, allCredit);
