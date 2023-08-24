@@ -23,6 +23,7 @@ namespace Services.Rooms
         Task<List<RoomFieldsDto>> GetAllFieldsForRoom();
         Task<bool> UpdateRoom(int id, Room room);
         Task<bool> CloseRoom(int id);
+        Task<bool> OpenRoom(int id);
         bool RoomExists(int id);
     }
 }
