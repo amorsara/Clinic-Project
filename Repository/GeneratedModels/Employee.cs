@@ -24,5 +24,8 @@ public partial class Employee
     public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 
     [JsonIgnore]
+    public virtual ICollection<Inquiry> Inquiries { get; set; } = new List<Inquiry>();
+
+    [JsonIgnore]
     public virtual ICollection<Workhour> Workhours { get; set; } = new List<Workhour>();
 }

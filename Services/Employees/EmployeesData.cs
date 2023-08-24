@@ -304,6 +304,12 @@ namespace Services.Employees
             var isOk = await UpdateEmployee(emp.Idemployee, emp);
             return isOk;
         }
+
+        public async Task<int?> GetIdForAdmin()
+        {
+            var admin = await _context.Employees.Where(e => e.Name == "Admin").FirstOrDefaultAsync();
+            return admin?.Idemployee;
+        }
     }
 }
 

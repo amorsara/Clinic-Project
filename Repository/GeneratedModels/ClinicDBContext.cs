@@ -25,6 +25,8 @@ public partial class ClinicDBContext : DbContext
 
     public virtual DbSet<Epilationtreatment> Epilationtreatments { get; set; }
 
+    public virtual DbSet<Inquiry> Inquiries { get; set; }
+
     public virtual DbSet<Lasertreatment> Lasertreatments { get; set; }
 
     public virtual DbSet<Leserarea> Leserareas { get; set; }
@@ -207,6 +209,40 @@ public partial class ClinicDBContext : DbContext
                 .HasForeignKey(d => d.Idcontact)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("EpilationTreatments_contact_id_fkey");
+        });
+
+        modelBuilder.Entity<Inquiry>(entity =>
+        {
+            entity.HasKey(e => e.Idinquirie).HasName("inquiries_pkey");
+
+            entity.ToTable("inquiries");
+
+            entity.Property(e => e.Idinquirie).HasColumnName("idinquirie");
+            entity.Property(e => e.Date).HasColumnName("date");
+            entity.Property(e => e.Doinquirie).HasColumnName("doinquirie");
+            entity.Property(e => e.Fullname)
+                .HasColumnType("character varying")
+                .HasColumnName("fullname");
+            entity.Property(e => e.Idemployee).HasColumnName("idemployee");
+            entity.Property(e => e.Phon)
+                .HasColumnType("character varying")
+                .HasColumnName("phon");
+            entity.Property(e => e.Remark)
+                .HasColumnType("character varying")
+                .HasColumnName("remark");
+            entity.Property(e => e.Response)
+                .HasColumnType("character varying")
+                .HasColumnName("response");
+            entity.Property(e => e.Status).HasColumnName("status");
+            entity.Property(e => e.Sum)
+                .HasColumnType("character varying")
+                .HasColumnName("sum");
+            entity.Property(e => e.Time).HasColumnName("time");
+
+            entity.HasOne(d => d.IdemployeeNavigation).WithMany(p => p.Inquiries)
+                .HasForeignKey(d => d.Idemployee)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("Inquiries_employee_id_fkey");
         });
 
         modelBuilder.Entity<Lasertreatment>(entity =>

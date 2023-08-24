@@ -12,6 +12,7 @@ namespace Services.Employees
     {
         Task<List<Employee>> GetAllEmployees();
         Task<Employee?> GetEmployeeById(int id);
+        Task<int?> GetIdForAdmin();
         Task<string?> GetColorById(int id);
         Task<Employee?> GetEmployeeByName(string? name);
         Task<List<EmployeeDetails>> GetEmployeeDetails();
