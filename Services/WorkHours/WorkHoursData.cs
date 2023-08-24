@@ -27,11 +27,14 @@ namespace Services.WorkHours
             {
                 return false;
             }
-            var res = await Check(workHour);
-            if(res == false)
+            if(workHour.Regularwork == true)
             {
-                return res;
-            }
+                var res = await Check(workHour);
+                if (res == false)
+                {
+                    return res;
+                }
+            }       
             await _context.AddAsync(workHour);
             var isOk = await _context.SaveChangesAsync() >= 0;
             if (isOk)
@@ -51,39 +54,6 @@ namespace Services.WorkHours
                 return true;
             }
             return false;
-        }
-
-        public async Task<bool> CheckAndUpdate(Workhour workhour)
-        {
-            var shifts = await _context.Workhours.Where(w => w.Idemployee == workhour.Idemployee && w.Day == workhour.Day && w.Regularwork == workhour.Regularwork).ToListAsync();
-
-            bool updateOk1 = true, updateOk2 = true, updateOk3 = true;
-        
-            shifts = shifts.OrderBy(shift => shift.Starthour).ToList();
-            if(shifts.Count >= 1)
-            {
-                var m = shifts[0];
-                m.Shift = 'm';
-                updateOk1 = await UpdateWorkhour(m.Idworkhour, m);
-            }
-            if (shifts.Count >= 2)
-            {
-                var a = shifts[1];
-                a.Shift = 'a';
-                updateOk2 = await UpdateWorkhour(a.Idworkhour, a);
-            }
-            if (shifts.Count >= 3)
-            {
-                var e = shifts[2];
-                e.Shift = 'e';
-                updateOk3 = await UpdateWorkhour(e.Idworkhour, e);
-            }
-            if(!updateOk1 || !updateOk2 || !updateOk3)
-            {
-                return false;
-            }
-
-            return true;
         }
 
         public async Task<List<Workhour>> GetAllWorkHours()
@@ -220,6 +190,40 @@ namespace Services.WorkHours
 }
 
 
+
+
+//public async Task<bool> CheckAndUpdate(Workhour workhour)
+//{
+//    var shifts = await _context.Workhours.Where(w => w.Idemployee == workhour.Idemployee && w.Day == workhour.Day && w.Regularwork == workhour.Regularwork).ToListAsync();
+
+//    bool updateOk1 = true, updateOk2 = true, updateOk3 = true;
+
+//    shifts = shifts.OrderBy(shift => shift.Starthour).ToList();
+//    if(shifts.Count >= 1)
+//    {
+//        var m = shifts[0];
+//        m.Shift = 'm';
+//        updateOk1 = await UpdateWorkhour(m.Idworkhour, m);
+//    }
+//    if (shifts.Count >= 2)
+//    {
+//        var a = shifts[1];
+//        a.Shift = 'a';
+//        updateOk2 = await UpdateWorkhour(a.Idworkhour, a);
+//    }
+//    if (shifts.Count >= 3)
+//    {
+//        var e = shifts[2];
+//        e.Shift = 'e';
+//        updateOk3 = await UpdateWorkhour(e.Idworkhour, e);
+//    }
+//    if(!updateOk1 || !updateOk2 || !updateOk3)
+//    {
+//        return false;
+//    }
+
+//    return true;
+//}
 
 
 //if (shifts.Count == 0) // the first shift...

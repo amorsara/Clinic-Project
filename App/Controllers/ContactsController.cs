@@ -60,42 +60,6 @@ namespace App.Controllers
             return contact;
         }
 
-        //[HttpGet]
-        //[Route("/api/contacts/getsemcontacts")]
-        //public async Task<ActionResult<IEnumerable<Contact>>> GetSemContacts()
-        //{
-        //    var result = await _iContactsData.GetSemContacts();
-        //    if (result == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return result;
-        //}
-
-        //[HttpGet]
-        //[Route("/api/contacts/getactivecontacts")]
-        //public async Task<ActionResult<IEnumerable<Contact>>> GetActiveContacts()
-        //{
-        //    var result = await _iContactsData.GetActiveContacts();
-        //    if (result == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return result;
-        //}
-
-        //[HttpGet]
-        //[Route("/api/contacts/getallwaitdates")]
-        //public async Task<ActionResult<IEnumerable<WaitTreatmentsDto>>> GetAllWaitDates()
-        //{
-        //    var result = await _iContactsData.GetAllWaitDates();
-        //    if (result == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return result;
-        //}
-
 
         [HttpPost]
         [Route("/api/contacts/updatecontactwrapper")]
@@ -236,3 +200,46 @@ namespace App.Controllers
 
     }
 }
+
+
+
+
+
+
+
+
+//[HttpGet]
+//[Route("/api/contacts/getsemcontacts")]
+//public async Task<ActionResult<IEnumerable<Contact>>> GetSemContacts()
+//{
+//    var result = await _iContactsData.GetSemContacts();
+//    if (result == null)
+//    {
+//        return NotFound();
+//    }
+//    return result;
+//}
+
+//[HttpGet]
+//[Route("/api/contacts/getactivecontacts")]
+//public async Task<ActionResult<IEnumerable<Contact>>> GetActiveContacts()
+//{
+//    var result = await _iContactsData.GetActiveContacts();
+//    if (result == null)
+//    {
+//        return NotFound();
+//    }
+//    return result;
+//}
+
+//[HttpGet]
+//[Route("/api/contacts/getallwaitdates")]
+//public async Task<ActionResult<IEnumerable<WaitTreatmentsDto>>> GetAllWaitDates()
+//{
+//    var result = await _iContactsData.GetAllWaitDates();
+//    if (result == null)
+//    {
+//        return NotFound();
+//    }
+//    return result;
+//}

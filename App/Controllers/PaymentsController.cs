@@ -40,7 +40,7 @@ namespace App.Controllers
             return payments;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("/api/payments/updateallcredit")]
         public async Task<IActionResult> UpdateAllCredit(int id, int allCredit)
         {

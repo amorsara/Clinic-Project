@@ -22,5 +22,6 @@ namespace Services.WorkHours
         Task<bool> DeleteShift(int id, int day, TimeOnly time);
         Task<bool> DeleteWorkhour(int id);
         Task<bool> UpdateWorkhour(int id, Workhour workhour);
+        Task<bool> Check(Workhour workhour);
     }
 }
