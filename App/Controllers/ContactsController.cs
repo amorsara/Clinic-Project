@@ -82,8 +82,8 @@ namespace App.Controllers
             newContact.Email = contact.Values[2]?.field3;
             newContact.Sem = contact.Sem;
             newContact.Isactive = contact.Active;
-            newContact.Credit = contact.credit;
-            newContact.Isshow = contact.IsShow;
+            newContact.Credit = contact.credit == null ? null : contact.credit;
+            newContact.Isshow = contact.IsShow == null ? true : contact.IsShow;
             var c = await UpdateContact(newContact.Idcontact, newContact);
             return c;
         }
