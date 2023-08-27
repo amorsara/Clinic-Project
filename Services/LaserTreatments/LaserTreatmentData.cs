@@ -62,7 +62,7 @@ namespace Services.LaserTreatments
             var list = new List<LasertreatmentDto>();
             var laserTreatments = await GetLasertreatments();
             var remark = await _iContactsData.GetRemark(id, "laser");
-            var listRemark = remark?.Split(",").ToList();
+            var listRemark = remark != null ? remark?.Split(",").ToList() : null;
             foreach(var lasertreatment in laserTreatments)
             {
                 var laserDto = new LasertreatmentDto();

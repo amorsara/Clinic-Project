@@ -137,7 +137,7 @@ namespace App.Controllers
             var result = await _iLaserTreatmentData.CreateLasertreatments(lasertreatment);
             if (result)
             {
-                return CreatedAtAction("CreateLasertreatment", new { id = lasertreatmentDto.Idlasertreatment }, lasertreatmentDto);
+                return CreatedAtAction("CreateLasertreatment", new { id = lasertreatmentDto.Idlasertreatment }, lasertreatment);
             }
             else
             {
