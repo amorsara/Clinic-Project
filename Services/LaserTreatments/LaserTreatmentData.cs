@@ -81,12 +81,25 @@ namespace Services.LaserTreatments
                 }
             }
             laserCard.idClient = id;
-            laserCard.remarkLaser = listRemark != null ? listRemark[0] : null;
+            if(listRemark?.Count >= 1)
+            {
+                laserCard.remarkLaser = listRemark != null ? listRemark[0] : null;
+            }
             var hair = new HairDto();
-            hair.name = listRemark?.Count >= 1 && listRemark != null ? listRemark[1] : null;
-            hair.color = listRemark?.Count >= 2 && listRemark != null ? listRemark[2] : null;
+            if (listRemark?.Count >= 2)
+            {
+                hair.name = listRemark != null ? listRemark[1] : null;
+            }
+            if (listRemark?.Count >= 3)
+            {
+                hair.color = listRemark != null ? listRemark[2] : null;
+            }
+            if (listRemark?.Count >= 4)
+            {
+                laserCard.skin = listRemark != null ? listRemark[3] : null;
+            }
             laserCard.hair = hair;
-            laserCard.skin = listRemark?.Count >= 3 && listRemark != null ? listRemark[3] : null;
+           
             laserCard.listTreatments = list;
             return laserCard;
         }
