@@ -31,6 +31,8 @@ public partial class ClinicDBContext : DbContext
 
     public virtual DbSet<Leserarea> Leserareas { get; set; }
 
+    public virtual DbSet<Message> Messages { get; set; }
+
     public virtual DbSet<Payment> Payments { get; set; }
 
     public virtual DbSet<Room> Rooms { get; set; }
@@ -289,6 +291,30 @@ public partial class ClinicDBContext : DbContext
             entity.Property(e => e.Namearea)
                 .HasColumnType("character varying")
                 .HasColumnName("namearea");
+        });
+
+        modelBuilder.Entity<Message>(entity =>
+        {
+            entity.HasKey(e => e.Idmessage).HasName("messages_pkey");
+
+            entity.ToTable("messages");
+
+            entity.Property(e => e.Idmessage).HasColumnName("idmessage");
+            entity.Property(e => e.Answer)
+                .HasColumnType("character varying")
+                .HasColumnName("answer");
+            entity.Property(e => e.Idfrom).HasColumnName("idfrom");
+            entity.Property(e => e.Idto)
+                .HasColumnType("character varying")
+                .HasColumnName("idto");
+            entity.Property(e => e.Question)
+                .HasColumnType("character varying")
+                .HasColumnName("question");
+
+            entity.HasOne(d => d.IdfromNavigation).WithMany(p => p.Messages)
+                .HasForeignKey(d => d.Idfrom)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("Messages_employee1_id_fkey");
         });
 
         modelBuilder.Entity<Payment>(entity =>
