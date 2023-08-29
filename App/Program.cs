@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
 using Services.Appointments;
+using Services.CloseRooms;
 using Services.Contacts;
 using Services.Employees;
 using Services.Epilations;
@@ -45,6 +46,7 @@ builder.Services.AddScoped<IEpilationTreatmentData, EpilationTreatmentData>();
 builder.Services.AddScoped<IPymentsData, PymentsData>();
 builder.Services.AddScoped<IInquiriesData, InquiriesData>();
 builder.Services.AddScoped<IMessageData, MessageData>();
+builder.Services.AddScoped<ICloseRoomsData, CloseRoomsData>();
 
 var app = builder.Build();
 
