@@ -27,6 +27,7 @@ namespace Services.Rooms
 
         public async Task<bool> CreateRoom(Room room)
         {
+            room.Isshow = true;
             var isExsists = RoomExists(room.Idroom);
             if (isExsists)
             {
@@ -176,6 +177,7 @@ namespace Services.Rooms
 
         public async Task<bool> UpdateRoom(int id, Room room)
         {
+            room.Isshow = room.Isshow == false ? false : true;
             _context.Entry(room).State = EntityState.Modified;
 
             try

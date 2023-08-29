@@ -35,6 +35,8 @@ namespace Services.Contacts
 
         public async Task<bool> CreateContact(Contact contact)
         {
+            contact.Credit = 0;
+            contact.Isshow = true;
             var isExsists = ContactExists(contact.Idcontact);
             if (isExsists)
             {
@@ -62,16 +64,6 @@ namespace Services.Contacts
         {
             return await _context.Contacts.ToListAsync();
         }
-
-        //public async Task<List<Contact>> GetSemContacts()
-        //{
-        //    return await _context.Contacts.Where(c => c.Sem == true && c.Isshow == true).ToListAsync();            
-        //}
-
-        //public async Task<List<Contact>> GetActiveContacts()
-        //{
-        //    return await _context.Contacts.Where(c => c.Isactive == true && c.Isshow == true).ToListAsync();
-        //}
 
         public async Task<List<ContactDateDto>> GetContactsWithDates()
         {
@@ -108,6 +100,8 @@ namespace Services.Contacts
 
         public async Task<bool> UpdateContact(int id, Contact contact)
         {
+            contact.Isshow = contact.Isshow == false? false: true;
+            contact.Credit = contact.Credit != 0 ? contact.Credit : 0;
             _context.Entry(contact).State = EntityState.Modified;
 
             try
@@ -223,14 +217,16 @@ namespace Services.Contacts
             return contact?.Credit;
         }
 
-        //public async Task<int?> GetAllCredit(int id)
-        //{
-        //    var contact = await GetContactById(id);
-        //    return contact?.Credit;
-        //}
+
     }
 }
 
+
+//public async Task<int?> GetAllCredit(int id)
+//{
+//    var contact = await GetContactById(id);
+//    return contact?.Credit;
+//}
 
 //public async Task<List<WaitTreatmentsDto>> GetAllWaitDates()
 //{
@@ -255,6 +251,17 @@ namespace Services.Contacts
 //        list.Add(waitTreatment);
 //    }
 //    return list;
+//}
+
+
+//public async Task<List<Contact>> GetSemContacts()
+//{
+//    return await _context.Contacts.Where(c => c.Sem == true && c.Isshow == true).ToListAsync();            
+//}
+
+//public async Task<List<Contact>> GetActiveContacts()
+//{
+//    return await _context.Contacts.Where(c => c.Isactive == true && c.Isshow == true).ToListAsync();
 //}
 
 

@@ -27,6 +27,7 @@ namespace Services.Employees
 
         public async Task<bool> CreateEmployee(Employee employee)
         {
+            employee.Isshow = true;
             var isExsists = EmployeeExists(employee.Idemployee);
             if (isExsists)
             {
@@ -148,6 +149,7 @@ namespace Services.Employees
 
         public async Task<bool> UpdateEmployee(int id, Employee employee)
         {
+            employee.Isshow = employee.Isshow == false ? false : true;
             _context.Entry(employee).State = EntityState.Modified;
 
             try
