@@ -2,6 +2,7 @@
 using Repository.GeneratedModels;
 using Services.DTO;
 using Services.Employees;
+using Services.FuncRef;
 using Services.TreatmentsType;
 using System;
 using System.Collections.Generic;
@@ -15,14 +16,14 @@ namespace Services.Rooms
     {
 
         private readonly ClinicDBContext _context;
-        private readonly IEmployeesData _iEmployeesData;
         private readonly ITreatmentsTypeData _iTreatmentsTypeData;
+        private readonly IEmployeeRef _iEmployeeRef;
 
-        public RoomsData(ClinicDBContext context, IEmployeesData employeesData, ITreatmentsTypeData treatmentsTypeData)
+        public RoomsData(ClinicDBContext context, ITreatmentsTypeData treatmentsTypeData, IEmployeeRef employeeRef)
         {
             _context = context;
-            _iEmployeesData = employeesData;
             _iTreatmentsTypeData = treatmentsTypeData;
+            _iEmployeeRef = employeeRef;
         }
 
         public async Task<bool> CreateRoom(Room room)
@@ -84,7 +85,7 @@ namespace Services.Rooms
         public async Task<List<Employee>> GetAllEmployeesForRoom(int id)
         {
             var list = await GetTreatmentsForRoom(id);
-            var employees = await _iEmployeesData.GetAllEmployeesForRoom(list);
+            var employees = await _iEmployeeRef.GetAllEmployeesForRoom(list);
             return employees.ToList();
         }
 
@@ -243,30 +244,6 @@ namespace Services.Rooms
                 listRooms.Add(list);
             }
             return listRooms;
-        }
-
-        public async Task<bool> CloseRoom(int id)
-        {
-            var room = await GetRoomById(id);
-            if(room == null)
-            {
-                return false;
-            }
-            room.Isshow = false;
-            var isOk = await UpdateRoom(room.Idroom, room);
-            return isOk;
-        }
-
-        public async Task<bool> OpenRoom(int id)
-        {
-            var room = await GetRoomById(id);
-            if (room == null)
-            {
-                return false;
-            }
-            room.Isshow = true;
-            var isOk = await UpdateRoom(room.Idroom, room);
-            return isOk;
         }
     }
 }

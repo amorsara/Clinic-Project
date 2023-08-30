@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
 using Services.DTO;
+using Services.FuncRef;
 using Services.Rooms;
 using System;
 using System.Collections.Generic;
@@ -13,12 +14,12 @@ namespace Services.CloseRooms
     public class CloseRoomsData : ICloseRoomsData
     {
         private readonly ClinicDBContext _context;
-        private readonly IRoomsData _iRoomsData;
+        private readonly IRoomsRef _iRoomRef;
 
-        public CloseRoomsData(ClinicDBContext context, IRoomsData roomsData)
+        public CloseRoomsData(ClinicDBContext context, IRoomsRef roomRef)
         {
             _context = context;
-            _iRoomsData = roomsData;
+            _iRoomRef = roomRef;
         }
 
         public bool CloseroomExists(int id)
@@ -101,7 +102,7 @@ namespace Services.CloseRooms
                 {
                     foreach (var i in closeRoomDto.idRoom)
                     {
-                        var name = await _iRoomsData.GetNameRoom(int.Parse(i));
+                        var name = await _iRoomRef.GetNameRoom(int.Parse(i));
                         if(name != null)
                         {
                             listName.Add(name);
@@ -119,6 +120,22 @@ namespace Services.CloseRooms
                 closeRoomDto.reason = item.Reason;
 
                 list.Add(closeRoomDto);
+            }
+            return list;
+        }
+
+        public async Task<List<Closeroom>> GetAllCloseroomsForId(int id, DateOnly date)
+        {
+            var closerooms = await GetCloserooms();
+            var list = new List<Closeroom>();
+            foreach (var item in closerooms)
+            {
+                var i = "" + id;
+                if (item != null && item.Roomsid?.Contains(i) == true && (item.Startdate >= date && item.Startdate <= date.AddDays(5) || item.Enddate >= date && item.Enddate <= date.AddDays(5)))
+                {
+                    list.Add(item);
+                }
+
             }
             return list;
         }

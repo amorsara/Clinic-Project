@@ -3,6 +3,7 @@ using Services.Appointments;
 using Services.Contacts;
 using Services.DTO;
 using Services.Employees;
+using Services.FuncRef;
 using Services.Rooms;
 using Services.WorkHours;
 using System;
@@ -16,18 +17,18 @@ namespace Services.Schedule
     public class ScheduleData : IScheduleData
     {
         private readonly IAppointmentsData _iAppintmentsData;
-        private readonly IEmployeesData _iEmployeesData;
-        private readonly IRoomsData _iRoomsData;
+        private readonly IEmployeeRef _iEmployeeRef;
+        private readonly IRoomsRef _iRoomRef;
         private readonly IContactsData _iContactsData;
-        private readonly IWorkHoursData _iWorkHoursData;
+        private readonly IWorkHourRef _iWorkHourRef;
 
-        public ScheduleData(IAppointmentsData appointmentsData, IEmployeesData employeesData, IRoomsData roomsData, IContactsData contactsData, IWorkHoursData workHoursData)
+        public ScheduleData(IAppointmentsData appointmentsData, IEmployeeRef employeeRef, IRoomsRef roomsRef, IContactsData contactsData, IWorkHourRef workHourRef)
         {
             _iAppintmentsData = appointmentsData;
-            _iEmployeesData = employeesData;
-            _iRoomsData = roomsData;
+            _iEmployeeRef = employeeRef;
+            _iRoomRef = roomsRef;
             _iContactsData = contactsData;
-            _iWorkHoursData = workHoursData;
+            _iWorkHourRef = workHourRef;
         }
 
         public async Task<List<ScheduleDto>> GetAllDates()
@@ -47,9 +48,9 @@ namespace Services.Schedule
                 scheduleDto.isRemined = appointment.Isremaind;
                 scheduleDto.cancel = appointment.Cancle;
                 scheduleDto.idWorker = appointment.Idemployee;
-                scheduleDto.colorWorker = await _iEmployeesData.GetColorById(appointment.Idemployee);
-                scheduleDto.nameRoom = await _iRoomsData.GetNameRoom(appointment.Idroom);
-                scheduleDto.shift = (char?)await _iWorkHoursData.GetShiftEmployee(appointment.Idemployee, appointment.Timestart);
+                scheduleDto.colorWorker = await _iEmployeeRef.GetColorById(appointment.Idemployee);
+                scheduleDto.nameRoom = await _iRoomRef.GetNameRoom(appointment.Idroom);
+                scheduleDto.shift = (char?)await _iWorkHourRef.GetShiftEmployee(appointment.Idemployee, appointment.Timestart);
                 scheduleDto.firstName = contact?.Firstname;
                 scheduleDto.lastName = contact?.Lastname;
                 scheduleDto.note = appointment.Remark;
@@ -64,7 +65,7 @@ namespace Services.Schedule
 
         public async Task<List<RoomScheduleDto>> GetAllSchedules(bool regular)
         {
-            var rooms = await _iRoomsData.GetAllRooms();
+            var rooms = await _iRoomRef.GetAllRooms();
             var list = new List<RoomScheduleDto>();
             foreach(var room in rooms)
             {
@@ -75,14 +76,35 @@ namespace Services.Schedule
                 var roomScheduleDto = new RoomScheduleDto();
                 roomScheduleDto.IdRoom = room.Idroom;
                 roomScheduleDto.nameRoom = room.Nameroom;
-                roomScheduleDto.listTreatments = await _iRoomsData.GetTreatmentsForRoom(room.Idroom);
-                var employees = await _iRoomsData.GetAllEmployeesForRoom(room.Idroom);
-                roomScheduleDto.Employees = await _iEmployeesData.GetEmployeesForSchedule(employees, regular, room.Idroom);
+                roomScheduleDto.listTreatments = await _iRoomRef.GetTreatmentsForRoom(room.Idroom);
+                var employees = await _iRoomRef.GetAllEmployeesForRoom(room.Idroom);
+                roomScheduleDto.Employees = await _iEmployeeRef.GetEmployeesForSchedule(employees, regular, room.Idroom);
                 list.Add(roomScheduleDto);
             }
             return list;
         }
 
+        //public async Task<List<RoomScheduleDto>> GetAllSchedulesForWeek(DateOnly date)
+        //{
+        //    int day = (int)date.DayOfWeek + 1;
+        //    var rooms = await _iRoomsData.GetAllRooms();
+        //    var list = new List<RoomScheduleDto>();
+        //    foreach (var room in rooms)
+        //    {
+        //        if (room == null)
+        //        {
+        //            continue;
+        //        }
+        //        var roomScheduleDto = new RoomScheduleDto();
+        //        roomScheduleDto.IdRoom = room.Idroom;
+        //        roomScheduleDto.nameRoom = room.Nameroom;
+        //        roomScheduleDto.listTreatments = await _iRoomsData.GetTreatmentsForRoom(room.Idroom);
+        //        var employees = await _iRoomsData.GetAllEmployeesForRoom(room.Idroom);
+        //        roomScheduleDto.Employees = await _iEmployeesData.GetEmployeesForScheduleForWeek(employees, date, room.Idroom);
+        //        list.Add(roomScheduleDto);
+        //    }
+        //    return list;
+        //}
     }
 }
 

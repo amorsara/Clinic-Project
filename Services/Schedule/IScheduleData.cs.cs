@@ -11,5 +11,6 @@ namespace Services.Schedule
     {
         Task<List<ScheduleDto>> GetAllDates();
         Task <List<RoomScheduleDto>> GetAllSchedules(bool regular);
+        //Task<List<RoomScheduleDto>> GetAllSchedulesForWeek(DateOnly date);
     }
 }

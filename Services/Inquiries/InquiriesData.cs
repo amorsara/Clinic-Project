@@ -2,6 +2,7 @@
 using Repository.GeneratedModels;
 using Services.DTO;
 using Services.Employees;
+using Services.FuncRef;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,12 +14,12 @@ namespace Services.Inquiries
     public class InquiriesData : IInquiriesData
     {
         private readonly ClinicDBContext _context;
-        private readonly IEmployeesData _iEmployeesData;
+        private readonly IEmployeeRef _iEmployeeRef;
 
-        public InquiriesData(ClinicDBContext context, IEmployeesData employeesData)
+        public InquiriesData(ClinicDBContext context, IEmployeeRef employeeRef)
         {
             _context = context;
-            _iEmployeesData = employeesData;
+            _iEmployeeRef = employeeRef;
         }
 
         public async Task<bool> CreateInquiry(Inquiry inquiry)
@@ -58,7 +59,7 @@ namespace Services.Inquiries
 
         public async Task<List<InquiryDto>?> GetAllInquiries(int id)
         {
-            var idAdmin = await _iEmployeesData.GetIdForAdmin();
+            var idAdmin = await _iEmployeeRef.GetIdForAdmin();
             if(idAdmin == null || idAdmin != id)
             {
                 return null;
@@ -84,7 +85,7 @@ namespace Services.Inquiries
                 newInq.response = inquiry.Response;
                 newInq.status = inquiry.Status;
 
-                var employee = await _iEmployeesData.GetEmployeeById(inquiry.Idemployee);
+                var employee = await _iEmployeeRef.GetEmployeeById(inquiry.Idemployee);
                 newInq.employee = new EmployeeDetails();
                 newInq.employee.Color = employee?.Color;
                 newInq.employee.Name = employee?.Name;
@@ -118,7 +119,7 @@ namespace Services.Inquiries
                 newInq.response = inquiry.Response;
                 newInq.status = inquiry.Status;
 
-                var employee = await _iEmployeesData.GetEmployeeById(id);
+                var employee = await _iEmployeeRef.GetEmployeeById(id);
                 newInq.employee = new EmployeeDetails();
                 newInq.employee.Color = employee?.Color;
                 newInq.employee.Name = employee?.Name;

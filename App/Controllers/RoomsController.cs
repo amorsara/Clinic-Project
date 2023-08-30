@@ -89,30 +89,6 @@ namespace App.Controllers
             return room;
         }
 
-        [HttpGet]
-        [Route("/api/rooms/closeroom/{id}")]
-        public async Task<ActionResult<Room>> CloseRoom(int id)
-        {
-            var room = await _iRoomsData.CloseRoom(id);
-            if (room == false)
-            {
-                return BadRequest();
-            }
-            return Ok(true);
-        }
-
-        [HttpGet]
-        [Route("/api/rooms/openroom/{id}")]
-        public async Task<ActionResult<Room>> OpenRoom(int id)
-        {
-            var room = await _iRoomsData.OpenRoom(id);
-            if (room == false)
-            {
-                return BadRequest();
-            }
-            return Ok(true);
-        }
-
         [HttpPut]
         [Route("/api/rooms/updateroom/{id}")]
         public async Task<IActionResult> UpdateRoom(int id, Room room)
