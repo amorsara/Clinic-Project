@@ -30,6 +30,9 @@ public partial class Employee
     public virtual ICollection<Message> Messages { get; set; } = new List<Message>();
 
     [JsonIgnore]
+    public virtual ICollection<Tempcloseemployee> Tempcloseemployees { get; set; } = new List<Tempcloseemployee>();
+
+    [JsonIgnore]
     public virtual ICollection<Tempworkhour> Tempworkhours { get; set; } = new List<Tempworkhour>();
 
     [JsonIgnore]

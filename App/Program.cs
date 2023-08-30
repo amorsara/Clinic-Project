@@ -13,6 +13,7 @@ using Services.Messages;
 using Services.Payments;
 using Services.Rooms;
 using Services.Schedule;
+using Services.TempCloseEmployees;
 using Services.TempWorkHours;
 using Services.TreatmentsType;
 using Services.Waitings;
@@ -49,6 +50,7 @@ builder.Services.AddScoped<IInquiriesData, InquiriesData>();
 builder.Services.AddScoped<IMessageData, MessageData>();
 builder.Services.AddScoped<ICloseRoomsData, CloseRoomsData>();
 builder.Services.AddScoped<ITempWorkHourData, TempWorkHourData>();
+builder.Services.AddScoped<ITempCloseEmployeesData, TempCloseEmployeesData>();
 
 
 var app = builder.Build();

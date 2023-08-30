@@ -39,6 +39,8 @@ public partial class ClinicDBContext : DbContext
 
     public virtual DbSet<Room> Rooms { get; set; }
 
+    public virtual DbSet<Tempcloseemployee> Tempcloseemployees { get; set; }
+
     public virtual DbSet<Tempworkhour> Tempworkhours { get; set; }
 
     public virtual DbSet<Treatmentstype> Treatmentstypes { get; set; }
@@ -401,6 +403,28 @@ public partial class ClinicDBContext : DbContext
             entity.Property(e => e.Treatmentstype)
                 .HasColumnType("character varying")
                 .HasColumnName("treatmentstype");
+        });
+
+        modelBuilder.Entity<Tempcloseemployee>(entity =>
+        {
+            entity.HasKey(e => e.Idtempcloseemployee).HasName("tempcloseemployees_pkey");
+
+            entity.ToTable("tempcloseemployees");
+
+            entity.Property(e => e.Idtempcloseemployee).HasColumnName("idtempcloseemployee");
+            entity.Property(e => e.Enddate).HasColumnName("enddate");
+            entity.Property(e => e.Endtime).HasColumnName("endtime");
+            entity.Property(e => e.Idemployee).HasColumnName("idemployee");
+            entity.Property(e => e.Reason)
+                .HasColumnType("character varying")
+                .HasColumnName("reason");
+            entity.Property(e => e.Startdate).HasColumnName("startdate");
+            entity.Property(e => e.Starttime).HasColumnName("starttime");
+
+            entity.HasOne(d => d.IdemployeeNavigation).WithMany(p => p.Tempcloseemployees)
+                .HasForeignKey(d => d.Idemployee)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("TempCloseEmployees_employee_id_fkey");
         });
 
         modelBuilder.Entity<Tempworkhour>(entity =>

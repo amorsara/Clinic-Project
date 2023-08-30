@@ -71,12 +71,6 @@ namespace Services.CloseRooms
                 return false;
             }
 
-            var ok = await _context.Closerooms.FindAsync(closeroom.Idcloseroom);
-            if (ok == null)
-            {
-                return false;
-            }
-
             _context.Closerooms.Remove(closeroom);
             await _context.SaveChangesAsync();
 
