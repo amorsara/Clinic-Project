@@ -2,7 +2,6 @@
 using Repository.GeneratedModels;
 using Services.DTO;
 using Services.Employees;
-using Services.FuncRef;
 using Services.TreatmentsType;
 using System;
 using System.Collections.Generic;
@@ -17,13 +16,13 @@ namespace Services.Rooms
 
         private readonly ClinicDBContext _context;
         private readonly ITreatmentsTypeData _iTreatmentsTypeData;
-        private readonly IEmployeeRef _iEmployeeRef;
+        private readonly IEmployeesData _iEmployeesData;
 
-        public RoomsData(ClinicDBContext context, ITreatmentsTypeData treatmentsTypeData, IEmployeeRef employeeRef)
+        public RoomsData(ClinicDBContext context, ITreatmentsTypeData treatmentsTypeData, IEmployeesData employeesData)
         {
             _context = context;
             _iTreatmentsTypeData = treatmentsTypeData;
-            _iEmployeeRef = employeeRef;
+            _iEmployeesData = employeesData;
         }
 
         public async Task<bool> CreateRoom(Room room)
@@ -85,7 +84,7 @@ namespace Services.Rooms
         public async Task<List<Employee>> GetAllEmployeesForRoom(int id)
         {
             var list = await GetTreatmentsForRoom(id);
-            var employees = await _iEmployeeRef.GetAllEmployeesForRoom(list);
+            var employees = await _iEmployeesData.GetAllEmployeesForRoom(list);
             return employees.ToList();
         }
 

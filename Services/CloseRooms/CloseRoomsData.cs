@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
 using Services.DTO;
-using Services.FuncRef;
 using Services.Rooms;
 using System;
 using System.Collections.Generic;
@@ -14,12 +13,12 @@ namespace Services.CloseRooms
     public class CloseRoomsData : ICloseRoomsData
     {
         private readonly ClinicDBContext _context;
-        private readonly IRoomsRef _iRoomRef;
+        private readonly IRoomsData _iRoomsData;
 
-        public CloseRoomsData(ClinicDBContext context, IRoomsRef roomRef)
+        public CloseRoomsData(ClinicDBContext context, IRoomsData roomsData)
         {
             _context = context;
-            _iRoomRef = roomRef;
+            _iRoomsData = roomsData;
         }
 
         public bool CloseroomExists(int id)
@@ -155,22 +154,26 @@ namespace Services.CloseRooms
             return true;
         }
 
+        //public async Task<List<Closeroom>> GetAllCloseroomsForId(int id, DateOnly date)
+        //{
+        //    var closerooms = await GetCloserooms();
+        //    var nameRoom = await _iRoomRef.GetNameRoom(id);
+        //    nameRoom = nameRoom != null ? nameRoom : " ";
+        //    var list = new List<Closeroom>();
+        //    foreach (var item in closerooms)
+        //    {
+        //        //var i = "" + id;
+
+        //        if (item != null && item.Roomsname?.Contains(nameRoom) == true && (item.Startdate >= date && item.Startdate <= date.AddDays(5) || item.Enddate >= date && item.Enddate <= date.AddDays(5)))
+        //        {
+        //            list.Add(item);
+        //        }
+
+        //    }
+        //    return list;
+        //}
 
     }
 }
 
-//public async Task<List<Closeroom>> GetAllCloseroomsForId(int id, DateOnly date)
-//{
-//    var closerooms = await GetCloserooms();
-//    var list = new List<Closeroom>();
-//    foreach (var item in closerooms)
-//    {
-//        var i = "" + id;
-//        if (item != null && item.Roomsid?.Contains(i) == true && (item.Startdate >= date && item.Startdate <= date.AddDays(5) || item.Enddate >= date && item.Enddate <= date.AddDays(5)))
-//        {
-//            list.Add(item);
-//        }
 
-//    }
-//    return list;
-//}

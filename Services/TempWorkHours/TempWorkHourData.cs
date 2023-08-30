@@ -64,12 +64,12 @@ namespace Services.TempWorkHours
 
         public async Task<List<Tempworkhour>> GetAllTempworkhours()
         {
-            return await _context.Tempworkhours.ToListAsync();
+            return await _context.Tempworkhours.Where(t => t.Status == true).ToListAsync();
         }
 
         public async Task<List<Tempworkhour>> GetAllTempworkhoursForId(int id)
         {
-            return await _context.Tempworkhours.Where(t => t.Idemployee == id).ToListAsync();
+            return await _context.Tempworkhours.Where(t => t.Idemployee == id && t.Status == true).ToListAsync();
         }
 
         public bool TempworkhourExists(int id)

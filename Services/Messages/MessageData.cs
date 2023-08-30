@@ -2,7 +2,6 @@
 using Repository.GeneratedModels;
 using Services.DTO;
 using Services.Employees;
-using Services.FuncRef;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,12 +13,12 @@ namespace Services.Messages
     public class MessageData : IMessageData
     {
         private readonly ClinicDBContext _context;
-        private readonly IEmployeeRef _iEmployeeRef;
+        private readonly IEmployeesData _iEmployeesData;
 
-        public MessageData(ClinicDBContext context, IEmployeeRef employeeRef)
+        public MessageData(ClinicDBContext context, IEmployeesData employeesData)
         {
             _context = context;
-            _iEmployeeRef = employeeRef;
+            _iEmployeesData = employeesData;
         }
 
         public async Task<bool> CreateMessage(MessageDto messageDto)
@@ -89,7 +88,7 @@ namespace Services.Messages
                     mess.question = message.Question;
                     mess.answer = message.Answer;
                     
-                    var emp = await _iEmployeeRef.GetEmployeeById(message.Idfrom);
+                    var emp = await _iEmployeesData.GetEmployeeById(message.Idfrom);
                     if(emp != null)
                     {
                         var from = new EmployeeDetails();
@@ -104,7 +103,7 @@ namespace Services.Messages
                         var listTo = new List<EmployeeDetails>();
                         foreach (var item in listId)
                         {
-                            var e = await _iEmployeeRef.GetEmployeeById(int.Parse(item));
+                            var e = await _iEmployeesData.GetEmployeeById(int.Parse(item));
                             if (e != null)
                             {
                                 var to = new EmployeeDetails();

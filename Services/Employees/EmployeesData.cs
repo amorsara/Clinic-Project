@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
 using Services.DTO;
-using Services.FuncRef;
 using Services.TreatmentsType;
 using Services.WorkHours;
 using System;
@@ -16,13 +15,13 @@ namespace Services.Employees
     {
 
         private readonly ClinicDBContext _context;
-        private readonly IWorkHourRef _iWorkHourRef;
+        private readonly IWorkHoursData _iWorkHoursData;
         private readonly ITreatmentsTypeData _iTreatmentsTypeData;
 
-        public EmployeesData(ClinicDBContext context, IWorkHourRef workHourRef, ITreatmentsTypeData treatmentsTypeData)
+        public EmployeesData(ClinicDBContext context, IWorkHoursData workHoursData, ITreatmentsTypeData treatmentsTypeData)
         {
             _context = context;
-            _iWorkHourRef = workHourRef;
+            _iWorkHoursData = workHoursData;
             _iTreatmentsTypeData = treatmentsTypeData;
         }
 
@@ -121,7 +120,7 @@ namespace Services.Employees
                 emp.IdWorker = e.Idemployee;
                 emp.nameWorker = e.Name;
                 emp.colorWorker = e.Color;
-                emp.weeklyHouers = await _iWorkHourRef.GetWorkHourByEmployee(idRoom, e.Idemployee, regular);
+                emp.weeklyHouers = await _iWorkHoursData.GetWorkHourByEmployee(idRoom, e.Idemployee, regular);
                 list.Add(emp);
             }
             return list;
