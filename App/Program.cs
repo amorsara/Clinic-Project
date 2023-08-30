@@ -14,6 +14,7 @@ using Services.Messages;
 using Services.Payments;
 using Services.Rooms;
 using Services.Schedule;
+using Services.TempWorkHours;
 using Services.TreatmentsType;
 using Services.Waitings;
 using Services.WorkHours;
@@ -48,6 +49,8 @@ builder.Services.AddScoped<IPymentsData, PymentsData>();
 builder.Services.AddScoped<IInquiriesData, InquiriesData>();
 builder.Services.AddScoped<IMessageData, MessageData>();
 builder.Services.AddScoped<ICloseRoomsData, CloseRoomsData>();
+builder.Services.AddScoped<ITempWorkHourData, TempWorkHourData>();
+
 builder.Services.AddScoped<IWorkHourRef, WorkHourRef>();
 builder.Services.AddScoped<IRoomsRef, RoomRef>();
 builder.Services.AddScoped<IEmployeeRef, EmployeeRef>();

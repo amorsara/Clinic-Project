@@ -15,18 +15,11 @@ namespace Services.WorkHours
     {
 
         private readonly ClinicDBContext _context;
-        //private readonly ICloseRoomsData _iCloseRoomsData;
 
         public WorkHoursData(ClinicDBContext context)
         {
             _context = context;
         }
-
-        //public WorkHoursData(ClinicDBContext context, ICloseRoomsData closeRoomsData)
-        //{
-        //    _context = context;
-        //    _iCloseRoomsData = closeRoomsData; // שגיאה
-        //}
 
         public async Task<bool> CreateWorkHour(Workhour workHour)
         {
@@ -119,71 +112,6 @@ namespace Services.WorkHours
             return list;
         }
 
-        //public async Task<List<EmployeeShiftDto>> GetWorkHourByEmployeeForWeek(int idRoom, int id, DateOnly date)
-        //{
-        //    var closerooms = await GetAllCloseroomsForId(idRoom, date);
-        //    var list = new List<EmployeeShiftDto>();
-        //    for (int i = 1; i < 7; i++)
-        //    {
-        //        var employeeShiftDto = new EmployeeShiftDto() { IdEmployeeShift = i };
-        //        var shifts = await GetShiftByDay(idRoom, id, i);
-        //        foreach (var s in shifts)
-        //        {
-
-        //            if (s == null)
-        //            {
-        //                continue;
-        //            }
-        //            if (closerooms != null)
-        //            {
-        //                foreach (var d in closerooms)
-        //                {
-        //                    var day1 = d.Startdate?.DayOfWeek != null ? (int)d.Startdate?.DayOfWeek + 1 : 0;
-        //                    var day2 = d.Enddate?.DayOfWeek != null ? (int)d.Enddate?.DayOfWeek + 1 : 0;
-        //                    if (d != null && (day1 == i || day2 == i))
-        //                    {
-        //                        if (s.Shift == 'm' && (s.Starthour > d.Endtime || s.Endhour < d.Starttime))
-        //                        {
-        //                            employeeShiftDto.startMorning = s.Starthour;
-        //                            employeeShiftDto.endMorning = s.Endhour;
-        //                        }
-        //                        if (s.Shift == 'a' && (s.Starthour > d.Endtime || s.Endhour < d.Starttime))
-        //                        {
-        //                            employeeShiftDto.startAfternoon = s.Starthour;
-        //                            employeeShiftDto.endAfternoon = s.Endhour;
-        //                        }
-        //                        if (s.Shift == 'e' && (s.Starthour > d.Endtime || s.Endhour < d.Starttime))
-        //                        {
-        //                            employeeShiftDto.startEvenning = s.Starthour;
-        //                            employeeShiftDto.endEvenning = s.Endhour;
-        //                        }
-        //                    }
-        //                }
-        //            }
-        //            else
-        //            {
-        //                if (s.Shift == 'm')
-        //                {
-        //                    employeeShiftDto.startMorning = s.Starthour;
-        //                    employeeShiftDto.endMorning = s.Endhour;
-        //                }
-        //                if (s.Shift == 'a')
-        //                {
-        //                    employeeShiftDto.startAfternoon = s.Starthour;
-        //                    employeeShiftDto.endAfternoon = s.Endhour;
-        //                }
-        //                if (s.Shift == 'e')
-        //                {
-        //                    employeeShiftDto.startEvenning = s.Starthour;
-        //                    employeeShiftDto.endEvenning = s.Endhour;
-        //                }
-        //            }
-        //        }
-        //        list.Add(employeeShiftDto);
-        //    }
-        //    return list;
-        //}
-
         public async Task<Workhour?> GetWorkHourById(int id)
         {
             var workHour = await _context.Workhours.FindAsync(id);
@@ -261,6 +189,71 @@ namespace Services.WorkHours
 
 
 
+        //public async Task<List<EmployeeShiftDto>> GetWorkHourByEmployeeForWeek(int idRoom, int id, DateOnly date)
+        //{
+        //    var closerooms = await GetAllCloseroomsForId(idRoom, date);
+        //    var list = new List<EmployeeShiftDto>();
+        //    for (int i = 1; i < 7; i++)
+        //    {
+        //        var employeeShiftDto = new EmployeeShiftDto() { IdEmployeeShift = i };
+        //        var shifts = await GetShiftByDay(idRoom, id, i);
+        //        foreach (var s in shifts)
+        //        {
+
+        //            if (s == null)
+        //            {
+        //                continue;
+        //            }
+        //            if (closerooms != null)
+        //            {
+        //                foreach (var d in closerooms)
+        //                {
+        //                    var day1 = d.Startdate?.DayOfWeek != null ? (int)d.Startdate?.DayOfWeek + 1 : 0;
+        //                    var day2 = d.Enddate?.DayOfWeek != null ? (int)d.Enddate?.DayOfWeek + 1 : 0;
+        //                    if (d != null && (day1 == i || day2 == i))
+        //                    {
+        //                        if (s.Shift == 'm' && (s.Starthour > d.Endtime || s.Endhour < d.Starttime))
+        //                        {
+        //                            employeeShiftDto.startMorning = s.Starthour;
+        //                            employeeShiftDto.endMorning = s.Endhour;
+        //                        }
+        //                        if (s.Shift == 'a' && (s.Starthour > d.Endtime || s.Endhour < d.Starttime))
+        //                        {
+        //                            employeeShiftDto.startAfternoon = s.Starthour;
+        //                            employeeShiftDto.endAfternoon = s.Endhour;
+        //                        }
+        //                        if (s.Shift == 'e' && (s.Starthour > d.Endtime || s.Endhour < d.Starttime))
+        //                        {
+        //                            employeeShiftDto.startEvenning = s.Starthour;
+        //                            employeeShiftDto.endEvenning = s.Endhour;
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //            else
+        //            {
+        //                if (s.Shift == 'm')
+        //                {
+        //                    employeeShiftDto.startMorning = s.Starthour;
+        //                    employeeShiftDto.endMorning = s.Endhour;
+        //                }
+        //                if (s.Shift == 'a')
+        //                {
+        //                    employeeShiftDto.startAfternoon = s.Starthour;
+        //                    employeeShiftDto.endAfternoon = s.Endhour;
+        //                }
+        //                if (s.Shift == 'e')
+        //                {
+        //                    employeeShiftDto.startEvenning = s.Starthour;
+        //                    employeeShiftDto.endEvenning = s.Endhour;
+        //                }
+        //            }
+        //        }
+        //        list.Add(employeeShiftDto);
+        //    }
+        //    return list;
+        //}
+
 
 
         // =======================
@@ -283,6 +276,13 @@ namespace Services.WorkHours
 
     }
 }
+
+//private readonly ICloseRoomsData _iCloseRoomsData;
+//public WorkHoursData(ClinicDBContext context, ICloseRoomsData closeRoomsData)
+//{
+//    _context = context;
+//    _iCloseRoomsData = closeRoomsData; // שגיאה
+//}
 
 
 
