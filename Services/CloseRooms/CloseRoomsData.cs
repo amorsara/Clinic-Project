@@ -44,7 +44,7 @@ namespace Services.CloseRooms
             closeRoom.Startdate = closeRoomDto.startDate;
             closeRoom.Enddate = closeRoomDto.endDate;
             closeRoom.Reason = closeRoomDto.reason;
-            closeRoom.Roomsid = closeRoomDto.idRoom?.Count() > 0 ? String.Join(",", closeRoomDto.idRoom) : null;
+            closeRoom.Roomsname = closeRoomDto.name?.Count() > 0 ? String.Join(",", closeRoomDto.name) : null;
             var isExsists = CloseroomExists(closeRoomDto.idClose);
             if (isExsists)
             {
@@ -95,24 +95,8 @@ namespace Services.CloseRooms
                     continue;
                 }
                 var closeRoomDto = new CloseRoomDto();
-                var listName = new List<string>();
                 closeRoomDto.idClose = item.Idcloseroom;
-                closeRoomDto.idRoom = item.Roomsid?.Split(",").ToList();
-                if(closeRoomDto.idRoom != null)
-                {
-                    foreach (var i in closeRoomDto.idRoom)
-                    {
-                        var name = await _iRoomRef.GetNameRoom(int.Parse(i));
-                        if(name != null)
-                        {
-                            listName.Add(name);
-                        }
-                        
-                    }
-
-                    closeRoomDto.name = listName;
-                }
-                
+                closeRoomDto.name = item.Roomsname?.Split(",").ToList();               
                 closeRoomDto.startDate = item.Startdate;
                 closeRoomDto.endDate = item.Enddate;
                 closeRoomDto.startTime = item.Starttime;
@@ -120,22 +104,6 @@ namespace Services.CloseRooms
                 closeRoomDto.reason = item.Reason;
 
                 list.Add(closeRoomDto);
-            }
-            return list;
-        }
-
-        public async Task<List<Closeroom>> GetAllCloseroomsForId(int id, DateOnly date)
-        {
-            var closerooms = await GetCloserooms();
-            var list = new List<Closeroom>();
-            foreach (var item in closerooms)
-            {
-                var i = "" + id;
-                if (item != null && item.Roomsid?.Contains(i) == true && (item.Startdate >= date && item.Startdate <= date.AddDays(5) || item.Enddate >= date && item.Enddate <= date.AddDays(5)))
-                {
-                    list.Add(item);
-                }
-
             }
             return list;
         }
@@ -164,7 +132,7 @@ namespace Services.CloseRooms
             closeRoom.Startdate = closeroom.Startdate;
             closeRoom.Enddate = closeroom.Enddate;
             closeRoom.Reason = closeroom.Reason;
-            closeroom.Roomsid = closeroom.Roomsid?.Count() > 0 ? String.Join(",", closeroom.Roomsid) : null;
+            closeroom.Roomsname = closeroom.Roomsname?.Count() > 0 ? String.Join(",", closeroom.Roomsname) : null;
 
             _context.Entry(closeRoom).State = EntityState.Modified;
 
@@ -186,5 +154,23 @@ namespace Services.CloseRooms
 
             return true;
         }
+
+
     }
 }
+
+//public async Task<List<Closeroom>> GetAllCloseroomsForId(int id, DateOnly date)
+//{
+//    var closerooms = await GetCloserooms();
+//    var list = new List<Closeroom>();
+//    foreach (var item in closerooms)
+//    {
+//        var i = "" + id;
+//        if (item != null && item.Roomsid?.Contains(i) == true && (item.Startdate >= date && item.Startdate <= date.AddDays(5) || item.Enddate >= date && item.Enddate <= date.AddDays(5)))
+//        {
+//            list.Add(item);
+//        }
+
+//    }
+//    return list;
+//}

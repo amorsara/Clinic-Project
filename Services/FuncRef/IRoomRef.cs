@@ -17,5 +17,7 @@ namespace Services.FuncRef
         Task<string?> GetNameRoom(int id);
 
         Task<List<string>?> GetTreatmentsForRoom(int id);
+
+        Task<Room?> GetRoomByName(string? name);
     }
 }

@@ -111,9 +111,9 @@ public partial class ClinicDBContext : DbContext
             entity.Property(e => e.Reason)
                 .HasColumnType("character varying")
                 .HasColumnName("reason");
-            entity.Property(e => e.Roomsid)
+            entity.Property(e => e.Roomsname)
                 .HasColumnType("character varying")
-                .HasColumnName("roomsid");
+                .HasColumnName("roomsname");
             entity.Property(e => e.Startdate).HasColumnName("startdate");
             entity.Property(e => e.Starttime).HasColumnName("starttime");
         });

@@ -12,8 +12,6 @@ namespace Services.DTO
 
         public List<string>? name { get; set; }
 
-        public List<string>? idRoom { get; set; }
-
         public DateOnly? startDate { get; set; }
 
         public DateOnly? endDate { get; set; }
@@ -26,4 +24,3 @@ namespace Services.DTO
     }
 }
 
-//idRoom: [id,..],startDate,endDate,startTime,endTime,reason

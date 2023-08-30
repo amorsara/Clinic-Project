@@ -33,6 +33,11 @@ namespace Services.FuncRef
             return await _iRoomsData.GetNameRoom(id);
         }
 
+        public async Task<Room?> GetRoomByName(string? name)
+        {
+            return await _iRoomsData.GetRoomByName(name);
+        }
+
         public async Task<List<string>?> GetTreatmentsForRoom(int id)
         {
             return await _iRoomsData.GetTreatmentsForRoom(id);

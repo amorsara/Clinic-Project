@@ -7,7 +7,7 @@ public partial class Closeroom
 {
     public int Idcloseroom { get; set; }
 
-    public string? Roomsid { get; set; }
+    public string? Roomsname { get; set; }
 
     public DateOnly? Startdate { get; set; }
 
