@@ -102,7 +102,7 @@ namespace Services.Inquiries
             var list = new List<InquiryDto>();
             foreach(var inquiry in inquiries)
             {
-                if(inquiry == null)
+                if(inquiry == null || inquiry.Status == 2)
                 {
                     continue;
                 }
