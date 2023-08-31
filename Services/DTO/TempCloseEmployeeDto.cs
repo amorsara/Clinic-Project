@@ -21,6 +21,8 @@ namespace Services.DTO
         public TimeOnly? endTime { get; set; }
 
         public string? reason { get; set; }
+
+        public bool? status { get; set; }
     }
 }
 

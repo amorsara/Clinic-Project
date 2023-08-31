@@ -20,6 +20,8 @@ public partial class Tempcloseemployee
 
     public string? Reason { get; set; }
 
+    public bool? Status { get; set; }
+
     [JsonIgnore]
     public virtual Employee IdemployeeNavigation { get; set; } = null!;
 }

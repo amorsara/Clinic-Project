@@ -58,6 +58,18 @@ namespace App.Controllers
             return tempcloseemployee;
         }
 
+        [HttpGet]
+        [Route("/api/tempcloseemployees/updatestatustempcloseemployee/{id}/{status}")]
+        public async Task<ActionResult> UpdateStatusTempcloseemployee(int id, bool status)
+        {
+            var res = await _iTempCloseEmployeesData.UpdateStatusTempcloseemployee(id, status);
+            if (res == false)
+            {
+                return BadRequest();
+            }
+            return Ok(true);
+        }
+
         [HttpPut]
         [Route("/api/tempcloseemployees/updatetempcloseemployee/{id}")]
         public async Task<IActionResult> UpdateTempcloseemployee(int id, TempCloseEmployeeDto tempcloseemployee)
@@ -66,7 +78,7 @@ namespace App.Controllers
             {
                 return NoContent();
             }
-            var res = await _iTempCloseEmployeesData.UpdateTempcloseemployee(id, tempcloseemployee);
+            var res = await _iTempCloseEmployeesData.UpdateTempcloseemployeeWrapper(id, tempcloseemployee);
             
             if (res == false)
             {

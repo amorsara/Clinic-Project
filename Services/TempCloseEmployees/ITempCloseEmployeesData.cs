@@ -16,7 +16,11 @@ namespace Services.TempCloseEmployees
 
         Task<Tempcloseemployee?> GetTempcloseemployeeById(int id);
 
-        Task<bool> UpdateTempcloseemployee(int id, TempCloseEmployeeDto tempcloseemployeedto);
+        Task<bool> UpdateTempcloseemployeeWrapper(int id, TempCloseEmployeeDto tempcloseemployeedto);
+
+        Task<bool> UpdateTempcloseemployee(Tempcloseemployee tempcloseemployee);
+
+        Task<bool> UpdateStatusTempcloseemployee(int id, bool status);
 
         Task<bool> CreateTempcloseemployee(TempCloseEmployeeDto tempcloseemployeedto);
 

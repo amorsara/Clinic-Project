@@ -17,6 +17,8 @@ public partial class ClinicDBContext : DbContext
 
     public virtual DbSet<Appointment> Appointments { get; set; }
 
+    public virtual DbSet<Attendance> Attendances { get; set; }
+
     public virtual DbSet<Closeroom> Closerooms { get; set; }
 
     public virtual DbSet<Contact> Contacts { get; set; }
@@ -101,6 +103,24 @@ public partial class ClinicDBContext : DbContext
                 .HasForeignKey(d => d.Idroom)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("Appointments_room_id_fkey");
+        });
+
+        modelBuilder.Entity<Attendance>(entity =>
+        {
+            entity.HasKey(e => e.Idattendance).HasName("attendance_pkey");
+
+            entity.ToTable("attendance");
+
+            entity.Property(e => e.Idattendance).HasColumnName("idattendance");
+            entity.Property(e => e.Date).HasColumnName("date");
+            entity.Property(e => e.Idemployee).HasColumnName("idemployee");
+            entity.Property(e => e.Timeenter).HasColumnName("timeenter");
+            entity.Property(e => e.Timeexit).HasColumnName("timeexit");
+
+            entity.HasOne(d => d.IdemployeeNavigation).WithMany(p => p.Attendances)
+                .HasForeignKey(d => d.Idemployee)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("Attendance_employee_id_fkey");
         });
 
         modelBuilder.Entity<Closeroom>(entity =>
@@ -420,6 +440,7 @@ public partial class ClinicDBContext : DbContext
                 .HasColumnName("reason");
             entity.Property(e => e.Startdate).HasColumnName("startdate");
             entity.Property(e => e.Starttime).HasColumnName("starttime");
+            entity.Property(e => e.Status).HasColumnName("status");
 
             entity.HasOne(d => d.IdemployeeNavigation).WithMany(p => p.Tempcloseemployees)
                 .HasForeignKey(d => d.Idemployee)

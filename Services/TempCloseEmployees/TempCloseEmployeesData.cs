@@ -32,7 +32,7 @@ namespace Services.TempCloseEmployees
             }
 
             var tempcloseemployee = new Tempcloseemployee();
-
+            tempcloseemployee.Status = tempcloseemployeedto.status;
             tempcloseemployee.Startdate = tempcloseemployeedto.startDate;
             tempcloseemployee.Enddate = tempcloseemployeedto.endDate;
             tempcloseemployee.Starttime = tempcloseemployeedto.startTime;
@@ -86,6 +86,7 @@ namespace Services.TempCloseEmployees
                 tempcloseemployee.endTime = emp.Endtime;
                 tempcloseemployee.idWorker = emp.Idemployee;
                 tempcloseemployee.reason = emp.Reason;
+                tempcloseemployee.status = emp.Status;
                 list.Add(tempcloseemployee);
             }
             return list;
@@ -109,6 +110,7 @@ namespace Services.TempCloseEmployees
                 tempcloseemployee.endTime = emp.Endtime;
                 tempcloseemployee.idWorker = emp.Idemployee;
                 tempcloseemployee.reason = emp.Reason;
+                tempcloseemployee.status = emp.Status;
                 list.Add(tempcloseemployee);
             }
             return list;
@@ -130,7 +132,44 @@ namespace Services.TempCloseEmployees
             return true;
         }
 
-        public async Task<bool> UpdateTempcloseemployee(int id, TempCloseEmployeeDto tempcloseemployeedto)
+        public async Task<bool> UpdateStatusTempcloseemployee(int id, bool status)
+        {
+            var tempcloseemp = await GetTempcloseemployeeById(id);
+            if(tempcloseemp == null)
+            {
+                return false;
+            }
+
+            tempcloseemp.Status = status;
+
+            var isOk = await UpdateTempcloseemployee(tempcloseemp);
+            return isOk;
+        }
+
+        public async Task<bool> UpdateTempcloseemployee(Tempcloseemployee tempcloseemployee)
+        {
+            _context.Entry(tempcloseemployee).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!TempcloseemployeeExists(tempcloseemployee.Idemployee))
+                {
+                    return false;
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return true;
+        }
+
+        public async Task<bool> UpdateTempcloseemployeeWrapper(int id, TempCloseEmployeeDto tempcloseemployeedto)
         {
 
             if (tempcloseemployeedto == null)
@@ -150,26 +189,11 @@ namespace Services.TempCloseEmployees
             tempcloseemployee.Endtime = tempcloseemployeedto.endTime;
             tempcloseemployee.Idemployee = tempcloseemployeedto.idWorker;
             tempcloseemployee.Reason = tempcloseemployeedto.reason;
+            tempcloseemployee.Status = tempcloseemployeedto.status;
 
-            _context.Entry(tempcloseemployee).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TempcloseemployeeExists(id))
-                {
-                    return false;
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return true;
+            var isOk = await UpdateTempcloseemployee(tempcloseemployee);
+            return isOk;
+            
         }
     }
 }
