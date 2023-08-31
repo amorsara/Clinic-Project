@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
+using Services.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,18 +18,28 @@ namespace Services.TempCloseEmployees
             _context = context;
         }
 
-        public async Task<bool> CreateTempcloseemployee(Tempcloseemployee tempcloseemployee)
+        public async Task<bool> CreateTempcloseemployee(TempCloseEmployeeDto tempcloseemployeedto)
         {
-            if (tempcloseemployee == null)
+            if (tempcloseemployeedto == null)
             {
                 return false;
             }
 
-            var isExsists = TempcloseemployeeExists(tempcloseemployee.Idtempcloseemployee);
+            var isExsists = TempcloseemployeeExists(tempcloseemployeedto.id);
             if (isExsists)
             {
                 return false;
             }
+
+            var tempcloseemployee = new Tempcloseemployee();
+
+            tempcloseemployee.Startdate = tempcloseemployeedto.startDate;
+            tempcloseemployee.Enddate = tempcloseemployeedto.endDate;
+            tempcloseemployee.Starttime = tempcloseemployeedto.startTime;
+            tempcloseemployee.Endtime = tempcloseemployeedto.endTime;
+            tempcloseemployee.Idemployee = tempcloseemployeedto.idWorker;
+            tempcloseemployee.Reason = tempcloseemployeedto.reason;
+
             await _context.AddAsync(tempcloseemployee);
             var isOk = await _context.SaveChangesAsync() >= 0;
             if (isOk)
@@ -57,14 +68,50 @@ namespace Services.TempCloseEmployees
             return true;
         }
 
-        public async Task<List<Tempcloseemployee>> GetAllTempcloseemployees()
+        public async Task<List<TempCloseEmployeeDto>> GetAllTempcloseemployees()
         {
-            return await _context.Tempcloseemployees.ToListAsync();
+            var employees =  await _context.Tempcloseemployees.ToListAsync();
+            var list = new List<TempCloseEmployeeDto>();
+            foreach(var emp in employees)
+            {
+                if(emp == null)
+                {
+                    continue;
+                }
+                var tempcloseemployee = new TempCloseEmployeeDto();
+                tempcloseemployee.id = emp.Idtempcloseemployee;
+                tempcloseemployee.startDate = emp.Startdate;
+                tempcloseemployee.endDate = emp.Enddate;
+                tempcloseemployee.startTime = emp.Starttime;
+                tempcloseemployee.endTime = emp.Endtime;
+                tempcloseemployee.idWorker = emp.Idemployee;
+                tempcloseemployee.reason = emp.Reason;
+                list.Add(tempcloseemployee);
+            }
+            return list;
         }
 
-        public async Task<List<Tempcloseemployee>> GetAllTempcloseemployeesById(int id)
+        public async Task<List<TempCloseEmployeeDto>> GetAllTempcloseemployeesById(int id)
         {
-            return await _context.Tempcloseemployees.Where(t => t.Idemployee == id).ToListAsync();
+            var employees = await _context.Tempcloseemployees.Where(t => t.Idemployee == id).ToListAsync();
+            var list = new List<TempCloseEmployeeDto>();
+            foreach (var emp in employees)
+            {
+                if (emp == null)
+                {
+                    continue;
+                }
+                var tempcloseemployee = new TempCloseEmployeeDto();
+                tempcloseemployee.id = emp.Idtempcloseemployee;
+                tempcloseemployee.startDate = emp.Startdate;
+                tempcloseemployee.endDate = emp.Enddate;
+                tempcloseemployee.startTime = emp.Starttime;
+                tempcloseemployee.endTime = emp.Endtime;
+                tempcloseemployee.idWorker = emp.Idemployee;
+                tempcloseemployee.reason = emp.Reason;
+                list.Add(tempcloseemployee);
+            }
+            return list;
         }
 
         public async Task<Tempcloseemployee?> GetTempcloseemployeeById(int id)
@@ -83,13 +130,26 @@ namespace Services.TempCloseEmployees
             return true;
         }
 
-        public async Task<bool> UpdateTempcloseemployee(int id, Tempcloseemployee tempcloseemployee)
+        public async Task<bool> UpdateTempcloseemployee(int id, TempCloseEmployeeDto tempcloseemployeedto)
         {
 
-            if (tempcloseemployee == null)
+            if (tempcloseemployeedto == null)
             {
                 return false;
             }
+
+            var tempcloseemployee = await GetTempcloseemployeeById(id);
+            if(tempcloseemployee == null)
+            {
+                return false;
+            }
+
+            tempcloseemployee.Startdate = tempcloseemployeedto.startDate;
+            tempcloseemployee.Enddate = tempcloseemployeedto.endDate;
+            tempcloseemployee.Starttime = tempcloseemployeedto.startTime;
+            tempcloseemployee.Endtime = tempcloseemployeedto.endTime;
+            tempcloseemployee.Idemployee = tempcloseemployeedto.idWorker;
+            tempcloseemployee.Reason = tempcloseemployeedto.reason;
 
             _context.Entry(tempcloseemployee).State = EntityState.Modified;
 

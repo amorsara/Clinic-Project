@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
+using Services.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,13 +18,23 @@ namespace Services.TempWorkHours
             _context = context;
         }
 
-        public async Task<bool> CreateTempworkhour(Tempworkhour tempworkhour)
+        public async Task<bool> CreateTempworkhour(TempWorkHourDto tempWorkHourDto)
         {
-            var isExsists = TempworkhourExists(tempworkhour.Idtempworkhour);
+            var isExsists = TempworkhourExists(tempWorkHourDto.id);
             if (isExsists)
             {
                 return false;
             }
+
+            var tempworkhour = new Tempworkhour();
+            tempworkhour.Starthouer = tempWorkHourDto.startHouer;
+            tempworkhour.Endtime = tempWorkHourDto.endTime;
+            tempworkhour.Date = tempWorkHourDto.date;
+            tempworkhour.Day = tempWorkHourDto.day;
+            tempworkhour.Status = tempWorkHourDto.status;
+            tempworkhour.Idemployee = tempWorkHourDto.idWorker;
+            tempworkhour.Idroom = tempWorkHourDto.idroom;
+
             await _context.AddAsync(tempworkhour);
             var isOk = await _context.SaveChangesAsync() >= 0;
             if (isOk)
@@ -62,14 +73,52 @@ namespace Services.TempWorkHours
             return tempworkhour;
         }
 
-        public async Task<List<Tempworkhour>> GetAllTempworkhours()
+        public async Task<List<TempWorkHourDto>> GetAllTempworkhours()
         {
-            return await _context.Tempworkhours.Where(t => t.Status == true).ToListAsync();
+            var list = new List<TempWorkHourDto>();
+            var workhours = await _context.Tempworkhours.ToListAsync();
+            foreach(var workhour in workhours)
+            {
+                if(workhour == null || workhour.Status == false)
+                {
+                    continue;
+                }
+                var tempWorkHourDto = new TempWorkHourDto();
+                tempWorkHourDto.id = workhour.Idtempworkhour;
+                tempWorkHourDto.startHouer = workhour.Starthouer;
+                tempWorkHourDto.endTime = workhour.Endtime;
+                tempWorkHourDto.date = workhour.Date;
+                tempWorkHourDto.day = workhour.Day;
+                tempWorkHourDto.status = workhour.Status;
+                tempWorkHourDto.idWorker = workhour.Idemployee;
+                tempWorkHourDto.idroom = workhour.Idroom;
+                list.Add(tempWorkHourDto);
+            }
+            return list;
         }
 
-        public async Task<List<Tempworkhour>> GetAllTempworkhoursForId(int id)
+        public async Task<List<TempWorkHourDto>> GetAllTempworkhoursForId(int id)
         {
-            return await _context.Tempworkhours.Where(t => t.Idemployee == id && t.Status == true).ToListAsync();
+            var list = new List<TempWorkHourDto>();
+            var workhours = await _context.Tempworkhours.Where(t => t.Idemployee == id && t.Status == true).ToListAsync();
+            foreach (var workhour in workhours)
+            {
+                if (workhour == null)
+                {
+                    continue;
+                }
+                var tempWorkHourDto = new TempWorkHourDto();
+                tempWorkHourDto.id = workhour.Idtempworkhour;
+                tempWorkHourDto.startHouer = workhour.Starthouer;
+                tempWorkHourDto.endTime = workhour.Endtime;
+                tempWorkHourDto.date = workhour.Date;
+                tempWorkHourDto.day = workhour.Day;
+                tempWorkHourDto.status = workhour.Status;
+                tempWorkHourDto.idWorker = workhour.Idemployee;
+                tempWorkHourDto.idroom = workhour.Idroom;
+                list.Add(tempWorkHourDto);
+            }
+            return list;
         }
 
         public bool TempworkhourExists(int id)
@@ -82,9 +131,43 @@ namespace Services.TempWorkHours
             return true;
         }
 
-        public async Task<bool> UpdateTempworkhour(int id, Tempworkhour tempworkhour)
+        public async Task<bool> UpdateTempworkhourWrapper(int id, TempWorkHourDto tempWorkHourDto)
         {
-            _context.Entry(tempworkhour).State = EntityState.Modified;
+            var tempworkhour = await GetTempworkhourById(id);
+            if(tempworkhour == null)
+            {
+                return false;
+            }
+
+            tempworkhour.Starthouer = tempWorkHourDto.startHouer;
+            tempworkhour.Endtime = tempWorkHourDto.endTime;
+            tempworkhour.Date = tempWorkHourDto.date;
+            tempworkhour.Day = tempWorkHourDto.day;
+            tempworkhour.Status = tempWorkHourDto.status;
+            tempworkhour.Idemployee = tempWorkHourDto.idWorker;
+            tempworkhour.Idroom = tempWorkHourDto.idroom;
+
+            var isOk = await UpdateTempworkhour(id, tempworkhour);
+            return isOk;
+        }
+
+        public async Task<bool> UpdateStatusTempworkhour(int id)
+        {
+            var tempworkhour = await GetTempworkhourById(id);
+            if(tempworkhour == null)
+            {
+                return false;
+            }
+            tempworkhour.Status = true;
+            var isOk = await UpdateTempworkhour(id, tempworkhour);
+            return isOk;
+        }
+
+        public async Task<bool> UpdateTempworkhour(int id, Tempworkhour tempWorkHour)
+        {
+
+
+            _context.Entry(tempWorkHour).State = EntityState.Modified;
 
             try
             {
@@ -103,18 +186,6 @@ namespace Services.TempWorkHours
             }
 
             return true;
-        }
-
-        public async Task<bool> UpdateStatusTempworkhour(int id)
-        {
-            var tempworkhour = await GetTempworkhourById(id);
-            if(tempworkhour == null)
-            {
-                return false;
-            }
-            tempworkhour.Status = true;
-            var isOk = await UpdateTempworkhour(id, tempworkhour);
-            return isOk;
         }
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
+using Services.DTO;
 using Services.TempWorkHours;
 
 namespace App.Controllers
@@ -24,7 +25,7 @@ namespace App.Controllers
 
         [HttpGet]
         [Route("/api/tempworkhours/getalltempworkhours")]
-        public async Task<ActionResult<IEnumerable<Tempworkhour>>> GetAllTempworkhours()
+        public async Task<ActionResult<IEnumerable<TempWorkHourDto>>> GetAllTempworkhours()
         {
             var tempworkhour = await _iTempWorkHourData.GetAllTempworkhours();
             if (tempworkhour == null)
@@ -36,7 +37,7 @@ namespace App.Controllers
 
         [HttpGet]
         [Route("/api/tempworkhours/getalltempworkhoursforid/{id}")]
-        public async Task<ActionResult<IEnumerable<Tempworkhour>>> GetAllTempworkhoursForId(int id)
+        public async Task<ActionResult<IEnumerable<TempWorkHourDto>>> GetAllTempworkhoursForId(int id)
         {
             var tempworkhour = await _iTempWorkHourData.GetAllTempworkhoursForId(id);
             if (tempworkhour == null)
@@ -60,7 +61,7 @@ namespace App.Controllers
 
         [HttpGet]
         [Route("/api/tempworkhours/updatestatustempworkhourbyid/{id}")]
-        public async Task<ActionResult<Tempworkhour>> UpdateStatusTempworkhourById(int id)
+        public async Task<ActionResult> UpdateStatusTempworkhourById(int id)
         {
             var tempworkhour = await _iTempWorkHourData.UpdateStatusTempworkhour(id);
             if (tempworkhour == false)
@@ -73,13 +74,13 @@ namespace App.Controllers
 
         [HttpPut]
         [Route("/api/tempworkhours/updatetempworkhour/{id}")]
-        public async Task<IActionResult> UpdateTempworkhour(int id, Tempworkhour tempworkhour)
+        public async Task<IActionResult> UpdateTempworkhour(int id, TempWorkHourDto tempWorkHourDto)
         {
-            if (id != tempworkhour.Idtempworkhour)
+            if (id != tempWorkHourDto.id)
             {
                 return NoContent();
             }
-            var res = await _iTempWorkHourData.UpdateTempworkhour(id, tempworkhour);
+            var res = await _iTempWorkHourData.UpdateTempworkhourWrapper(id, tempWorkHourDto);
             if (res == false)
             {
                 return BadRequest();
@@ -89,12 +90,12 @@ namespace App.Controllers
 
         [HttpPost]
         [Route("/api/tempworkhours/createtempworkhour")]
-        public async Task<ActionResult<Tempworkhour>> CreateTempworkhour(Tempworkhour tempworkhour)
+        public async Task<ActionResult<TempWorkHourDto>> CreateTempworkhour(TempWorkHourDto tempWorkHourDto)
         { 
-            var result = await _iTempWorkHourData.CreateTempworkhour(tempworkhour);
+            var result = await _iTempWorkHourData.CreateTempworkhour(tempWorkHourDto);
             if (result)
             {
-                return CreatedAtAction("CreateTempworkhour", new { id = tempworkhour.Idtempworkhour }, tempworkhour);
+                return CreatedAtAction("CreateTempworkhour", new { id = tempWorkHourDto.id }, tempWorkHourDto);
             }
             else
             {

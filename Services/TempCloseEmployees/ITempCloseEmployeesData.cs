@@ -1,4 +1,5 @@
 ﻿using Repository.GeneratedModels;
+using Services.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,15 +10,15 @@ namespace Services.TempCloseEmployees
 {
     public interface ITempCloseEmployeesData
     {
-        Task<List<Tempcloseemployee>> GetAllTempcloseemployees();
+        Task<List<TempCloseEmployeeDto>> GetAllTempcloseemployees();
 
-        Task<List<Tempcloseemployee>> GetAllTempcloseemployeesById(int id);
+        Task<List<TempCloseEmployeeDto>> GetAllTempcloseemployeesById(int id);
 
         Task<Tempcloseemployee?> GetTempcloseemployeeById(int id);
 
-        Task<bool> UpdateTempcloseemployee(int id, Tempcloseemployee tempcloseemployee);
+        Task<bool> UpdateTempcloseemployee(int id, TempCloseEmployeeDto tempcloseemployeedto);
 
-        Task<bool> CreateTempcloseemployee(Tempcloseemployee tempcloseemployee);
+        Task<bool> CreateTempcloseemployee(TempCloseEmployeeDto tempcloseemployeedto);
 
         Task<bool> DeleteTempcloseemployee(int id);
 

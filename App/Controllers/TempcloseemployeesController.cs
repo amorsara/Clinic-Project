@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
+using Services.DTO;
 using Services.TempCloseEmployees;
 
 namespace App.Controllers
@@ -23,7 +24,7 @@ namespace App.Controllers
 
         [HttpGet]
         [Route("/api/tempcloseemployees/getalltempcloseemployees")]
-        public async Task<ActionResult<IEnumerable<Tempcloseemployee>>> GetAllTempcloseemployees()
+        public async Task<ActionResult<IEnumerable<TempCloseEmployeeDto>>> GetAllTempcloseemployees()
         {
             var tempcloseemployee = await _iTempCloseEmployeesData.GetAllTempcloseemployees();
             if (tempcloseemployee == null)
@@ -35,7 +36,7 @@ namespace App.Controllers
 
         [HttpGet]
         [Route("/api/tempcloseemployees/getalltempcloseemployeesbyid/{id}")]
-        public async Task<ActionResult<IEnumerable<Tempcloseemployee>>> GetAllTempcloseemployeesById(int id)
+        public async Task<ActionResult<IEnumerable<TempCloseEmployeeDto>>> GetAllTempcloseemployeesById(int id)
         {
             var tempcloseemployee = await _iTempCloseEmployeesData.GetAllTempcloseemployeesById(id);
             if (tempcloseemployee == null)
@@ -59,9 +60,9 @@ namespace App.Controllers
 
         [HttpPut]
         [Route("/api/tempcloseemployees/updatetempcloseemployee/{id}")]
-        public async Task<IActionResult> UpdateTempcloseemployee(int id, Tempcloseemployee tempcloseemployee)
+        public async Task<IActionResult> UpdateTempcloseemployee(int id, TempCloseEmployeeDto tempcloseemployee)
         {
-            if (id != tempcloseemployee.Idtempcloseemployee)
+            if (id != tempcloseemployee.id)
             {
                 return NoContent();
             }
@@ -76,12 +77,12 @@ namespace App.Controllers
 
         [HttpPost]
         [Route("/api/tempcloseemployees/createtempcloseemployee")]
-        public async Task<ActionResult<Tempcloseemployee>> CreateTempcloseemployee(Tempcloseemployee tempcloseemployee)
+        public async Task<ActionResult<TempCloseEmployeeDto>> CreateTempcloseemployee(TempCloseEmployeeDto tempcloseemployee)
         {
             var result = await _iTempCloseEmployeesData.CreateTempcloseemployee(tempcloseemployee);
             if (result)
             {
-                return CreatedAtAction("CreateTempcloseemployee", new { id = tempcloseemployee.Idtempcloseemployee }, tempcloseemployee);
+                return CreatedAtAction("CreateTempcloseemployee", new { id = tempcloseemployee.id }, tempcloseemployee);
             }
             else
             {
@@ -106,4 +107,4 @@ namespace App.Controllers
     }
 }
 
-//aaa
+
