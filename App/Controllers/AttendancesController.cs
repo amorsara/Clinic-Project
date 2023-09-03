@@ -61,12 +61,23 @@ namespace App.Controllers
 
         [HttpPut]
         [Route("/api/attendances/updateattendance/{id}")]
-        public async Task<IActionResult> UpdateAttendance(int id, Attendance attendance)
+        public async Task<IActionResult> UpdateAttendance(int id, AllAttendanceDto allAttendanceDto)
         {
-            if (id != attendance.Idattendance)
+            if (id != allAttendanceDto.id)
             {
                 return NoContent();
             }
+
+            var attendance = await _iAttendancesData.GetAttendanceById(id);
+            if(attendance == null)
+            {
+                return BadRequest();
+            }
+            
+            attendance.Idemployee = allAttendanceDto.employee?.Id == null ? 0 : allAttendanceDto.employee.Id;
+            attendance.Date = allAttendanceDto.date;
+            attendance.Timeenter = allAttendanceDto.timeEnter;
+            attendance.Timeexit = allAttendanceDto.timeExit;
 
             var res = await _iAttendancesData.UpdateAttendance(id, attendance);
             if (res == false)
