@@ -120,6 +120,7 @@ namespace Services.Employees
                 emp.IdWorker = e.Idemployee;
                 emp.nameWorker = e.Name;
                 emp.colorWorker = e.Color;
+                emp.treatments = e.Treatmentstype?.Split(",").ToList();
                 emp.weeklyHouers = await _iWorkHoursData.GetWorkHourByEmployee(idRoom, e.Idemployee, regular);
                 list.Add(emp);
             }

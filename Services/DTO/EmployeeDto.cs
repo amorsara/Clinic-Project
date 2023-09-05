@@ -16,6 +16,8 @@ namespace Services.DTO
 
         public string? colorWorker { get; set; }
 
+        public List<string>? treatments { get; set; }
+
         public List<EmployeeShiftDto>? weeklyHouers { get; set; }
 
     }
