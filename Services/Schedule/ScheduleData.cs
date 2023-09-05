@@ -30,10 +30,10 @@ namespace Services.Schedule
             _iWorkHoursData = workHoursData;
         }
 
-        public async Task<List<ScheduleDto>> GetAllDates()
+        public async Task<List<ScheduleDto>> GetAllDates(DateOnly? date = null)
         {
             var list = new List<ScheduleDto>();
-            var appointments = await _iAppintmentsData.GetAllAppointments();
+            var appointments = await _iAppintmentsData.GetAllAppointmentsForWeek(date);
             foreach (var appointment in appointments)
             {
                 var scheduleDto = new ScheduleDto();

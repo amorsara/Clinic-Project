@@ -12,6 +12,7 @@ namespace Services.Appointments
     public interface IAppointmentsData
     {
         Task<List<Appointment>> GetAllAppointments();
+        Task<List<Appointment>> GetAllAppointmentsForWeek(DateOnly? date = null);
         Task<List<Appointment>> GetWaitAppointments();
         Task<List<Appointment>> GetAllWaitDates();
         Task<List<DateOnly>> GetDatesOfAppointments(int id);

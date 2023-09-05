@@ -9,7 +9,7 @@ namespace Services.Schedule
 {
     public interface IScheduleData
     {
-        Task<List<ScheduleDto>> GetAllDates();
+        Task<List<ScheduleDto>> GetAllDates(DateOnly? date = null);
         Task <List<RoomScheduleDto>> GetAllSchedules(bool regular);
         //Task<List<RoomScheduleDto>> GetAllSchedulesForWeek(DateOnly date);
     }
