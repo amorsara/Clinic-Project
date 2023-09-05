@@ -21,6 +21,11 @@ namespace Services.CloseRooms
             _iRoomsData = roomsData;
         }
 
+        public Task<bool> CancelAppointment(DateOnly date)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool CloseroomExists(int id)
         {
             var closeroom = _context.Closerooms.Where(c => c.Idcloseroom == id).FirstOrDefault();

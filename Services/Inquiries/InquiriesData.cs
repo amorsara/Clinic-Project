@@ -97,7 +97,7 @@ namespace Services.Inquiries
 
         public async Task<List<InquiryDto>> GetAllInquiriesById(int id)
         {
-            var inquiries = await _context.Inquiries.Where(i => i.Idemployee == id).ToListAsync();
+            var inquiries = await _context.Inquiries.Where(i => i.Idemployee == id).OrderByDescending(i => i.Idinquirie).ToListAsync();
             var list = new List<InquiryDto>();
             foreach(var inquiry in inquiries)
             {
@@ -131,7 +131,7 @@ namespace Services.Inquiries
 
         public async Task<List<Inquiry>> GetInquiries()
         {
-            return await _context.Inquiries.ToListAsync();
+            return await _context.Inquiries.OrderByDescending(i => i.Idinquirie).ToListAsync();
         }
 
         public async Task<Inquiry?> GetInquiryById(int id)

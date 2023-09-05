@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
 using Services.DTO;
+using Services.Rooms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,12 @@ namespace Services.TempWorkHours
     public class TempWorkHourData : ITempWorkHourData
     {
         private readonly ClinicDBContext _context;
+        private readonly IRoomsData _iRoomsData;
 
-        public TempWorkHourData(ClinicDBContext context)
+        public TempWorkHourData(ClinicDBContext context, IRoomsData roomsData)
         {
             _context = context;
+            _iRoomsData = roomsData;
         }
 
         public async Task<bool> CreateTempworkhour(TempWorkHourDto tempWorkHourDto)
@@ -33,7 +36,11 @@ namespace Services.TempWorkHours
             tempworkhour.Day = tempWorkHourDto.day;
             tempworkhour.Status = tempWorkHourDto.status;
             tempworkhour.Idemployee = tempWorkHourDto.idWorker;
-            tempworkhour.Idroom = tempWorkHourDto.idroom;
+            var room = await _iRoomsData.GetRoomByName(tempWorkHourDto.nameRoom);
+            if(room != null && room.Nameroom != null)
+            {
+                tempworkhour.Idroom = room.Idroom;
+            }
 
             await _context.AddAsync(tempworkhour);
             var isOk = await _context.SaveChangesAsync() >= 0;

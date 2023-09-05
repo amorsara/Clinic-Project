@@ -129,7 +129,7 @@ namespace Services.Messages
 
         public async Task<List<Message>> GetMessages()
         {
-            return await _context.Messages.ToListAsync();
+            return await _context.Messages.OrderByDescending(m => m.Idmessage).ToListAsync();
         }
 
         public bool MessageExists(int id)

@@ -14,6 +14,8 @@ namespace Services.DTO
 
         public int idroom { get; set; }
 
+        public string? nameRoom { get; set; }
+
         public DateOnly? date { get; set; }
 
         public int? day { get; set; }
