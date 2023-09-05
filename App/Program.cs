@@ -2,6 +2,7 @@
 using Repository.GeneratedModels;
 using Services.Appointments;
 using Services.Attendances;
+using Services.CloseEvents;
 using Services.CloseRooms;
 using Services.Contacts;
 using Services.Employees;
@@ -53,6 +54,7 @@ builder.Services.AddScoped<ICloseRoomsData, CloseRoomsData>();
 builder.Services.AddScoped<ITempWorkHourData, TempWorkHourData>();
 builder.Services.AddScoped<ITempCloseEmployeesData, TempCloseEmployeesData>();
 builder.Services.AddScoped<IAttendancesData, AttendancesData>();
+builder.Services.AddScoped<ICloseEvents, CloseEvents>();
 
 
 var app = builder.Build();

@@ -16,6 +16,8 @@ namespace Services.TempCloseEmployees
 
         Task<Tempcloseemployee?> GetTempcloseemployeeById(int id);
 
+        Task<List<CloseEventsDto>> GetCloseEventsForEmployees();
+
         Task<bool> UpdateTempcloseemployeeWrapper(int id, TempCloseEmployeeDto tempcloseemployeedto);
 
         Task<bool> UpdateTempcloseemployee(Tempcloseemployee tempcloseemployee);

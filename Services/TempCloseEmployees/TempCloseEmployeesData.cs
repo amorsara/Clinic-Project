@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
 using Services.DTO;
+using Services.Employees;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,12 @@ namespace Services.TempCloseEmployees
     public class TempCloseEmployeesData : ITempCloseEmployeesData
     {
         private readonly ClinicDBContext _context;
+        private readonly IEmployeesData _iEmployeesData;
 
-        public TempCloseEmployeesData(ClinicDBContext context)
+        public TempCloseEmployeesData(ClinicDBContext context, IEmployeesData employeesData)
         {
             _context = context;
+            _iEmployeesData = employeesData;
         }
 
         public async Task<bool> CreateTempcloseemployee(TempCloseEmployeeDto tempcloseemployeedto)
@@ -87,6 +90,7 @@ namespace Services.TempCloseEmployees
                 tempcloseemployee.idWorker = emp.Idemployee;
                 tempcloseemployee.reason = emp.Reason;
                 tempcloseemployee.status = emp.Status;
+               
                 list.Add(tempcloseemployee);
             }
             return list;
@@ -114,6 +118,40 @@ namespace Services.TempCloseEmployees
                 list.Add(tempcloseemployee);
             }
             return list;
+        }
+
+        public async Task<List<CloseEventsDto>> GetCloseEventsForEmployees()
+        {
+            var employees = await _context.Tempcloseemployees.Where(e => e.Status == true).ToListAsync();
+            var listEvent = new List<CloseEventsDto>();
+            foreach(var emp in employees)
+            {
+                if(emp == null)
+                {
+                    continue;
+                }
+
+                var closeEvent = new CloseEventsDto();
+                closeEvent.id = emp.Idtempcloseemployee;
+                closeEvent.idRoom = 0; // fix....
+                closeEvent.date = emp.Startdate;
+                closeEvent.startHour = emp.Starttime;
+                closeEvent.endTime = emp.Endtime;
+                closeEvent.nameEvent = emp.Reason;
+
+                var empl = await _iEmployeesData.GetEmployeeById(emp.Idemployee);
+                if (empl != null)
+                {
+                    var e = new EmployeeDetails();
+                    e.Id = emp.Idemployee;
+                    e.Name = empl.Name;
+                    e.Color = empl.Color;
+                    closeEvent.employee = e;
+                }
+
+                listEvent.Add(closeEvent);
+            }
+            return listEvent;
         }
 
         public async Task<Tempcloseemployee?> GetTempcloseemployeeById(int id)

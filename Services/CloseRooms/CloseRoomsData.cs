@@ -106,6 +106,56 @@ namespace Services.CloseRooms
             return list;
         }
 
+        public async Task<List<CloseEventsDto>> GetCloseEventsForRooms()
+        {
+            var closeRooms = await _context.Closerooms.ToListAsync();
+            var listEvents = new List<CloseEventsDto>();
+            foreach(var c in closeRooms)
+            {
+                if(c == null)
+                {
+                    continue;
+                }
+
+                var rooms = c.Roomsname?.Split(",").ToList();
+                if(rooms == null)
+                {
+                    continue;
+                }
+
+                foreach(var room in rooms)
+                {
+                    var r = await _iRoomsData.GetRoomByName(room);
+                    if(r == null)
+                    {
+                        continue;
+                    }
+                    if(c.Startdate != null && c.Enddate != null)
+                    {
+                        var d1 = (DateOnly)c.Startdate;
+                        var d2 = (DateOnly)c.Enddate;
+                        while(d1 <= d2)
+                        {
+                            var closeEvent = new CloseEventsDto();
+                            closeEvent.id = c.Idcloseroom;
+                            closeEvent.idRoom = r.Idroom;
+                            closeEvent.date = d1;
+                            closeEvent.nameEvent = c.Reason;
+                            closeEvent.startHour = c.Starttime;
+                            closeEvent.endTime = c.Endtime;
+                            listEvents.Add(closeEvent);
+                            d1.AddDays(1);
+                        }
+
+                     
+                    }
+                   
+                }
+
+            }
+            return listEvents;
+        }
+
         public async Task<Closeroom?> GetCloseroomById(int id)
         {
             var closeroom = await _context.Closerooms.FindAsync(id);

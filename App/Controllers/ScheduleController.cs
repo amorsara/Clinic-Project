@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Services.CloseEvents;
 using Services.DTO;
 using Services.Schedule;
 
@@ -11,10 +12,12 @@ namespace App.Controllers
     {
 
         private readonly IScheduleData _iScheduleData;
+        private readonly ICloseEvents _iCloseEvents;
 
-        public ScheduleController(IScheduleData scheduleData)
+        public ScheduleController(IScheduleData scheduleData, ICloseEvents closeEvents)
         {
             _iScheduleData = scheduleData;
+            _iCloseEvents = closeEvents;
         }
 
         [HttpGet]
@@ -58,6 +61,18 @@ namespace App.Controllers
         public async Task<ActionResult<IEnumerable<RoomScheduleDto>>> GetScheduleExtra()
         {
             var schedules = await _iScheduleData.GetAllSchedules(true);
+            if (schedules == null)
+            {
+                return NotFound();
+            }
+            return schedules;
+        }
+
+        [HttpGet]
+        [Route("/api/schedule/getscheduleforcloseevents")]
+        public async Task<ActionResult<IEnumerable<CloseEventsDto>>> GetScheduleForCloseEvents()
+        {
+            var schedules = await _iCloseEvents.GetAllCloseEvents();
             if (schedules == null)
             {
                 return NotFound();
