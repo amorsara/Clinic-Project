@@ -21,6 +21,7 @@ namespace Services.Rooms
         Task<List<string>?> GetTreatmentsForRoom(int id); 
         Task<List<Employee>> GetAllEmployeesForRoom(int id);
         Task<List<RoomFieldsDto>> GetAllFieldsForRoom();
+        Task<List<int>> GetAllRoomsIdForEmployee(int id);
         Task<bool> UpdateRoom(int id, Room room);
         bool RoomExists(int id);
     }

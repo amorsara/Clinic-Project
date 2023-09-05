@@ -330,6 +330,12 @@ namespace Services.Employees
             var admin = await _context.Employees.Where(e => e.Name == "Admin").FirstOrDefaultAsync();
             return admin?.Idemployee;
         }
+
+        public async Task<List<string>?> GetAllTreatmentsForEmployee(int id)
+        {
+            var employee = await GetEmployeeById(id);
+            return employee?.Treatmentstype?.Split(",").ToList();
+        }
     }
 }
 

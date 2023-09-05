@@ -2,6 +2,7 @@
 using Repository.GeneratedModels;
 using Services.DTO;
 using Services.Employees;
+using Services.Rooms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +15,13 @@ namespace Services.TempCloseEmployees
     {
         private readonly ClinicDBContext _context;
         private readonly IEmployeesData _iEmployeesData;
+        private readonly IRoomsData _roomsData;
 
-        public TempCloseEmployeesData(ClinicDBContext context, IEmployeesData employeesData)
+        public TempCloseEmployeesData(ClinicDBContext context, IEmployeesData employeesData, IRoomsData roomsData)
         {
             _context = context;
             _iEmployeesData = employeesData;
+            _roomsData = roomsData;
         }
 
         public async Task<bool> CreateTempcloseemployee(TempCloseEmployeeDto tempcloseemployeedto)
@@ -131,25 +134,40 @@ namespace Services.TempCloseEmployees
                     continue;
                 }
 
-                var closeEvent = new CloseEventsDto();
-                closeEvent.id = emp.Idtempcloseemployee;
-                closeEvent.idRoom = 0; // fix....
-                closeEvent.date = emp.Startdate;
-                closeEvent.startHour = emp.Starttime;
-                closeEvent.endTime = emp.Endtime;
-                closeEvent.nameEvent = emp.Reason;
-
-                var empl = await _iEmployeesData.GetEmployeeById(emp.Idemployee);
-                if (empl != null)
+                if (emp.Startdate != null && emp.Enddate != null)
                 {
-                    var e = new EmployeeDetails();
-                    e.Id = emp.Idemployee;
-                    e.Name = empl.Name;
-                    e.Color = empl.Color;
-                    closeEvent.employee = e;
-                }
+                    var d1 = (DateOnly)emp.Startdate;
+                    var d2 = (DateOnly)emp.Enddate;
+                    while (d1 <= d2)
+                    {
+                        var list = await _roomsData.GetAllRoomsIdForEmployee(emp.Idemployee);
+                        if(list != null)
+                        {
+                            foreach (var id in list)
+                            {
+                                var closeEvent = new CloseEventsDto();
+                                closeEvent.id = emp.Idtempcloseemployee;
+                                closeEvent.idRoom = id;
+                                closeEvent.date = d1;
+                                closeEvent.startHour = emp.Starttime;
+                                closeEvent.endTime = emp.Endtime;
+                                closeEvent.nameEvent = emp.Reason;
 
-                listEvent.Add(closeEvent);
+                                var empl = await _iEmployeesData.GetEmployeeById(emp.Idemployee);
+                                if (empl != null)
+                                {
+                                    var e = new EmployeeDetails();
+                                    e.Id = emp.Idemployee;
+                                    e.Name = empl.Name;
+                                    e.Color = empl.Color;
+                                    closeEvent.employee = e;
+                                }
+                                listEvent.Add(closeEvent);
+                            }                      
+                        }
+                        d1 = d1.AddDays(1);
+                    }
+                }    
             }
             return listEvent;
         }

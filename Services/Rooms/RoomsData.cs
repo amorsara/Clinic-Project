@@ -244,6 +244,38 @@ namespace Services.Rooms
             }
             return listRooms;
         }
+
+        public async Task<List<int>> GetAllRoomsIdForEmployee(int id)
+        {
+            var list = await _iEmployeesData.GetAllTreatmentsForEmployee(id);
+            var listId = new List<int>();
+            var rooms = await _context.Rooms.ToListAsync();
+            if (list == null)
+            {
+                return listId;
+            }
+            
+            foreach(var room in rooms)
+            {
+                var flag = false;
+                foreach(var i in list)
+                {
+                    if(room == null && i == null)
+                    {
+                        continue;
+                    }
+                    if (room?.Treatmentstype != null && room.Treatmentstype.Contains(i))
+                    {
+                        flag = true;
+                    }
+                }
+                if (flag)
+                {
+                    listId.Add(room.Idroom);
+                }
+            }
+            return listId;
+        }
     }
 }
 

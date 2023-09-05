@@ -144,14 +144,10 @@ namespace Services.CloseRooms
                             closeEvent.startHour = c.Starttime;
                             closeEvent.endTime = c.Endtime;
                             listEvents.Add(closeEvent);
-                            d1.AddDays(1);
-                        }
-
-                     
-                    }
-                   
+                            d1 = d1.AddDays(1);
+                        }                   
+                    }                 
                 }
-
             }
             return listEvents;
         }
