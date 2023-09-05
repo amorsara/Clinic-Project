@@ -35,6 +35,6 @@ namespace Services.DTO
 
         public bool? isshow { get; set; }
 
-        public List<DateOnly>? ListDates { get; set; }
+        public List<FutureDateDto>? ListDates { get; set; }
     }
 }

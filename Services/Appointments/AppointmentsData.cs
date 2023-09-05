@@ -101,16 +101,21 @@ namespace Services.Appointments
             return appointments;
         }
 
-        public async Task<List<DateOnly>> GetDatesOfAppointments(int id)
+        public async Task<List<FutureDateDto>> GetDatesOfAppointments(int id)
         {
             DateOnly today = DateOnly.FromDateTime(DateTime.Now);
             var appointments = await _context.Appointments.Where(a => a.Idcontact == id && a.Date >= today).ToListAsync();
-            var listDate = new List<DateOnly>();
+            var listDate = new List<FutureDateDto>();
             foreach(var appointment in appointments)
             {
                 if(appointment.Date != null)
                 {
-                    listDate.Add((DateOnly)appointment.Date);
+                    var d = new FutureDateDto();
+                    d.date = appointment.Date;
+                    d.startHour = appointment.Timestart;
+                    d.endTime = appointment.Timeend;
+                    d.treatment = appointment.Treatmentname;
+                    listDate.Add(d);
 
                 }
             }
