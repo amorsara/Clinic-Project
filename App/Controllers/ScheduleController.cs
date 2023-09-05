@@ -31,9 +31,9 @@ namespace App.Controllers
 
         [HttpPost]
         [Route("/api/schedule/getalldatesforweek")]
-        public async Task<ActionResult<IEnumerable<ScheduleDto>>> GetAllDatesForWeek([FromBody] DateOnly date)
+        public async Task<ActionResult<IEnumerable<ScheduleDto>>> GetAllDatesForWeek(DateDto date)
         {
-            var schedules = await _iScheduleData.GetAllDates(date);
+            var schedules = await _iScheduleData.GetAllDates(date.sunday);
             if (schedules == null)
             {
                 return NotFound();
