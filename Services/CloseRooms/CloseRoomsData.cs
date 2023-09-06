@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
+using Services.Appointments;
 using Services.DTO;
 using Services.Rooms;
 using System;
@@ -14,11 +15,13 @@ namespace Services.CloseRooms
     {
         private readonly ClinicDBContext _context;
         private readonly IRoomsData _iRoomsData;
+        private readonly IAppointmentsData _iAppointmentsData;
 
-        public CloseRoomsData(ClinicDBContext context, IRoomsData roomsData)
+        public CloseRoomsData(ClinicDBContext context, IRoomsData roomsData, IAppointmentsData appointmentsData)
         {
             _context = context;
             _iRoomsData = roomsData;
+            _iAppointmentsData = appointmentsData;
         }
 
         public Task<bool> CancelAppointment(DateOnly date)
@@ -42,6 +45,13 @@ namespace Services.CloseRooms
             {
                 return false;
             }
+
+            var isExsists = CloseroomExists(closeRoomDto.idClose);
+            if (isExsists)
+            {
+                return false;
+            }
+
             var closeRoom = new Closeroom();
             closeRoom.Starttime = closeRoomDto.startTime;
             closeRoom.Endtime = closeRoomDto.endTime;
@@ -49,15 +59,26 @@ namespace Services.CloseRooms
             closeRoom.Enddate = closeRoomDto.endDate;
             closeRoom.Reason = closeRoomDto.reason;
             closeRoom.Roomsname = closeRoomDto.name?.Count() > 0 ? String.Join(",", closeRoomDto.name) : null;
-            var isExsists = CloseroomExists(closeRoomDto.idClose);
-            if (isExsists)
-            {
-                return false;
-            }
+           
             await _context.AddAsync(closeRoom);
             var isOk = await _context.SaveChangesAsync() >= 0;
-            if (isOk)
+            if (isOk == true)
             {
+                var names = new List<string>();
+                if (closeRoomDto.name  != null)
+                {
+                    names = closeRoomDto.name;
+                }
+                foreach(var r in names)
+                {
+                    var id = await _iRoomsData.GetRoomIdByName(r);
+                    var cancel = await _iAppointmentsData.CancelAppointment(id, 0, closeRoom.Startdate, closeRoom.Enddate, closeRoom.Starttime, closeRoom.Endtime);
+                    if (cancel == false)
+                    {
+                        return false;
+                    }
+                }
+                
                 return true;
             }
             return false;

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
+using Services.Appointments;
 using Services.DTO;
 using Services.Employees;
 using Services.Rooms;
@@ -16,12 +17,14 @@ namespace Services.TempCloseEmployees
         private readonly ClinicDBContext _context;
         private readonly IEmployeesData _iEmployeesData;
         private readonly IRoomsData _roomsData;
+        private readonly IAppointmentsData _iAppointmentsData;
 
-        public TempCloseEmployeesData(ClinicDBContext context, IEmployeesData employeesData, IRoomsData roomsData)
+        public TempCloseEmployeesData(ClinicDBContext context, IEmployeesData employeesData, IRoomsData roomsData, IAppointmentsData appointmentsData)
         {
             _context = context;
             _iEmployeesData = employeesData;
             _roomsData = roomsData;
+            _iAppointmentsData = appointmentsData;
         }
 
         public async Task<bool> CreateTempcloseemployee(TempCloseEmployeeDto tempcloseemployeedto)
@@ -199,6 +202,16 @@ namespace Services.TempCloseEmployees
             tempcloseemp.Status = status;
 
             var isOk = await UpdateTempcloseemployee(tempcloseemp);
+             
+            if (isOk && status) // need to cancel appointmets...
+            {
+                var cancel = await _iAppointmentsData.CancelAppointment(0, id, tempcloseemp.Startdate, tempcloseemp.Enddate, tempcloseemp.Starttime, tempcloseemp.Endtime);
+                if (cancel == false)
+                {
+                    return false;
+                }
+            }
+
             return isOk;
         }
 

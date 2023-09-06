@@ -101,28 +101,15 @@ namespace App.Controllers
         {
             if (id != appointment.Idappointment)
             {
+                return NoContent();
+            }
+
+            var res = await _iAppointmentsData.UpdateAppointment(id, appointment);
+            if (res == false)
+            {
                 return BadRequest();
             }
-
-            _context.Entry(appointment).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!_iAppointmentsData.AppointmentExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return Ok();
         }
       
         [HttpPost]
@@ -142,6 +129,7 @@ namespace App.Controllers
             newAppointment.Duration = appointment.duration;
             newAppointment.Area = appointment.area?.Count != null ? String.Join(", ", appointment.area): null;
             newAppointment.Idemployee = appointment.idWorker;
+            newAppointment.Cancle = false;
             var res = await CreateAppointment(newAppointment);
             var c = await _iContactsData.UpdateTreatementNameForContact(appointment.idTreated, appointment.treatment);
             return res;

@@ -276,6 +276,12 @@ namespace Services.Rooms
             }
             return listId;
         }
+
+        public async Task<int> GetRoomIdByName(string? name)
+        {
+            var room = await GetRoomByName(name);
+            return room == null ? 0 : room.Idroom;
+        }
     }
 }
 

@@ -30,8 +30,58 @@ namespace Services.Appointments
             return true;
         }
 
+        public async Task<bool> CancelAppointment(int idRoom, int idEmployee, DateOnly? sDate, DateOnly? eDate, TimeOnly? sTime, TimeOnly? eTime)
+        {
+            var appointments = await GetAllAppointments();
+            var flag = true;
+            var toCancel = false;
+            foreach (var appointment in appointments)
+            {
+                toCancel = false;
+
+                if (appointment == null)
+                {
+                    continue;
+                }
+                if(appointment.Date >= sDate && appointment.Date <= eDate && (idRoom > 0 && appointment.Idroom == idRoom || idEmployee > 0 && appointment.Idemployee == idEmployee)) 
+                {
+                    if (appointment.Timestart <= sTime && eTime <= appointment.Timeend)
+                    {
+                        toCancel = true;
+                    }
+
+                    if (appointment.Timestart < sTime && sTime < appointment.Timeend)
+                    {
+                        toCancel = true;
+                    }
+
+                    if (sTime < appointment.Timestart && appointment.Timeend < eTime)
+                    {
+                        toCancel = true;
+                    }
+
+                    if (sTime < appointment.Timestart && appointment.Timestart < eTime)
+                    {
+                        toCancel = true;
+                    }
+
+                    if (toCancel == true)
+                    {
+                        appointment.Cancle = true;
+                        var isOk = await UpdateAppointment(appointment.Idappointment, appointment);
+                        if(isOk == false)
+                        {
+                            flag = false;
+                        }
+                    }                                      
+                }
+            }
+            return flag;
+        }
+
         public async Task<bool> CreateAppointment(Appointment appointments)
         {
+            appointments.Cancle = false;
             var isExsists = AppointmentExists(appointments.Idappointment);
             if (isExsists)
             {
@@ -136,6 +186,33 @@ namespace Services.Appointments
             }
             treatment.Isremaind ++;       
             return treatment;
+        }
+
+        public async Task<bool> UpdateAppointment(int id, Appointment appointment)
+        {
+            if(id != appointment.Idappointment)
+            {
+                return false;
+            }
+            _context.Entry(appointment).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!AppointmentExists(id))
+                {
+                    return false;
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return true;
         }
     }
 }
