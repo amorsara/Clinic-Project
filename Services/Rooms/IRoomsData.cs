@@ -12,6 +12,8 @@ namespace Services.Rooms
     {
         Task<List<Room>> GetAllRooms();
 
+        Task<List<RoomDetails>> GetAllNamesWithIdRooms();
+
         Task<bool> ChangeRooms(List<List<RoomEmployeeDto>> rooms);
 
         Task<List<List<RoomEmployeeDto>>> GetAllRoomsWithTypes();

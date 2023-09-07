@@ -42,6 +42,18 @@ namespace App.Controllers
         }
 
         [HttpGet]
+        [Route("/api/rooms/getallnameswithidrooms")]
+        public async Task<ActionResult<List<RoomDetails>>> GetAllNamesWithIdRooms()
+        {
+            var rooms = await _iRoomsData.GetAllNamesWithIdRooms();
+            if (rooms == null)
+            {
+                return NotFound();
+            }
+            return rooms;
+        }
+
+        [HttpGet]
         [Route("/api/rooms/getallroomswithtypes")]
         public async Task<ActionResult<IEnumerable<List<RoomEmployeeDto>>>> GetAllRoomsWithTypes()
         {

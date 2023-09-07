@@ -282,8 +282,41 @@ namespace Services.Rooms
             var room = await GetRoomByName(name);
             return room == null ? 0 : room.Idroom;
         }
+
+        public async Task<List<RoomDetails>> GetAllNamesWithIdRooms()
+        {
+            var rooms = await GetAllRooms();
+            var list = new List<RoomDetails>();
+            foreach(var room in rooms)
+            {
+                if(room == null)
+                {
+                    continue;
+                }
+                var r = new RoomDetails();
+                r.id = room.Idroom;
+                r.name = room.Nameroom;
+                list.Add(r);
+            }
+            return list;
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
