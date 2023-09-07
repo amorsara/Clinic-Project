@@ -74,6 +74,12 @@ namespace Services.TempCloseEmployees
             _context.Tempcloseemployees.Remove(tempcloseemployee);
             await _context.SaveChangesAsync();
 
+            var cancel = await _iAppointmentsData.CancelAppointment(0, tempcloseemployee.Idemployee, tempcloseemployee.Startdate, tempcloseemployee.Enddate, tempcloseemployee.Starttime, tempcloseemployee.Endtime, false);
+            if (cancel == false)
+            {
+                return false;
+            }
+
             return true;
         }
 
@@ -205,7 +211,7 @@ namespace Services.TempCloseEmployees
              
             if (isOk && status) // need to cancel appointmets...
             {
-                var cancel = await _iAppointmentsData.CancelAppointment(0, id, tempcloseemp.Startdate, tempcloseemp.Enddate, tempcloseemp.Starttime, tempcloseemp.Endtime);
+                var cancel = await _iAppointmentsData.CancelAppointment(0, id, tempcloseemp.Startdate, tempcloseemp.Enddate, tempcloseemp.Starttime, tempcloseemp.Endtime, true);
                 if (cancel == false)
                 {
                     return false;

@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Quartz;
+using Quartz.Impl;
 using Services.CloseEvents;
 using Services.DTO;
 using Services.Schedule;
+using System.Threading;
 
 namespace App.Controllers
 {
@@ -19,6 +22,7 @@ namespace App.Controllers
             _iScheduleData = scheduleData;
             _iCloseEvents = closeEvents;
         }
+
 
         [HttpGet]
         [Route("/api/schedule/getalldates")]
@@ -93,3 +97,24 @@ namespace App.Controllers
         //}
     }
 }
+
+
+
+
+//private static readonly string ScheduleCronExpression = "0****?*";
+
+//public static async System.Threading.Tasks StartAsync()
+//{
+//    try
+//    {
+//        var scheduler = await StdSchedulerFactory.getDefaultScheduler();
+//        if (!scheduler.IsStarted)
+//        {
+//            await scheduler.start();
+//        }
+//        var job1 = JobBuilder.Create<aaa>().WithIdentity("ExecuteTaskServiceCallJob1", "group1").Build();
+//        var trigger1 = TriggerBuilder.Create().WithIdentity("ExecuteTaskServiceCallTrigger1", "group1").WithCronSchedule(ScheduleCronExpression).Build();
+//        await scheduler.ScheduleJob(job1, trigger1);
+//    }
+//    catch (Exception ex) { }
+//}

@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using App.Controllers;
+using Hangfire;
+using Hangfire.PostgreSql;
+using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
 using Services.Appointments;
 using Services.Attendances;
@@ -22,8 +25,6 @@ using Services.Waitings;
 using Services.WorkHours;
 
 var builder = WebApplication.CreateBuilder(args);
-
-
 
 builder.Services.AddControllers();
 builder.Services.AddSignalR();
@@ -55,7 +56,6 @@ builder.Services.AddScoped<ITempWorkHourData, TempWorkHourData>();
 builder.Services.AddScoped<ITempCloseEmployeesData, TempCloseEmployeesData>();
 builder.Services.AddScoped<IAttendancesData, AttendancesData>();
 builder.Services.AddScoped<ICloseEvents, CloseEvents>();
-
 
 var app = builder.Build();
 

@@ -25,7 +25,7 @@ namespace Services.Appointments
 
         Task<Appointment?> GetAppointmentById(int id);
 
-        Task<bool> CancelAppointment(int idRoom, int idEmployee, DateOnly? sDate, DateOnly? eDate, TimeOnly? sTime, TimeOnly? eTime);
+        Task<bool> CancelAppointment(int idRoom, int idEmployee, DateOnly? sDate, DateOnly? eDate, TimeOnly? sTime, TimeOnly? eTime, bool cancel);
 
         Task<bool> CreateAppointment(Appointment appointments);
 

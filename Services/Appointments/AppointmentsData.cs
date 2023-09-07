@@ -30,7 +30,7 @@ namespace Services.Appointments
             return true;
         }
 
-        public async Task<bool> CancelAppointment(int idRoom, int idEmployee, DateOnly? sDate, DateOnly? eDate, TimeOnly? sTime, TimeOnly? eTime)
+        public async Task<bool> CancelAppointment(int idRoom, int idEmployee, DateOnly? sDate, DateOnly? eDate, TimeOnly? sTime, TimeOnly? eTime,bool cancel)
         {
             var appointments = await GetAllAppointments();
             var flag = true;
@@ -67,7 +67,7 @@ namespace Services.Appointments
 
                     if (toCancel == true)
                     {
-                        appointment.Cancle = true;
+                        appointment.Cancle = cancel;
                         var isOk = await UpdateAppointment(appointment.Idappointment, appointment);
                         if(isOk == false)
                         {

@@ -72,7 +72,7 @@ namespace Services.CloseRooms
                 foreach(var r in names)
                 {
                     var id = await _iRoomsData.GetRoomIdByName(r);
-                    var cancel = await _iAppointmentsData.CancelAppointment(id, 0, closeRoom.Startdate, closeRoom.Enddate, closeRoom.Starttime, closeRoom.Endtime);
+                    var cancel = await _iAppointmentsData.CancelAppointment(id, 0, closeRoom.Startdate, closeRoom.Enddate, closeRoom.Starttime, closeRoom.Endtime, true);
                     if (cancel == false)
                     {
                         return false;
@@ -91,14 +91,20 @@ namespace Services.CloseRooms
                 return false;
             }
 
-            var closeroom = await GetCloseroomById(id);
-            if (closeroom == null)
+            var closeRoom = await GetCloseroomById(id);
+            if (closeRoom == null)
             {
                 return false;
             }
 
-            _context.Closerooms.Remove(closeroom);
+            _context.Closerooms.Remove(closeRoom);
             await _context.SaveChangesAsync();
+
+            var cancel = await _iAppointmentsData.CancelAppointment(id, 0, closeRoom.Startdate, closeRoom.Enddate, closeRoom.Starttime, closeRoom.Endtime, false);
+            if (cancel == false)
+            {
+                return false;
+            }
 
             return true;
         }
