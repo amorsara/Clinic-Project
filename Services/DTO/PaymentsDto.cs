@@ -28,7 +28,7 @@ namespace Services.DTO
 
         public List<string>? treatment { get; set; }
 
-        public List<string>? area { get; set; }
+        public List<string>? laser { get; set; }
 
         public string? type { get; set; }
 
@@ -40,11 +40,17 @@ namespace Services.DTO
 
         public string? electrolysis { get; set;}
 
-        public string? Advanced { get; set;}
+        public string? AdvancedElectrolysis { get; set;}
 
     }
 }
 
 
-//{ allCredit: 0,pay: 0,owes: 0,credit: 0,idContact: 0
-//,datePayment: 'yy-mm-dd-hh-mm', date: 'yyyy-mm-dd',treatment: [],area: [],type: '',r: true}
+//laser: selectedAreasLaser -- לשנות מ area ל laser
+//electrolysis: electrolysisTime --נשאר מחרוזת
+//AdvancedElectrolysis: advanced -- 
+//waxing: waxingArea
+
+
+
+

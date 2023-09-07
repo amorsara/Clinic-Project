@@ -50,3 +50,6 @@ namespace Services.DTO
 
 //{ datePayment: 'yy-mm-dd-hh-mm', date: 'yyyy-mm-dd', fullName: '', phon: '', tretment: ['','']
 //, employee: '', payed: '', type: '', debt: '', credit: ''}
+
+
+
