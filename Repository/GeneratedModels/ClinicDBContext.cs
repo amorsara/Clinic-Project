@@ -87,7 +87,6 @@ public partial class ClinicDBContext : DbContext
             entity.Property(e => e.Treatmentname)
                 .HasColumnType("character varying")
                 .HasColumnName("treatmentname");
-            entity.Property(e => e.Wait).HasColumnName("wait");
 
             entity.HasOne(d => d.IdcontactNavigation).WithMany(p => p.Appointments)
                 .HasForeignKey(d => d.Idcontact)
@@ -205,10 +204,12 @@ public partial class ClinicDBContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .HasColumnName("name");
-            entity.Property(e => e.Password)
+            entity.Property(e => e.Password1)
                 .HasMaxLength(50)
-                .HasColumnName("password");
-            entity.Property(e => e.Permission).HasColumnName("permission");
+                .HasColumnName("password1");
+            entity.Property(e => e.Password2)
+                .HasColumnType("character varying")
+                .HasColumnName("password2");
             entity.Property(e => e.Treatmentstype)
                 .HasColumnType("character varying")
                 .HasColumnName("treatmentstype");

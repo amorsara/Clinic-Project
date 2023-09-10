@@ -30,8 +30,6 @@ public partial class Appointment
 
     public bool? Cancle { get; set; }
 
-    public bool? Wait { get; set; }
-
     public string? Area { get; set; }
 
     public int? Duration { get; set; }

@@ -43,17 +43,17 @@ namespace App.Controllers
             return appointments;
         }
 
-        [HttpGet]
-        [Route("/api/appointments/getwaitappointments")]
-        public async Task<ActionResult<IEnumerable<Appointment>>> GetWaitAppointments()
-        {
-            var appointments = await _iAppointmentsData.GetWaitAppointments();
-            if (appointments == null)
-            {
-                return NotFound();
-            }
-            return appointments;
-        }
+        //[HttpGet]
+        //[Route("/api/appointments/getwaitappointments")]
+        //public async Task<ActionResult<IEnumerable<Appointment>>> GetWaitAppointments()
+        //{
+        //    var appointments = await _iAppointmentsData.GetWaitAppointments();
+        //    if (appointments == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return appointments;
+        //}
 
        
 
@@ -82,18 +82,18 @@ namespace App.Controllers
             return Ok(appointment);
         }
 
-        [HttpGet]
-        [Route("/api/appointments/deletewait/{id}")]
-        public async Task<ActionResult<Appointment>> DeleteWait(int id)
-        {
-            var appointment = await _iAppointmentsData.DeleteWait(id);
-            if (appointment == null)
-            {
-                return NotFound();
-            }
-            await UpdateAppointment(id, appointment);
-            return Ok(appointment);
-        }
+        //[HttpGet]
+        //[Route("/api/appointments/deletewait/{id}")]
+        //public async Task<ActionResult<Appointment>> DeleteWait(int id)
+        //{
+        //    var appointment = await _iAppointmentsData.DeleteWait(id);
+        //    if (appointment == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    await UpdateAppointment(id, appointment);
+        //    return Ok(appointment);
+        //}
        
         [HttpPut]
         [Route("/api/appointments/updateappointment/{id}")]

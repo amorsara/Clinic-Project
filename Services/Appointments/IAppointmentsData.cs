@@ -15,7 +15,7 @@ namespace Services.Appointments
 
         Task<List<Appointment>> GetAllAppointmentsForWeek(DateOnly? date = null);
 
-        Task<List<Appointment>> GetWaitAppointments();
+        //Task<List<Appointment>> GetWaitAppointments();
 
         Task<List<Appointment>> GetAllWaitDates();
 
@@ -35,6 +35,6 @@ namespace Services.Appointments
 
         Task<bool> UpdateAppointment(int id, Appointment appointment);
 
-        Task<Appointment?> DeleteWait(int id);
+        //Task<Appointment?> DeleteWait(int id);
     }
 }

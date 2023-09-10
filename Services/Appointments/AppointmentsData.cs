@@ -96,16 +96,16 @@ namespace Services.Appointments
             return false;
         }
 
-        public async Task<Appointment?> DeleteWait(int id)
-        {
-            var appointment = await GetAppointmentById(id);
-            if(appointment == null)
-            {
-                return null;
-            }
-            appointment.Wait = false;
-            return appointment;
-        }
+        //public async Task<Appointment?> DeleteWait(int id)
+        //{
+        //    var appointment = await GetAppointmentById(id);
+        //    if(appointment == null)
+        //    {
+        //        return null;
+        //    }
+        //    appointment.Wait = false;
+        //    return appointment;
+        //}
 
         public async Task<List<Appointment>> GetAllAppointments()
         {
@@ -172,10 +172,10 @@ namespace Services.Appointments
             return listDate;
         }
 
-        public async Task<List<Appointment>> GetWaitAppointments()
-        {
-            return await _context.Appointments.Where(a => a.Wait == true).ToListAsync();
-        }
+        //public async Task<List<Appointment>> GetWaitAppointments()
+        //{
+        //    return await _context.Appointments.Where(a => a.Wait == true).ToListAsync();
+        //}
 
         public async Task<Appointment?> UpdateRemined(int id)
         {

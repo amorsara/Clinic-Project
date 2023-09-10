@@ -12,9 +12,9 @@ public partial class Employee
 
     public string? Color { get; set; }
 
-    public string? Password { get; set; }
+    public string? Password1 { get; set; }
 
-    public bool? Permission { get; set; }
+    public string? Password2 { get; set; }
 
     public string? Treatmentstype { get; set; }
 
