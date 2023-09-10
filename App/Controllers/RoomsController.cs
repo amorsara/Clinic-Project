@@ -26,7 +26,23 @@ namespace App.Controllers
         public async Task<IActionResult> ChangeRooms(List<List<RoomEmployeeDto>> rooms) 
         {
             var res = await _iRoomsData.ChangeRooms(rooms);
+            if(res == false)
+            {
+                return BadRequest();
+            }
             return Ok("ok");
+        }
+
+        [HttpGet]
+        [Route("/api/rooms/updatenameroom/{id}/{name}")]
+        public async Task<IActionResult> UpdateNameRoom(int id, string name)
+        {
+            var res = await _iRoomsData.UpdateNameRoom(id, name);
+            if(res == false)
+            {
+                return BadRequest();
+            }
+            return Ok(true);
         }
 
         [HttpGet]

@@ -58,21 +58,34 @@ namespace Services.CloseRooms
             closeRoom.Startdate = closeRoomDto.startDate;
             closeRoom.Enddate = closeRoomDto.endDate;
             closeRoom.Reason = closeRoomDto.reason;
-            closeRoom.Roomsname = closeRoomDto.name?.Count() > 0 ? String.Join(",", closeRoomDto.name) : null;
+            
+            var names = closeRoomDto.name;
+            var list = new List<int>();
+            if(names != null)
+            {
+                foreach (var name in names)
+                {
+                    var id = await _iRoomsData.GetRoomIdByName(name);
+                    if(id != 0)
+                    {
+                        list.Add(id);
+                    }
+                }
+                closeRoom.Idrooms = list.Count() > 0 ? String.Join(",",list) : null;
+            }
            
             await _context.AddAsync(closeRoom);
             var isOk = await _context.SaveChangesAsync() >= 0;
             if (isOk == true)
             {
-                var names = new List<string>();
-                if (closeRoomDto.name  != null)
+                var idRooms = new List<string>();
+                if (closeRoom.Idrooms != null)
                 {
-                    names = closeRoomDto.name;
+                    idRooms = closeRoom.Idrooms.Split(",").ToList();
                 }
-                foreach(var r in names)
+                foreach(var id in idRooms)
                 {
-                    var id = await _iRoomsData.GetRoomIdByName(r);
-                    var cancel = await _iAppointmentsData.CancelAppointment(id, 0, closeRoom.Startdate, closeRoom.Enddate, closeRoom.Starttime, closeRoom.Endtime, true);
+                    var cancel = await _iAppointmentsData.CancelAppointment(int.Parse(id), 0, closeRoom.Startdate, closeRoom.Enddate, closeRoom.Starttime, closeRoom.Endtime, true);
                     if (cancel == false)
                     {
                         return false;
@@ -121,7 +134,22 @@ namespace Services.CloseRooms
                 }
                 var closeRoomDto = new CloseRoomDto();
                 closeRoomDto.idClose = item.Idcloseroom;
-                closeRoomDto.name = item.Roomsname?.Split(",").ToList();               
+
+                var idRooms = item.Idrooms?.Split(",").ToList();
+                var names = new List<string>();
+                if(idRooms != null)
+                {
+                    foreach (var id in idRooms)
+                    {
+                        var name = await _iRoomsData.GetNameRoom(int.Parse(id));
+                        if(name != null)
+                        {
+                            names.Add(name);
+                        }
+                    }
+                }            
+
+                closeRoomDto.name = names;               
                 closeRoomDto.startDate = item.Startdate;
                 closeRoomDto.endDate = item.Enddate;
                 closeRoomDto.startTime = item.Starttime;
@@ -144,16 +172,16 @@ namespace Services.CloseRooms
                     continue;
                 }
 
-                var rooms = c.Roomsname?.Split(",").ToList();
+                var rooms = c.Idrooms?.Split(",").ToList();
                 if(rooms == null)
                 {
                     continue;
                 }
 
-                foreach(var room in rooms)
+                foreach(var id in rooms)
                 {
-                    var r = await _iRoomsData.GetRoomByName(room);
-                    if(r == null)
+                    var room = await _iRoomsData.GetRoomById(int.Parse(id));
+                    if(room == null)
                     {
                         continue;
                     }
@@ -165,7 +193,7 @@ namespace Services.CloseRooms
                         {
                             var closeEvent = new CloseEventsDto();
                             closeEvent.id = c.Idcloseroom;
-                            closeEvent.idRoom = r.Idroom;
+                            closeEvent.idRoom = room.Idroom;
                             closeEvent.date = d1;
                             closeEvent.nameEvent = c.Reason;
                             closeEvent.startHour = c.Starttime;
@@ -203,7 +231,7 @@ namespace Services.CloseRooms
             closeRoom.Startdate = closeroom.Startdate;
             closeRoom.Enddate = closeroom.Enddate;
             closeRoom.Reason = closeroom.Reason;
-            closeroom.Roomsname = closeroom.Roomsname?.Count() > 0 ? String.Join(",", closeroom.Roomsname) : null;
+            closeroom.Idrooms = closeroom.Idrooms?.Count() > 0 ? String.Join(",", closeroom.Idrooms) : null;
 
             _context.Entry(closeRoom).State = EntityState.Modified;
 

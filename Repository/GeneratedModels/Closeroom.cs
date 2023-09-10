@@ -7,8 +7,6 @@ public partial class Closeroom
 {
     public int Idcloseroom { get; set; }
 
-    public string? Roomsname { get; set; }
-
     public DateOnly? Startdate { get; set; }
 
     public DateOnly? Enddate { get; set; }
@@ -18,4 +16,6 @@ public partial class Closeroom
     public TimeOnly? Endtime { get; set; }
 
     public string? Reason { get; set; }
+
+    public string? Idrooms { get; set; }
 }

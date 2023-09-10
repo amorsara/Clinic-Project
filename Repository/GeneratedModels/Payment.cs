@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 namespace Repository.GeneratedModels;
 
@@ -38,6 +37,5 @@ public partial class Payment
 
     public string? Advanced { get; set; }
 
-    [JsonIgnore]
     public virtual Contact IdcontactNavigation { get; set; } = null!;
 }

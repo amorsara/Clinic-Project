@@ -131,12 +131,12 @@ public partial class ClinicDBContext : DbContext
             entity.Property(e => e.Idcloseroom).HasColumnName("idcloseroom");
             entity.Property(e => e.Enddate).HasColumnName("enddate");
             entity.Property(e => e.Endtime).HasColumnName("endtime");
+            entity.Property(e => e.Idrooms)
+                .HasColumnType("character varying")
+                .HasColumnName("idrooms");
             entity.Property(e => e.Reason)
                 .HasColumnType("character varying")
                 .HasColumnName("reason");
-            entity.Property(e => e.Roomsname)
-                .HasColumnType("character varying")
-                .HasColumnName("roomsname");
             entity.Property(e => e.Startdate).HasColumnName("startdate");
             entity.Property(e => e.Starttime).HasColumnName("starttime");
         });

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 namespace Repository.GeneratedModels;
 
@@ -22,6 +21,5 @@ public partial class Tempcloseemployee
 
     public bool? Status { get; set; }
 
-    [JsonIgnore]
     public virtual Employee IdemployeeNavigation { get; set; } = null!;
 }
