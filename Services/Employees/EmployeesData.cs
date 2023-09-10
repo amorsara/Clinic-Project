@@ -54,7 +54,7 @@ namespace Services.Employees
 
         public async Task<List<Employee>> GetAllEmployees()
         {
-            return await _context.Employees.ToListAsync();
+            return await _context.Employees.Where(e => e.Isshow == true).ToListAsync();
         }
 
         public async Task<List<Employee>> GetAllEmployeesForRoom(List<string>? treatmentsType)
