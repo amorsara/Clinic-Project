@@ -20,6 +20,8 @@ namespace Services.Rooms
 
         Task<Room?> GetRoomById(int id);
 
+        Task<bool> DeleteRoomById(int id);
+
         Task<bool> CreateRoom(Room room);
 
         Task<string?> GetNameRoom(int id);

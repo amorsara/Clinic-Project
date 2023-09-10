@@ -60,7 +60,7 @@ namespace Services.Rooms
 
         public async Task<List<Room>> GetAllRooms()
         {
-            return await _context.Rooms.ToListAsync();
+            return await _context.Rooms.Where(r => r.Isshow == true).ToListAsync();
         }
 
         public async Task<string?> GetNameRoom(int id)
@@ -73,7 +73,7 @@ namespace Services.Rooms
         {
             var room = await GetRoomById(id);
             var list = new List<string>();
-            if (room == null || room.Treatmentstype == null)
+            if (room == null || room.Isshow == false || room.Treatmentstype == null)
             {
                 return list;
             }
@@ -249,7 +249,7 @@ namespace Services.Rooms
         {
             var list = await _iEmployeesData.GetAllTreatmentsForEmployee(id);
             var listId = new List<int>();
-            var rooms = await _context.Rooms.ToListAsync();
+            var rooms = await _context.Rooms.Where(r => r.Isshow == true).ToListAsync();
             if (list == null)
             {
                 return listId;
@@ -300,8 +300,22 @@ namespace Services.Rooms
             }
             return list;
         }
+
+        public async Task<bool> DeleteRoomById(int id)
+        {
+            var room = await GetRoomById(id);
+            if(room == null)
+            {
+                return false;
+            }
+            room.Isshow = false;
+            var isOk = await UpdateRoom(room.Idroom, room);
+            return isOk;
+        }
     }
 }
+
+
 
 
 

@@ -249,8 +249,6 @@ namespace Services.Employees
             return true;
         }
 
-
-
         public async Task<List<List<RoomEmployeeDto>>> GetAllEmployeesWithTypes()
         {
             var employees = await GetAllEmployees();
@@ -327,7 +325,7 @@ namespace Services.Employees
 
         public async Task<int?> GetIdForAdmin()
         {
-            var admin = await _context.Employees.Where(e => e.Name == "Admin").FirstOrDefaultAsync();
+            var admin = await _context.Employees.Where(e => e.Name == "Admin" && e.Isshow == true).FirstOrDefaultAsync();
             return admin?.Idemployee;
         }
 

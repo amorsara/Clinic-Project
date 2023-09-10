@@ -101,6 +101,18 @@ namespace App.Controllers
             return room;
         }
 
+        [HttpGet]
+        [Route("/api/rooms/deleteroombyid/{id}")]
+        public async Task<ActionResult<Room>> DeleteRoomById(int id)
+        {
+            var room = await _iRoomsData.DeleteRoomById(id);
+            if (room == false)
+            {
+                return BadRequest();
+            }
+            return Ok(true);
+        }
+
         [HttpPut]
         [Route("/api/rooms/updateroom/{id}")]
         public async Task<IActionResult> UpdateRoom(int id, Room room)
