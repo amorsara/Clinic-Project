@@ -208,8 +208,18 @@ namespace Services.Employees
             {
                 var size = employee.Count();
                 var newEmployee = new Employee();
-                newEmployee.Name = employee[size - 1].c;
-                newEmployee.Color = employee[size - 2].c;
+                newEmployee.Name = employee[size - 4].c;
+                newEmployee.Color = employee[size - 5].c;
+                newEmployee.Password1 = employee[size - 3].c;
+                newEmployee.Password2 = employee[size - 2].c;
+                int id;
+                if (employee[size - 1].c != null && int.TryParse(employee[size - 1].c, out id))
+                {
+                }
+                else
+                {
+                    id = 0;
+                }
                 var list = new List<string>();
                 var t = await _iTreatmentsTypeData.GetlistTreatmentstypes();
                 var types = String.Join(",", t);
@@ -219,7 +229,7 @@ namespace Services.Employees
                     {
                         continue;
                     }
-                    if(item.name != "Color" && item.name != "Worker Name" && !types.Contains(item.name)) // check if add a new treatment type
+                    if(item.name != "Color" && item.name != "Worker Name" && item.name != "id" && item.name != "password1" && item.name != "password2" && !types.Contains(item.name)) // check if add a new treatment type
                     {
                         var treatmentstype = new Treatmentstype();
                         treatmentstype.Nametreatment = item.name;
@@ -230,12 +240,15 @@ namespace Services.Employees
                         list.Add(item.name);
                     }
                     newEmployee.Treatmentstype = String.Join(",", list);
-                    var res = await GetEmployeeByName(newEmployee.Name);
+                    var res = await GetEmployeeById(id);
                     if(res != null) // emplotee is exists - go to update...
                     {
-                        if(newEmployee.Name != res.Name || newEmployee.Treatmentstype != res.Treatmentstype | newEmployee.Color != res.Color) // check if need to update
+                        if(newEmployee.Name != res.Name || newEmployee.Treatmentstype != res.Treatmentstype || newEmployee.Password1 != res.Password1 || newEmployee.Password2 != res.Password2 || newEmployee.Color != res.Color) // check if need to update
                         {
                             res.Name = newEmployee.Name;
+                            res.Password1 = newEmployee.Password1;
+                            res.Password2 = newEmployee.Password2;
+                           // res.Color = newEmployee.Color;
                             res.Treatmentstype = newEmployee.Treatmentstype;
                             var result = await UpdateEmployee(res.Idemployee, res);
                         }
@@ -285,8 +298,20 @@ namespace Services.Employees
                 var emp1 = new RoomEmployeeDto();
                 emp1.c = employee.Name;
                 emp1.name = "Worker Name";
+                var empPass1 = new RoomEmployeeDto();
+                empPass1.name = "password1";
+                empPass1.c = employee.Password1;
+                var empPass2 = new RoomEmployeeDto();
+                empPass2.name = "password2";
+                empPass2.c = employee.Password2;
+                var idEmp = new RoomEmployeeDto();
+                idEmp.name = "id";
+                idEmp.c = "" + employee.Idemployee;
                 list.Add(emp);
                 list.Add(emp1);
+                list.Add(empPass1);
+                list.Add(empPass2);
+                list.Add(idEmp);
                 listEmployees.Add(list);
             }
             return listEmployees;

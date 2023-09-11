@@ -132,7 +132,14 @@ namespace Services.Rooms
                 var size = room.Count();
                 var newRoom = new Room();
                 newRoom.Nameroom = room[size - 2].c;
-                var idRoom = room[size-1].c != null ? int.Parse(room[size - 1].c) : 0;
+                int idRoom = 0;
+                if (room[size - 1].c != null && int.TryParse(room[size - 1].c, out idRoom))
+                {
+                }
+                else
+                {
+                    idRoom = 0;
+                }
                 room.RemoveAt(size - 1);
                 var list = new List<string>();
                 var t = await _iTreatmentsTypeData.GetlistTreatmentstypes();
