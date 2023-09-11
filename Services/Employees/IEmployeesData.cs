@@ -42,8 +42,6 @@ namespace Services.Employees
 
         Task<bool> UpdateEmployee(int id, Employee employee);
 
-        Task<bool> UpdateNameEmployee(int id, string name);
-
         Task<bool> ChangeEmployees(List<List<RoomEmployeeDto>> employees);
 
         Task<bool>DeleteEmployeeById(int id);

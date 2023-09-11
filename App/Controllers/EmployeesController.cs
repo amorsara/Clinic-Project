@@ -116,18 +116,6 @@ namespace App.Controllers
             return Ok(true);
         }
 
-        [HttpGet]
-        [Route("/api/employees/updatenameemployee/{id}/{name}")]
-        public async Task<ActionResult> UpdateNameEmployee(int id, string name)
-        {
-            var isOk = await _iEmployeesData.UpdateNameEmployee(id, name);
-            if (isOk == false)
-            {
-                return BadRequest();
-            }
-            return Ok(true);
-        }
-
 
         [HttpPut]
         [Route("/api/employees/updateemployee/{id}")]

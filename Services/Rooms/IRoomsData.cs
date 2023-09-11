@@ -42,8 +42,6 @@ namespace Services.Rooms
 
         Task<bool> UpdateRoom(int id, Room room);
 
-        Task<bool> UpdateNameRoom(int id,string name);
-
         bool RoomExists(int id);
     }
 }

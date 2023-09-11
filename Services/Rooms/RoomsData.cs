@@ -325,19 +325,6 @@ namespace Services.Rooms
             var isOk = await UpdateRoom(room.Idroom, room);
             return isOk;
         }
-
-        public async Task<bool> UpdateNameRoom(int id, string name)
-        {
-            var room = await GetRoomById(id);
-            if(room == null)
-            {
-                return false;
-            }
-            room.Nameroom = name;
-            var isOk = await UpdateRoom(room.Idroom, room);
-            return isOk;
-
-        }
     }
 }
 
