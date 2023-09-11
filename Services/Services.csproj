@@ -15,4 +15,10 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.8" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="EpilationMedicalTypes\" />
+    <Folder Include="LaserMedicalTypes\" />
+    <Folder Include="WaxingTypes\" />
+  </ItemGroup>
+
 </Project>

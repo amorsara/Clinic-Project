@@ -11,6 +11,7 @@ using Services.Contacts;
 using Services.Employees;
 using Services.Epilations;
 using Services.EpilationTreatments;
+using Services.Home;
 using Services.Inquiries;
 using Services.LaserTreatments;
 using Services.Lesers;
@@ -56,6 +57,7 @@ builder.Services.AddScoped<ITempWorkHourData, TempWorkHourData>();
 builder.Services.AddScoped<ITempCloseEmployeesData, TempCloseEmployeesData>();
 builder.Services.AddScoped<IAttendancesData, AttendancesData>();
 builder.Services.AddScoped<ICloseEvents, CloseEvents>();
+builder.Services.AddScoped<IHomeData, HomeData>();
 
 var app = builder.Build();
 

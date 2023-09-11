@@ -27,9 +27,13 @@ public partial class ClinicDBContext : DbContext
 
     public virtual DbSet<Epilationarea> Epilationareas { get; set; }
 
+    public virtual DbSet<Epilationmedicaltype> Epilationmedicaltypes { get; set; }
+
     public virtual DbSet<Epilationtreatment> Epilationtreatments { get; set; }
 
     public virtual DbSet<Inquiry> Inquiries { get; set; }
+
+    public virtual DbSet<Lasermedicaltype> Lasermedicaltypes { get; set; }
 
     public virtual DbSet<Lasertreatment> Lasertreatments { get; set; }
 
@@ -48,6 +52,8 @@ public partial class ClinicDBContext : DbContext
     public virtual DbSet<Treatmentstype> Treatmentstypes { get; set; }
 
     public virtual DbSet<Waiting> Waitings { get; set; }
+
+    public virtual DbSet<Waxingtype> Waxingtypes { get; set; }
 
     public virtual DbSet<Workhour> Workhours { get; set; }
 
@@ -227,6 +233,21 @@ public partial class ClinicDBContext : DbContext
                 .HasColumnName("namearea");
         });
 
+        modelBuilder.Entity<Epilationmedicaltype>(entity =>
+        {
+            entity.HasKey(e => e.Idepilationmedicaltype).HasName("epilationmedicaltypes_pkey");
+
+            entity.ToTable("epilationmedicaltypes");
+
+            entity.Property(e => e.Idepilationmedicaltype).HasColumnName("idepilationmedicaltype");
+            entity.Property(e => e.Nametype)
+                .HasColumnType("character varying")
+                .HasColumnName("nametype");
+            entity.Property(e => e.Note)
+                .HasColumnType("character varying")
+                .HasColumnName("note");
+        });
+
         modelBuilder.Entity<Epilationtreatment>(entity =>
         {
             entity.HasKey(e => e.Idepilationtreatment).HasName("epilationtreatments_pkey");
@@ -291,6 +312,21 @@ public partial class ClinicDBContext : DbContext
                 .HasForeignKey(d => d.Idemployee)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("Inquiries_employee_id_fkey");
+        });
+
+        modelBuilder.Entity<Lasermedicaltype>(entity =>
+        {
+            entity.HasKey(e => e.Idlasermedicaltype).HasName("lasermedicaltypes_pkey");
+
+            entity.ToTable("lasermedicaltypes");
+
+            entity.Property(e => e.Idlasermedicaltype).HasColumnName("idlasermedicaltype");
+            entity.Property(e => e.Nametype)
+                .HasColumnType("character varying")
+                .HasColumnName("nametype");
+            entity.Property(e => e.Note)
+                .HasColumnType("character varying")
+                .HasColumnName("note");
         });
 
         modelBuilder.Entity<Lasertreatment>(entity =>
@@ -510,6 +546,18 @@ public partial class ClinicDBContext : DbContext
                 .HasMaxLength(1)
                 .HasColumnName("type");
             entity.Property(e => e.Untildate).HasColumnName("untildate");
+        });
+
+        modelBuilder.Entity<Waxingtype>(entity =>
+        {
+            entity.HasKey(e => e.Idwaxingtype).HasName("waxingtypes_pkey");
+
+            entity.ToTable("waxingtypes");
+
+            entity.Property(e => e.Idwaxingtype).HasColumnName("idwaxingtype");
+            entity.Property(e => e.Nametype)
+                .HasColumnType("character varying")
+                .HasColumnName("nametype");
         });
 
         modelBuilder.Entity<Workhour>(entity =>
