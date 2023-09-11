@@ -132,6 +132,8 @@ namespace Services.Rooms
                 var size = room.Count();
                 var newRoom = new Room();
                 newRoom.Nameroom = room[size - 1].c;
+                var idRoom = int.Parse(room[0].c);
+                room.RemoveAt(0);
                 var list = new List<string>();
                 var t = await _iTreatmentsTypeData.GetlistTreatmentstypes();
                 var types = String.Join(",", t);
@@ -152,10 +154,10 @@ namespace Services.Rooms
                     }
                 }
                 newRoom.Treatmentstype = String.Join(",", list);
-                var res = await GetRoomByName(newRoom.Nameroom);
+                var res = await GetRoomById(idRoom);
                 if(res != null) // room is exist - go to update...
                 {
-                    newRoom.Idroom = res.Idroom;
+                   // newRoom.Idroom = res.Idroom;
                     if(newRoom.Nameroom != res.Nameroom || newRoom.Treatmentstype != res.Treatmentstype)
                     {
                         res.Nameroom = newRoom.Nameroom;
@@ -220,9 +222,15 @@ namespace Services.Rooms
             foreach(var room in rooms)
             {
                 if (room == null || room.Treatmentstype == null || room.Isshow == false) { continue; }
+
+                var roomdto = new RoomEmployeeDto();
+                roomdto.name = "id";
+                roomdto.c = "" + room.Idroom;
+
                 var list = new List<RoomEmployeeDto>();
+                list.Add(roomdto);
                 foreach(var item in types)
-                {
+                { 
                     if(item == null) continue;
                     var roomDto = new RoomEmployeeDto();
                     roomDto.name = item;
