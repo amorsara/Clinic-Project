@@ -131,9 +131,9 @@ namespace Services.Rooms
             {
                 var size = room.Count();
                 var newRoom = new Room();
-                newRoom.Nameroom = room[size - 1].c;
-                var idRoom = int.Parse(room[0].c);
-                room.RemoveAt(0);
+                newRoom.Nameroom = room[size - 2].c;
+                var idRoom = room[size-1].c != null ? int.Parse(room[size - 1].c) : 0;
+                room.RemoveAt(size - 1);
                 var list = new List<string>();
                 var t = await _iTreatmentsTypeData.GetlistTreatmentstypes();
                 var types = String.Join(",", t);
@@ -222,13 +222,7 @@ namespace Services.Rooms
             foreach(var room in rooms)
             {
                 if (room == null || room.Treatmentstype == null || room.Isshow == false) { continue; }
-
-                var roomdto = new RoomEmployeeDto();
-                roomdto.name = "id";
-                roomdto.c = "" + room.Idroom;
-
                 var list = new List<RoomEmployeeDto>();
-                list.Add(roomdto);
                 foreach(var item in types)
                 { 
                     if(item == null) continue;
@@ -248,6 +242,10 @@ namespace Services.Rooms
                 roomDto1.c = room.Nameroom;
                 roomDto1.name = "Room Name";
                 list.Add(roomDto1);
+                var roomdto = new RoomEmployeeDto();
+                roomdto.name = "id";
+                roomdto.c = "" + room.Idroom;
+                list.Add(roomdto);
                 listRooms.Add(list);
             }
             return listRooms;
