@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
+using Services.LaserMedicalTypes;
 
 namespace App.Controllers
 {
@@ -13,111 +14,85 @@ namespace App.Controllers
     [ApiController]
     public class LasermedicaltypesController : ControllerBase
     {
-        private readonly ClinicDBContext _context;
+        private readonly ILaserMedicalTypesData _iLaserMedicalTypesData;
 
-        public LasermedicaltypesController(ClinicDBContext context)
+        public LasermedicaltypesController(ILaserMedicalTypesData laserMedicalTypesData)
         {
-            _context = context;
+            _iLaserMedicalTypesData = laserMedicalTypesData;
         }
 
-        // GET: api/Lasermedicaltypes
+
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Lasermedicaltype>>> GetLasermedicaltypes()
+        [Route("/api/lasermedicaltypes/getalllasermedicaltypes")]
+        public async Task<ActionResult<IEnumerable<Lasermedicaltype>>> GetAllLasermedicaltypes()
         {
-          if (_context.Lasermedicaltypes == null)
-          {
-              return NotFound();
-          }
-            return await _context.Lasermedicaltypes.ToListAsync();
+            var lasermedicaltypes = await _iLaserMedicalTypesData.GetAllLasermedicaltypes();
+            if (lasermedicaltypes == null)
+            {
+                return NotFound();
+            }
+            return lasermedicaltypes;
         }
 
-        // GET: api/Lasermedicaltypes/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Lasermedicaltype>> GetLasermedicaltype(int id)
-        {
-          if (_context.Lasermedicaltypes == null)
-          {
-              return NotFound();
-          }
-            var lasermedicaltype = await _context.Lasermedicaltypes.FindAsync(id);
 
+        [HttpGet]
+        [Route("/api/lasermedicaltypes/getlasermedicaltypebyid/{id}")]
+        public async Task<ActionResult<Lasermedicaltype>> GetLasermedicaltypeById(int id)
+        {
+            var lasermedicaltype = await _iLaserMedicalTypesData.GetLasermedicaltypeById(id);
             if (lasermedicaltype == null)
             {
                 return NotFound();
             }
-
             return lasermedicaltype;
         }
 
-        // PUT: api/Lasermedicaltypes/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutLasermedicaltype(int id, Lasermedicaltype lasermedicaltype)
+        [HttpPut]
+        [Route("/api/lasermedicaltypes/updatelasermedicaltype/{id}")]
+        public async Task<IActionResult> UpdateLasermedicaltype(int id, Lasermedicaltype lasermedicaltype)
         {
             if (id != lasermedicaltype.Idlasermedicaltype)
             {
+                return NoContent();
+            }
+            var res = await _iLaserMedicalTypesData.UpdateLasermedicaltype(id, lasermedicaltype);
+            if (res == false)
+            {
                 return BadRequest();
             }
-
-            _context.Entry(lasermedicaltype).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!LasermedicaltypeExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return Ok();
         }
 
-        // POST: api/Lasermedicaltypes
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Lasermedicaltype>> PostLasermedicaltype(Lasermedicaltype lasermedicaltype)
+        [Route("/api/lasermedicaltypes/createlasermedicaltype")]
+        public async Task<ActionResult<Lasermedicaltype>> CreateLasermedicaltype(Lasermedicaltype lasermedicaltype)
         {
-          if (_context.Lasermedicaltypes == null)
-          {
-              return Problem("Entity set 'ClinicDBContext.Lasermedicaltypes'  is null.");
-          }
-            _context.Lasermedicaltypes.Add(lasermedicaltype);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetLasermedicaltype", new { id = lasermedicaltype.Idlasermedicaltype }, lasermedicaltype);
+            var result = await _iLaserMedicalTypesData.CreateLasermedicaltype(lasermedicaltype);
+            if (result)
+            {
+                return CreatedAtAction("CreateLasermedicaltype", new { id = lasermedicaltype.Idlasermedicaltype }, lasermedicaltype);
+            }
+            else
+            {
+                return BadRequest();
+            }
+           
         }
 
-        // DELETE: api/Lasermedicaltypes/5
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("/api/lasermedicaltypes/deletelasermedicaltype/{id}")]
         public async Task<IActionResult> DeleteLasermedicaltype(int id)
         {
-            if (_context.Lasermedicaltypes == null)
+            if (id == 0)
             {
-                return NotFound();
+                return BadRequest();
             }
-            var lasermedicaltype = await _context.Lasermedicaltypes.FindAsync(id);
-            if (lasermedicaltype == null)
+            var res = await _iLaserMedicalTypesData.DeleteLasermedicaltype(id);
+            if (res == false)
             {
-                return NotFound();
+                return BadRequest();
             }
-
-            _context.Lasermedicaltypes.Remove(lasermedicaltype);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool LasermedicaltypeExists(int id)
-        {
-            return (_context.Lasermedicaltypes?.Any(e => e.Idlasermedicaltype == id)).GetValueOrDefault();
+            return Ok(res);
         }
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
+using Services.EpilationMedicalTypes;
 
 namespace App.Controllers
 {
@@ -13,111 +14,86 @@ namespace App.Controllers
     [ApiController]
     public class EpilationmedicaltypesController : ControllerBase
     {
-        private readonly ClinicDBContext _context;
+        private readonly IEpilationMedicalTypesData _iEpilationMedicalTypesData;
 
-        public EpilationmedicaltypesController(ClinicDBContext context)
+        public EpilationmedicaltypesController(IEpilationMedicalTypesData epilationMedicalTypesData)
         {
-            _context = context;
+           _iEpilationMedicalTypesData = epilationMedicalTypesData;
         }
 
-        // GET: api/Epilationmedicaltypes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Epilationmedicaltype>>> GetEpilationmedicaltypes()
+        [Route("/api/epilationmedicaltypes/getallepilationmedicaltypes")]
+        public async Task<ActionResult<IEnumerable<Epilationmedicaltype>>> GetAllEpilationmedicaltypes()
         {
-          if (_context.Epilationmedicaltypes == null)
-          {
-              return NotFound();
-          }
-            return await _context.Epilationmedicaltypes.ToListAsync();
+            var epilationmedicaltypes = await _iEpilationMedicalTypesData.GetAllEpilationmedicaltypes();
+            if (epilationmedicaltypes == null)
+            {
+                return NotFound();
+            }
+            return epilationmedicaltypes;
         }
 
-        // GET: api/Epilationmedicaltypes/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Epilationmedicaltype>> GetEpilationmedicaltype(int id)
-        {
-          if (_context.Epilationmedicaltypes == null)
-          {
-              return NotFound();
-          }
-            var epilationmedicaltype = await _context.Epilationmedicaltypes.FindAsync(id);
 
+        [HttpGet]
+        [Route("/api/epilationmedicaltypes/getepilationmedicaltypebyid/{id}")]
+        public async Task<ActionResult<Epilationmedicaltype>> GetEpilationmedicaltypeById(int id)
+        {
+            var epilationmedicaltype = await _iEpilationMedicalTypesData.GetEpilationmedicaltypeById(id);
             if (epilationmedicaltype == null)
             {
                 return NotFound();
             }
-
             return epilationmedicaltype;
         }
 
-        // PUT: api/Epilationmedicaltypes/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutEpilationmedicaltype(int id, Epilationmedicaltype epilationmedicaltype)
+
+        [HttpPut]
+        [Route("/api/epilationmedicaltypes/updateepilationmedicaltype/{id}")]
+        public async Task<IActionResult> UpdateEpilationmedicaltype(int id, Epilationmedicaltype epilationmedicaltype)
         {
             if (id != epilationmedicaltype.Idepilationmedicaltype)
             {
+                return NoContent();
+            }
+            var res = await _iEpilationMedicalTypesData.UpdateEpilationmedicaltype(id, epilationmedicaltype);
+            if (res == false)
+            {
                 return BadRequest();
             }
-
-            _context.Entry(epilationmedicaltype).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!EpilationmedicaltypeExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return Ok();
         }
 
-        // POST: api/Epilationmedicaltypes
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Epilationmedicaltype>> PostEpilationmedicaltype(Epilationmedicaltype epilationmedicaltype)
+        [Route("/api/epilationmedicaltypes/createepilationmedicaltype")]
+        public async Task<ActionResult<Epilationmedicaltype>> CreateEpilationmedicaltype(Epilationmedicaltype epilationmedicaltype)
         {
-          if (_context.Epilationmedicaltypes == null)
-          {
-              return Problem("Entity set 'ClinicDBContext.Epilationmedicaltypes'  is null.");
-          }
-            _context.Epilationmedicaltypes.Add(epilationmedicaltype);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetEpilationmedicaltype", new { id = epilationmedicaltype.Idepilationmedicaltype }, epilationmedicaltype);
+            var result = await _iEpilationMedicalTypesData.CreateEpilationmedicaltype(epilationmedicaltype);
+            if (result)
+            {
+                return CreatedAtAction("CreateEpilationmedicaltype", new { id = epilationmedicaltype.Idepilationmedicaltype }, epilationmedicaltype);
+            }
+            else
+            {
+                return BadRequest();
+            }
+            
         }
 
-        // DELETE: api/Epilationmedicaltypes/5
-        [HttpDelete("{id}")]
+
+        [HttpDelete]
+        [Route("/api/epilationmedicaltypes/deleteepilationmedicaltype/{id}")]
         public async Task<IActionResult> DeleteEpilationmedicaltype(int id)
         {
-            if (_context.Epilationmedicaltypes == null)
+            if (id == 0)
             {
-                return NotFound();
+                return BadRequest();
             }
-            var epilationmedicaltype = await _context.Epilationmedicaltypes.FindAsync(id);
-            if (epilationmedicaltype == null)
+            var res = await _iEpilationMedicalTypesData.DeleteEpilationmedicaltype(id);
+            if (res == false)
             {
-                return NotFound();
+                return BadRequest();
             }
-
-            _context.Epilationmedicaltypes.Remove(epilationmedicaltype);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool EpilationmedicaltypeExists(int id)
-        {
-            return (_context.Epilationmedicaltypes?.Any(e => e.Idepilationmedicaltype == id)).GetValueOrDefault();
+            return Ok(res);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace App.Controllers
         }
 
         [HttpGet]
-        [Route("/api/home/loginuser")]
+        [Route("/api/home/loginuser/{name}/{password}")]
         public async Task<ActionResult<int>> LoginUser(string name, string password)
         {
             var res = await _iHomeData.LoginUser(name, password);

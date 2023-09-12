@@ -9,10 +9,12 @@ using Services.CloseEvents;
 using Services.CloseRooms;
 using Services.Contacts;
 using Services.Employees;
+using Services.EpilationMedicalTypes;
 using Services.Epilations;
 using Services.EpilationTreatments;
 using Services.Home;
 using Services.Inquiries;
+using Services.LaserMedicalTypes;
 using Services.LaserTreatments;
 using Services.Lesers;
 using Services.Messages;
@@ -23,6 +25,7 @@ using Services.TempCloseEmployees;
 using Services.TempWorkHours;
 using Services.TreatmentsType;
 using Services.Waitings;
+using Services.WaxingTypes;
 using Services.WorkHours;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -58,6 +61,9 @@ builder.Services.AddScoped<ITempCloseEmployeesData, TempCloseEmployeesData>();
 builder.Services.AddScoped<IAttendancesData, AttendancesData>();
 builder.Services.AddScoped<ICloseEvents, CloseEvents>();
 builder.Services.AddScoped<IHomeData, HomeData>();
+builder.Services.AddScoped<IWaxingTypesData, WaxingTypesData>();
+builder.Services.AddScoped<IEpilationMedicalTypesData, EpilationMedicalTypesData>();
+builder.Services.AddScoped<ILaserMedicalTypesData, LaserMedicalTypesData>();
 
 var app = builder.Build();
 

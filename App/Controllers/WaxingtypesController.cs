@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
+using Services.WaxingTypes;
 
 namespace App.Controllers
 {
@@ -13,111 +14,88 @@ namespace App.Controllers
     [ApiController]
     public class WaxingtypesController : ControllerBase
     {
-        private readonly ClinicDBContext _context;
+        private readonly IWaxingTypesData _iWaxingTypesData;
 
-        public WaxingtypesController(ClinicDBContext context)
+        public WaxingtypesController(IWaxingTypesData waxingTypesData)
         {
-            _context = context;
+            _iWaxingTypesData = waxingTypesData;
         }
 
-        // GET: api/Waxingtypes
+        
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Waxingtype>>> GetWaxingtypes()
+        [Route("/api/waxingtypes/getallwaxingtypes")]
+        public async Task<ActionResult<IEnumerable<Waxingtype>>> GetAllWaxingtypes()
         {
-          if (_context.Waxingtypes == null)
-          {
-              return NotFound();
-          }
-            return await _context.Waxingtypes.ToListAsync();
+            var waxingtypes = await _iWaxingTypesData.GetAllWaxingtypes();
+            if (waxingtypes == null)
+            {
+                return NotFound();
+            }
+            return waxingtypes;
         }
 
-        // GET: api/Waxingtypes/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Waxingtype>> GetWaxingtype(int id)
+        
+        [HttpGet]
+        [Route("/api/waxingtypes/getwaxingtypebyid/{id}")]
+        public async Task<ActionResult<Waxingtype>> GetWaxingtypeById(int id)
         {
-          if (_context.Waxingtypes == null)
-          {
-              return NotFound();
-          }
-            var waxingtype = await _context.Waxingtypes.FindAsync(id);
-
+            var waxingtype = await _iWaxingTypesData.GetWaxingtypeById(id);
             if (waxingtype == null)
             {
                 return NotFound();
             }
-
             return waxingtype;
         }
 
-        // PUT: api/Waxingtypes/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutWaxingtype(int id, Waxingtype waxingtype)
+      
+        [HttpPut]
+        [Route("/api/waxingtypes/updatewaxingtype/{id}")]
+        public async Task<IActionResult> UpdateWaxingtype(int id, Waxingtype waxingtype)
         {
             if (id != waxingtype.Idwaxingtype)
             {
+                return NoContent();
+            }
+            var res = await _iWaxingTypesData.UpdateWaxingtype(id, waxingtype);
+            if (res == false)
+            {
                 return BadRequest();
             }
-
-            _context.Entry(waxingtype).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!WaxingtypeExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return Ok();
         }
 
-        // POST: api/Waxingtypes
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+      
         [HttpPost]
-        public async Task<ActionResult<Waxingtype>> PostWaxingtype(Waxingtype waxingtype)
+        [Route("/api/waxingtypes/createwaxingtype")]
+        public async Task<ActionResult<Waxingtype>> CreateWaxingtype(Waxingtype waxingtype)
         {
-          if (_context.Waxingtypes == null)
-          {
-              return Problem("Entity set 'ClinicDBContext.Waxingtypes'  is null.");
-          }
-            _context.Waxingtypes.Add(waxingtype);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetWaxingtype", new { id = waxingtype.Idwaxingtype }, waxingtype);
+            var result = await _iWaxingTypesData.CreateWaxingtype(waxingtype);
+            if (result)
+            {
+                return CreatedAtAction("CreateWaxingtype", new { id = waxingtype.Idwaxingtype }, waxingtype);
+            }
+            else
+            {
+                return BadRequest();
+            }
+           
         }
 
-        // DELETE: api/Waxingtypes/5
-        [HttpDelete("{id}")]
+       
+        [HttpDelete]
+        [Route("/api/waxingtypes/deletewaxingtype/{id}")]
         public async Task<IActionResult> DeleteWaxingtype(int id)
         {
-            if (_context.Waxingtypes == null)
+            if (id == 0)
             {
-                return NotFound();
+                return BadRequest();
             }
-            var waxingtype = await _context.Waxingtypes.FindAsync(id);
-            if (waxingtype == null)
+            var res = await _iWaxingTypesData.DeleteWaxingtype(id);
+            if (res == false)
             {
-                return NotFound();
+                return BadRequest();
             }
-
-            _context.Waxingtypes.Remove(waxingtype);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool WaxingtypeExists(int id)
-        {
-            return (_context.Waxingtypes?.Any(e => e.Idwaxingtype == id)).GetValueOrDefault();
+            return Ok(res);
         }
     }
 }
