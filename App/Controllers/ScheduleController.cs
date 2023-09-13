@@ -72,11 +72,11 @@ namespace App.Controllers
             return schedules;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("/api/schedule/getscheduleforcloseevents")]
-        public async Task<ActionResult<IEnumerable<CloseEventsDto>>> GetScheduleForCloseEvents()
+        public async Task<ActionResult<IEnumerable<CloseEventsDto>>> GetScheduleForCloseEventsForWeek(DateDto date)
         {
-            var schedules = await _iCloseEvents.GetAllCloseEvents();
+            var schedules = await _iCloseEvents.GetAllCloseEventsForWeek(date.sunday);
             if (schedules == null)
             {
                 return NotFound();

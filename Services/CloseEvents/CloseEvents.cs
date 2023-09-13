@@ -20,10 +20,10 @@ namespace Services.CloseEvents
             _iTempCloseEmployeesData = tempCloseEmployeesData;
         }
 
-        public async Task<List<CloseEventsDto>> GetAllCloseEvents()
+        public async Task<List<CloseEventsDto>> GetAllCloseEventsForWeek(DateOnly date)
         {
-            var listEvents = await _iCloseRoomsData.GetCloseEventsForRooms();
-            var closeEmployees = await _iTempCloseEmployeesData.GetCloseEventsForEmployees();
+            var listEvents = await _iCloseRoomsData.GetCloseEventsForRoomsForWeek(date);
+            var closeEmployees = await _iTempCloseEmployeesData.GetCloseEventsForEmployeesForWeek(date);
             listEvents.AddRange(closeEmployees);
             return listEvents;
         }

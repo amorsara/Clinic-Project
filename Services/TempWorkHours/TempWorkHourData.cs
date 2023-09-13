@@ -80,11 +80,13 @@ namespace Services.TempWorkHours
             return tempworkhour;
         }
 
-        public async Task<List<TempWorkHourDto>> GetAllTempworkhours()
+        public async Task<List<TempWorkHourDto>> GetAllTempworkhoursForWeek(DateOnly date)
         {
             var list = new List<TempWorkHourDto>();
-            var workhours = await _context.Tempworkhours.ToListAsync();
-            foreach(var workhour in workhours)
+            var date2 = (DateOnly)date;
+            var workhours = await _context.Tempworkhours.Where(t => t.Date >= date && t.Date <= date2.AddDays(5)).ToListAsync();
+
+            foreach (var workhour in workhours)
             {
                 if(workhour == null || workhour.Status == false)
                 {

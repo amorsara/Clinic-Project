@@ -9,6 +9,6 @@ namespace Services.CloseEvents
 {
     public interface ICloseEvents
     {
-        Task<List<CloseEventsDto>> GetAllCloseEvents();
+        Task<List<CloseEventsDto>> GetAllCloseEventsForWeek(DateOnly date);
     }
 }

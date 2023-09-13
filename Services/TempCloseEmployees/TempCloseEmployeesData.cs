@@ -132,9 +132,10 @@ namespace Services.TempCloseEmployees
             return list;
         }
 
-        public async Task<List<CloseEventsDto>> GetCloseEventsForEmployees()
+        public async Task<List<CloseEventsDto>> GetCloseEventsForEmployeesForWeek(DateOnly date)
         {
-            var employees = await _context.Tempcloseemployees.Where(e => e.Status == true).ToListAsync();
+            var date2 = (DateOnly)date;
+            var employees = await _context.Tempcloseemployees.Where(e => e.Status == true && (e.Startdate >= date  && e.Startdate <= date2.AddDays(5) || e.Enddate >= date && e.Enddate <= date.AddDays(5))).ToListAsync();
             var listEvent = new List<CloseEventsDto>();
             foreach(var emp in employees)
             {
@@ -149,6 +150,11 @@ namespace Services.TempCloseEmployees
                     var d2 = (DateOnly)emp.Enddate;
                     while (d1 <= d2)
                     {
+                        if (d1 < date || d1 > date2.AddDays(5))
+                        {
+                            d1 = d1.AddDays(1);
+                            continue;
+                        }
                         var list = await _roomsData.GetAllRoomsIdForEmployee(emp.Idemployee);
                         if(list != null)
                         {

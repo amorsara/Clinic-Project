@@ -16,7 +16,7 @@ namespace Services.TempCloseEmployees
 
         Task<Tempcloseemployee?> GetTempcloseemployeeById(int id);
 
-        Task<List<CloseEventsDto>> GetCloseEventsForEmployees();
+        Task<List<CloseEventsDto>> GetCloseEventsForEmployeesForWeek(DateOnly date);
 
         Task<bool> UpdateTempcloseemployeeWrapper(int id, TempCloseEmployeeDto tempcloseemployeedto);
 

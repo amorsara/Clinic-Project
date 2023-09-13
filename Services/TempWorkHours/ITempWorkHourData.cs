@@ -10,7 +10,7 @@ namespace Services.TempWorkHours
 {
     public interface ITempWorkHourData
     {
-        Task<List<TempWorkHourDto>> GetAllTempworkhours();
+        Task<List<TempWorkHourDto>> GetAllTempworkhoursForWeek(DateOnly date);
         Task<List<TempWorkHourDto>> GetAllTempworkhoursForId(int id);
         Task<Tempworkhour?> GetTempworkhourById(int id);
         Task<bool> UpdateTempworkhourWrapper(int id, TempWorkHourDto tempWorkHourDto);

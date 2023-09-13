@@ -23,11 +23,11 @@ namespace App.Controllers
             _iTempWorkHourData = tempWorkHourData;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("/api/tempworkhours/getalltempworkhours")]
-        public async Task<ActionResult<IEnumerable<TempWorkHourDto>>> GetAllTempworkhours()
+        public async Task<ActionResult<IEnumerable<TempWorkHourDto>>> GetAllTempworkhours(DateDto date)
         {
-            var tempworkhour = await _iTempWorkHourData.GetAllTempworkhours();
+            var tempworkhour = await _iTempWorkHourData.GetAllTempworkhoursForWeek(date.sunday);
             if (tempworkhour == null)
             {
                 return NotFound();

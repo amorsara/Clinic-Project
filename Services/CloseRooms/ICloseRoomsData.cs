@@ -12,7 +12,7 @@ namespace Services.CloseRooms
     {
         Task<List<Closeroom>> GetCloserooms();
         Task<List<CloseRoomDto>> GetAllCloserooms();
-        Task<List<CloseEventsDto>> GetCloseEventsForRooms();
+        Task<List<CloseEventsDto>> GetCloseEventsForRoomsForWeek(DateOnly date);
         Task<bool> CancelAppointment(DateOnly date);
         //Task<List<Closeroom>> GetAllCloseroomsForId(int id, DateOnly date);
         Task<Closeroom?> GetCloseroomById(int id);
