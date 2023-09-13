@@ -63,7 +63,22 @@ namespace Services.LaserTreatments
             var laserTreatments = await GetLasertreatments();
             var remark = await _iContactsData.GetRemark(id, "laser");
             var listRemark = remark != null ? remark?.Split(",").ToList() : null;
-            foreach(var lasertreatment in laserTreatments)
+
+            var medicals = await _iContactsData.GetMedicalList(id, "Laser");
+            var medicalList = medicals != null ? medicals?.Split(",").ToList() : null;
+            medicalList?.RemoveAt(0);
+            if(medicalList != null)
+            {
+                var medicalDic = new Dictionary<string, string>();
+
+                for (int i = 0; i < medicalList.Count-1; i += 2)
+                {
+                    medicalDic.Add(medicalList[i], medicalList[i+1]);
+                }
+                laserCard.MedicalList = medicalDic;
+            }
+
+            foreach (var lasertreatment in laserTreatments)
             {
                 var laserDto = new LasertreatmentDto();
                 laserDto.Idlasertreatment = lasertreatment.Idlasertreatment;

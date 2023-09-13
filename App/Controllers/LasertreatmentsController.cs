@@ -105,6 +105,19 @@ namespace App.Controllers
         }
 
         [HttpPost]
+        [Route("/api/lasertreatments/updatemedicallist/{id}")]
+        public async Task<ActionResult> UpdateMedicalList(int id, Dictionary<string, string> medicalList)
+        {
+            var res = await _iContactsData.UpdateMedicalList(id, medicalList, "Laser");
+            if (res == false)
+            {
+                return BadRequest();
+            }
+            return Ok(res);
+        }
+
+
+        [HttpPost]
         [Route("/api/lasertreatments/createlasertreatment")]
         public async Task<ActionResult<Lasertreatment>> CreateLasertreatment(LasertreatmentDto lasertreatmentDto)
         {

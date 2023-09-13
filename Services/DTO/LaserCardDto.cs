@@ -8,6 +8,7 @@ namespace Services.DTO
 {
     public class LaserCardDto
     {
+
         public int idClient { get; set; }
 
         public string? remarkLaser { get; set; }
@@ -17,5 +18,17 @@ namespace Services.DTO
         public string? skin { get; set; }
 
         public List<LasertreatmentDto>? listTreatments { get; set;}
+
+        public Dictionary<string, string>? MedicalList { get; set; }
     }
 }
+
+
+//{ "idClient":100,
+//"remarkLaser":null,
+//"hair":{ "name":null,"color":null},
+//"skin":null,
+//"listTreatments":[],
+//MedicalList: []}
+
+

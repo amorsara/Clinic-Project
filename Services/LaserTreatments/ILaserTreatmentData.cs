@@ -12,11 +12,17 @@ namespace Services.LaserTreatments
     public interface ILaserTreatmentData
     {
         Task<List<Lasertreatment>> GetLasertreatments();
+
         Task<LaserCardDto> GetAllLaserTreatment(int id);
+
         Task<Lasertreatment?> GetLasertreatmentById(int id);
+
         Task<bool> UpdateLasertreatment(int id, Lasertreatment lasertreatment);
+
         Task<bool> CreateLasertreatments(Lasertreatment lasertreatment);
+
         Task<bool> DeleteLasertreatmentById(int id);
+
         bool LasertreatmentExists(int id);
 
     }

@@ -13,5 +13,7 @@ namespace Services.DTO
         public string? remarkElec { get; set; }
 
         public List<EpilationtreatmentDto>? listTreatments { get; set; }
+
+        public Dictionary<string, string>? MedicalList { get; set; }
     }
 }

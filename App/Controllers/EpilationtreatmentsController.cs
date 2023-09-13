@@ -107,6 +107,18 @@ namespace App.Controllers
         }
 
         [HttpPost]
+        [Route("/api/epilationtreatments/updatemedicallist/{id}")]
+        public async Task<ActionResult> UpdateMedicalList(int id, Dictionary<string, string> medicalList)
+        {
+            var res = await _iContactsData.UpdateMedicalList(id, medicalList, "Epilation");
+            if (res == false)
+            {
+                return BadRequest();
+            }
+            return Ok(res);
+        }
+
+        [HttpPost]
         [Route("/api/epilationtreatments/createepilationtreatment")]
         public async Task<ActionResult<Epilationtreatment>> CreateEpilationtreatment(EpilationtreatmentDto epilationtreatmentDto)
         {

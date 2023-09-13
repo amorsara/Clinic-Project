@@ -217,7 +217,41 @@ namespace Services.Contacts
             return contact?.Credit;
         }
 
+        public async Task<string?> GetMedicalList(int id, string type)
+        {
+            var contact = await GetContactById(id);
+            if(type == "Laser")
+            {
+                return contact?.Medicallaserlist;
+            }
+            return contact?.Medicalepilationlist;
+        }
 
+        public async Task<bool> UpdateMedicalList(int id, Dictionary<string, string> medicalList, string type)
+        {
+            var medical = "";
+            foreach (KeyValuePair<string, string> item in medicalList)
+            {
+                medical += "," + item.Key + "," + item.Value;
+            }
+
+            var contact = await GetContactById(id);
+            if (contact == null)
+            {
+                return false;
+            }
+            if (type == "Laser")
+            {
+                contact.Medicallaserlist = medical;
+            }
+            else
+            {
+                contact.Medicalepilationlist = medical;
+            }
+
+            var ok = await UpdateContact(id, contact);
+            return ok;
+        }
     }
 }
 

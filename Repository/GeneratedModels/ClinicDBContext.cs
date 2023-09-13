@@ -171,6 +171,12 @@ public partial class ClinicDBContext : DbContext
             entity.Property(e => e.Lastname)
                 .HasMaxLength(50)
                 .HasColumnName("lastname");
+            entity.Property(e => e.Medicalepilationlist)
+                .HasColumnType("character varying")
+                .HasColumnName("medicalepilationlist");
+            entity.Property(e => e.Medicallaserlist)
+                .HasColumnType("character varying")
+                .HasColumnName("medicallaserlist");
             entity.Property(e => e.Phonenumber1)
                 .HasMaxLength(11)
                 .HasColumnName("phonenumber1");
