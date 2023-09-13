@@ -20,7 +20,7 @@ namespace Services.Home
             _iEmployeesData = employeesData;
         }
 
-        public async Task<int> LoginUser(string name, string password)
+        public async Task<int> LoginUser(string? name, string? password)
         {
             if(name == null || password == null)
             {

@@ -8,6 +8,6 @@ namespace Services.Home
 {
     public interface IHomeData
     {
-        Task<int> LoginUser(string name, string password);
+        Task<int> LoginUser(string? name, string? password);
     }
 }
