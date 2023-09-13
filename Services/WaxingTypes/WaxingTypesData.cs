@@ -19,6 +19,7 @@ namespace Services.WaxingTypes
 
         public async Task<bool> CreateWaxingtype(Waxingtype waxingtype)
         {
+            waxingtype.Ischecked = waxingtype.Ischecked != null ? waxingtype.Ischecked : false;
             var isExsists = WaxingtypeExists(waxingtype.Idwaxingtype);
             if (isExsists)
             {
