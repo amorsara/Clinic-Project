@@ -99,6 +99,7 @@ namespace Services.TempWorkHours
                 tempWorkHourDto.status = workhour.Status;
                 tempWorkHourDto.idWorker = workhour.Idemployee;
                 tempWorkHourDto.idroom = workhour.Idroom;
+                tempWorkHourDto.nameRoom = await _iRoomsData.GetNameRoom(workhour.Idroom);
                 list.Add(tempWorkHourDto);
             }
             return list;
@@ -123,6 +124,7 @@ namespace Services.TempWorkHours
                 tempWorkHourDto.status = workhour.Status;
                 tempWorkHourDto.idWorker = workhour.Idemployee;
                 tempWorkHourDto.idroom = workhour.Idroom;
+                tempWorkHourDto.nameRoom = await _iRoomsData.GetNameRoom(workhour.Idroom);
                 list.Add(tempWorkHourDto);
             }
             return list;
