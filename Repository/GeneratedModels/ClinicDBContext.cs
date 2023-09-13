@@ -561,6 +561,7 @@ public partial class ClinicDBContext : DbContext
             entity.ToTable("waxingtypes");
 
             entity.Property(e => e.Idwaxingtype).HasColumnName("idwaxingtype");
+            entity.Property(e => e.Ischecked).HasColumnName("ischecked");
             entity.Property(e => e.Nametype)
                 .HasColumnType("character varying")
                 .HasColumnName("nametype");
