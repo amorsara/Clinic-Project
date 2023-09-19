@@ -31,6 +31,8 @@ namespace Services.Contacts
 
         Task<string?> GetMedicalList(int id, string type);
 
+        Task<Dictionary<string, string>?> GetMedicalListById(int id, string type);
+
         Task<int?> GetAllCredit(int id);
 
         bool ContactExists(int id);

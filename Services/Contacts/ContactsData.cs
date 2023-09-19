@@ -252,9 +252,25 @@ namespace Services.Contacts
             var ok = await UpdateContact(id, contact);
             return ok;
         }
+
+        public async Task<Dictionary<string, string>?> GetMedicalListById(int id, string type)
+        {
+            var medical = await GetMedicalList(id, type);
+            var medicalList = medical != null ? medical?.Split(",").ToList() : null;
+            medicalList?.RemoveAt(0);
+            if(medicalList != null)
+            {
+                var medicalDic = new Dictionary<string, string>();
+                for(int i = 0; i < medicalList.Count - 1; i += 2)
+                {
+                    medicalDic.Add(medicalList[i], medicalList[i + 1]);
+                }
+                return medicalDic;
+            }
+            return null;
+        }
     }
 }
-
 
 //public async Task<int?> GetAllCredit(int id)
 //{

@@ -60,6 +60,17 @@ namespace App.Controllers
             return contact;
         }
 
+        [HttpGet]
+        [Route("/api/contacts/getmedicallistbyid/{id}/{type}")]
+        public async Task<ActionResult<Dictionary<string, string>>> GetMedicalListById(int id, string type)
+        {
+            var medical = await _iContactsData.GetMedicalListById(id, type);
+            if (medical == null)
+            {
+                return NotFound();
+            }
+            return medical;
+        }
 
         [HttpPost]
         [Route("/api/contacts/updatecontactwrapper")]
