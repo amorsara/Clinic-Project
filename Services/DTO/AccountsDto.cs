@@ -20,7 +20,7 @@ namespace Services.DTO
 
         public List<string>? tretment { get; set;}
 
-        public List<string>? area { get; set; }
+        public List<string>? laser { get; set; }
 
         public List<string>? waxing { get; set; }
 
@@ -47,9 +47,10 @@ namespace Services.DTO
 
 
 
+ //{ "id": 153, "datePayment": "2023-09-06 15:59", "date": "2023-09-06", "fullName": "Itty Padwa-Pinter",
+ //"phone": "0533149034", "tretment": [ "Electrolysis" ], "laser": [ "" ], "waxing": [ "" ], "electrolysis": "",
+ //"advancedElectrolysis": "", "employee": "purple", "payed": 60, "type": "Cash", "debt": 10, "credit": 0, "allCredit": null, "remark": null }
 
-//{ datePayment: 'yy-mm-dd-hh-mm', date: 'yyyy-mm-dd', fullName: '', phon: '', tretment: ['','']
-//, employee: '', payed: '', type: '', debt: '', credit: ''}
 
 
 

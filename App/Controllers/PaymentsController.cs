@@ -108,7 +108,7 @@ namespace App.Controllers
             payment.Pay = paymentDto.pay;
             payment.Employee = paymentDto.employee;
             payment.Treatment = paymentDto.treatment?.Count != null ? String.Join(",",paymentDto.treatment) : null;
-            payment.Area = paymentDto.laser?.Count != null ? String.Join(",", paymentDto.laser) : null;
+            payment.Laser = paymentDto.laser?.Count != null ? String.Join(",", paymentDto.laser) : null;
             payment.Type = paymentDto.type;
             payment.Remark = paymentDto.remark;
             payment.Waxing = paymentDto.waxing?.Count != null ? String.Join(",", paymentDto.waxing) : null; ;

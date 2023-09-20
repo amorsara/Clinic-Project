@@ -70,7 +70,7 @@ namespace Services.Payments
                 accountsDto.datePayment = payment.Datepayment;
                 accountsDto.date = payment.Date;
                 accountsDto.tretment = payment.Treatment?.Split(",").ToList();
-                accountsDto.area = payment.Area?.Split(",").ToList();
+                accountsDto.laser = payment.Laser?.Split(",").ToList();
                 accountsDto.type = payment.Type;
                 accountsDto.Payed = payment.Pay;
                 accountsDto.Debt = payment.Owes;
@@ -130,7 +130,7 @@ namespace Services.Payments
             payment.Owes = accountsDto.Debt;
             payment.Credit = accountsDto.credit;
             payment.Treatment = accountsDto.tretment?.Count != null ? String.Join(",", accountsDto.tretment) : null;
-            payment.Area = accountsDto.area?.Count != null ? String.Join(",", accountsDto.area) : null;
+            payment.Laser = accountsDto.laser?.Count != null ? String.Join(",", accountsDto.laser) : null;
 
 
             _context.Entry(payment).State = EntityState.Modified;

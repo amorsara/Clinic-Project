@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Repository.GeneratedModels;
 
@@ -15,7 +16,7 @@ public partial class Payment
 
     public string? Treatment { get; set; }
 
-    public string? Area { get; set; }
+    public string? Laser { get; set; }
 
     public string? Type { get; set; }
 
@@ -37,5 +38,6 @@ public partial class Payment
 
     public string? Advanced { get; set; }
 
+    [JsonIgnore]
     public virtual Contact IdcontactNavigation { get; set; } = null!;
 }

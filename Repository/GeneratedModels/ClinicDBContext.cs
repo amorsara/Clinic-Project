@@ -65,6 +65,7 @@ public partial class ClinicDBContext : DbContext
         }
     }
 
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Appointment>(entity =>
@@ -415,9 +416,6 @@ public partial class ClinicDBContext : DbContext
             entity.Property(e => e.Advanced)
                 .HasColumnType("character varying")
                 .HasColumnName("advanced");
-            entity.Property(e => e.Area)
-                .HasColumnType("character varying")
-                .HasColumnName("area");
             entity.Property(e => e.Credit).HasColumnName("credit");
             entity.Property(e => e.Date).HasColumnName("date");
             entity.Property(e => e.Datepayment)
@@ -430,6 +428,9 @@ public partial class ClinicDBContext : DbContext
                 .HasColumnType("character varying")
                 .HasColumnName("employee");
             entity.Property(e => e.Idcontact).HasColumnName("idcontact");
+            entity.Property(e => e.Laser)
+                .HasColumnType("character varying")
+                .HasColumnName("laser");
             entity.Property(e => e.Owes).HasColumnName("owes");
             entity.Property(e => e.Pay).HasColumnName("pay");
             entity.Property(e => e.R).HasColumnName("r");
