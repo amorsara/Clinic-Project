@@ -94,5 +94,16 @@ namespace Services.LaserMedicalTypes
 
             return true;
         }
+
+        public async Task<string> GetStringLasermedicaltype()
+        {
+            var medicalList = await GetAllLasermedicaltypes();
+            var stringMedical = "";
+            foreach(var medical in medicalList)
+            {
+                stringMedical +="," + medical.Nametype + "," + medical.Note;
+            }
+            return stringMedical;
+        }
     }
 }

@@ -94,5 +94,16 @@ namespace Services.EpilationMedicalTypes
 
             return true;
         }
+
+        public async Task<string> GetStringEpilationmedicaltype()
+        {
+            var medicalList = await GetAllEpilationmedicaltypes();
+            var stringMedical = "";
+            foreach (var medical in medicalList)
+            {
+                stringMedical += "," + medical.Nametype + "," + medical.Note;
+            }
+            return stringMedical;
+        }
     }
 }

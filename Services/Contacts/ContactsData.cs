@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
 using Services.Appointments;
 using Services.DTO;
+using Services.EpilationMedicalTypes;
+using Services.LaserMedicalTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,11 +18,15 @@ namespace Services.Contacts
 
         private readonly ClinicDBContext _context;
         private readonly IAppointmentsData _iAppointmentsData;
+        private readonly ILaserMedicalTypesData _iLaserMedicalTypesData;
+        private readonly IEpilationMedicalTypesData _iEpilationMedicalTypesData;
 
-        public ContactsData(ClinicDBContext context, IAppointmentsData appointmentsData)
+        public ContactsData(ClinicDBContext context, IAppointmentsData appointmentsData, ILaserMedicalTypesData iLaserMedicalTypesData, IEpilationMedicalTypesData epilationMedicalTypesData)
         {
             _context = context;
             _iAppointmentsData = appointmentsData;
+            _iLaserMedicalTypesData = iLaserMedicalTypesData;
+            _iEpilationMedicalTypesData = epilationMedicalTypesData;
         }
 
         public bool ContactExists(int id)
@@ -256,7 +262,19 @@ namespace Services.Contacts
         public async Task<Dictionary<string, string>?> GetMedicalListById(int id, string type)
         {
             var medical = await GetMedicalList(id, type);
-            var medicalList = medical != null ? medical?.Split(",").ToList() : null;
+            var m = "";
+            if (medical == null)
+            {
+                if(type == "Laser")
+                {
+                    m = await _iLaserMedicalTypesData.GetStringLasermedicaltype();
+                }
+                else
+                {
+                    m = await _iEpilationMedicalTypesData.GetStringEpilationmedicaltype();
+                }             
+            }
+            var medicalList = medical != null ? medical?.Split(",").ToList() : m.Split(",").ToList();
             medicalList?.RemoveAt(0);
             if(medicalList != null)
             {
