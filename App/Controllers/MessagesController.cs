@@ -42,7 +42,7 @@ namespace App.Controllers
             var messages = await _iMessageData.GetAllMessagesById(id);
             if (messages == null)
             {
-                return NotFound();
+                return BadRequest();
             }
             return messages;
         }
@@ -59,6 +59,14 @@ namespace App.Controllers
             }
 
             return message;
+        }
+
+        [HttpGet]
+        [Route("/api/messages/havenewmessagesById/{id}")]
+        public async Task<ActionResult> HaveNewMessagesById(int id)
+        {
+            var res = await _iMessageData.HaveNewMessageById(id);
+            return Ok(res);
         }
 
         [HttpPut]

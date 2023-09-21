@@ -75,7 +75,7 @@ namespace Services.Messages
             return Task.FromResult(stringId);
         }
 
-        public async Task<List<MessageDto>> GetAllMessagesById(int id)
+        public async Task<List<MessageDto>?> GetAllMessagesById(int id)
         {
             var messages = await GetMessages();
             var list = new List<MessageDto>();
@@ -118,6 +118,12 @@ namespace Services.Messages
                     list.Add(mess);
                 }
             }
+
+            var isOk = await _iEmployeesData.UpdateLastMessageIdForEmployee(id, list[0].id);
+            if(isOk == false)
+            {
+                return null;  
+            }
             return list;
         }
 
@@ -130,6 +136,28 @@ namespace Services.Messages
         public async Task<List<Message>> GetMessages()
         {
             return await _context.Messages.OrderByDescending(m => m.Idmessage).ToListAsync();
+        }
+
+        public async Task<bool> HaveNewMessageById(int id)
+        {
+            var oldMesaage = await _iEmployeesData.GetLastIdMessageById(id);
+            if(oldMesaage == null)
+            {
+                return false;
+            }
+            var messages = await GetMessages();
+            if (messages == null)
+            {
+                return false;
+            }
+            var sId = "" + id;
+            messages = messages.Where(m => m.Idto != null && m.Idto.Contains(sId)).ToList();
+            if (messages == null)
+            {
+                return false;
+            }
+            var last = messages[0].Idmessage;
+            return last > oldMesaage ? true : false;
         }
 
         public bool MessageExists(int id)

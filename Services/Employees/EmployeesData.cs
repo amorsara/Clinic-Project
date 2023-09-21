@@ -359,6 +359,24 @@ namespace Services.Employees
             var employee = await GetEmployeeById(id);
             return employee?.Treatmentstype?.Split(",").ToList();
         }
+
+        public async Task<bool> UpdateLastMessageIdForEmployee(int id, int idMessage)
+        {
+            var employee = await GetEmployeeById(id);
+            if(employee == null)
+            {
+                return false;
+            }
+            employee.Lastmessageread = idMessage;
+            var isOk = await UpdateEmployee(id, employee);
+            return isOk;
+        }
+
+        public async Task<int?> GetLastIdMessageById(int id)
+        {
+            var employee = await GetEmployeeById(id);
+            return employee?.Lastmessageread;
+        }
     }
 }
 

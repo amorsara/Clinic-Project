@@ -10,13 +10,12 @@ namespace App.Controllers
     [ApiController]
     public class HomeController : ControllerBase
     {
-        private readonly ClinicDBContext _context;
+
         private readonly IHomeData _iHomeData;
 
-        public HomeController(ClinicDBContext clinicDBContext, IHomeData homeData)
+        public HomeController(IHomeData homeData)
         {
            _iHomeData = homeData;
-            _context = clinicDBContext;
         }
 
         [HttpPost]

@@ -14,6 +14,10 @@ namespace Services.Employees
 
         Task<Employee?> GetEmployeeById(int id);
 
+        Task<int?> GetLastIdMessageById(int id);
+
+        Task<bool> UpdateLastMessageIdForEmployee(int id, int idMessage);
+
         Task<int?> GetIdForAdmin();
 
         Task<string?> GetColorById(int id);

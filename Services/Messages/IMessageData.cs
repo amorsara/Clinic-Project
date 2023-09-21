@@ -12,12 +12,21 @@ namespace Services.Messages
     {
 
         Task<List<Message>> GetMessages();
-        Task<List<MessageDto>> GetAllMessagesById(int id);
+
+        Task<List<MessageDto>?> GetAllMessagesById(int id);
+
+        Task<bool> HaveNewMessageById(int id);
+
         Task<string?> GetAllIdTo(List<EmployeeDetails> to);
+
         Task<Message?> GetMessageById(int id);
+
         Task<bool> UpdateMessage(int id, MessageDto messageDto);
+
         Task<bool> CreateMessage(MessageDto messageDto);
+
         Task<bool> DeleteMessage(int id);
+
         bool MessageExists(int id);
     }
 }

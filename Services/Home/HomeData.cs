@@ -11,12 +11,10 @@ namespace Services.Home
     public class HomeData : IHomeData
     {
 
-        private readonly ClinicDBContext _context;
         private readonly IEmployeesData _iEmployeesData;
 
-        public HomeData(ClinicDBContext context, IEmployeesData employeesData)
+        public HomeData(IEmployeesData employeesData)
         {
-            _context = context;
             _iEmployeesData = employeesData;
         }
 

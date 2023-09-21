@@ -65,7 +65,6 @@ public partial class ClinicDBContext : DbContext
         }
     }
 
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Appointment>(entity =>
@@ -214,6 +213,7 @@ public partial class ClinicDBContext : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("color");
             entity.Property(e => e.Isshow).HasColumnName("isshow");
+            entity.Property(e => e.Lastmessageread).HasColumnName("lastmessageread");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .HasColumnName("name");
