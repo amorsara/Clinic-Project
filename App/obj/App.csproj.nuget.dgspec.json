@@ -51,6 +51,18 @@
               "target": "Package",
               "version": "[1.8.5, )"
             },
+            "Hangfire.AspNetCore": {
+              "target": "Package",
+              "version": "[1.8.5, )"
+            },
+            "Hangfire.Core": {
+              "target": "Package",
+              "version": "[1.8.5, )"
+            },
+            "Hangfire.NetCore": {
+              "target": "Package",
+              "version": "[1.8.5, )"
+            },
             "Hangfire.PostgreSql": {
               "target": "Package",
               "version": "[1.20.2, )"

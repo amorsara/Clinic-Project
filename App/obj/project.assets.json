@@ -11842,6 +11842,9 @@
   "projectFileDependencyGroups": {
     "net6.0": [
       "Hangfire >= 1.8.5",
+      "Hangfire.AspNetCore >= 1.8.5",
+      "Hangfire.Core >= 1.8.5",
+      "Hangfire.NetCore >= 1.8.5",
       "Hangfire.PostgreSql >= 1.20.2",
       "Microsoft.EntityFrameworkCore >= 7.0.8",
       "Microsoft.EntityFrameworkCore.Design >= 7.0.8",
@@ -11903,6 +11906,18 @@
         "targetAlias": "net6.0",
         "dependencies": {
           "Hangfire": {
+            "target": "Package",
+            "version": "[1.8.5, )"
+          },
+          "Hangfire.AspNetCore": {
+            "target": "Package",
+            "version": "[1.8.5, )"
+          },
+          "Hangfire.Core": {
+            "target": "Package",
+            "version": "[1.8.5, )"
+          },
+          "Hangfire.NetCore": {
             "target": "Package",
             "version": "[1.8.5, )"
           },

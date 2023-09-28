@@ -50,5 +50,23 @@ namespace Services.Home
             }
             return 0;
         }
+
+        public async Task<bool> LogoutUser(string? name, string? password)
+        {
+            if (name == null || password == null)
+            {
+                return false;
+            }
+            var emp = await _iEmployeesData.GetEmployeeByName(name);
+            if (emp == null)
+            {
+                return false;
+            }
+            if(emp.Password1 == password || emp.Password2 == password)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

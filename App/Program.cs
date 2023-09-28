@@ -1,7 +1,4 @@
-﻿using App.Controllers;
-using Hangfire;
-using Hangfire.PostgreSql;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
 using Services.Appointments;
 using Services.Attendances;
@@ -65,6 +62,7 @@ builder.Services.AddScoped<IWaxingTypesData, WaxingTypesData>();
 builder.Services.AddScoped<IEpilationMedicalTypesData, EpilationMedicalTypesData>();
 builder.Services.AddScoped<ILaserMedicalTypesData, LaserMedicalTypesData>();
 
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -80,4 +78,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
 

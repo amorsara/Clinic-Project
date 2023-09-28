@@ -30,5 +30,13 @@ namespace App.Controllers
             return res;
         }
 
+        [HttpPost]
+        [Route("/api/home/logoutuser")]
+        public async Task<ActionResult<int>> LogoutUser(LoginDto user)
+        {
+            var res = await _iHomeData.LogoutUser(user.name, user.password);
+            return Ok(res);
+        }
+
     }
 }
