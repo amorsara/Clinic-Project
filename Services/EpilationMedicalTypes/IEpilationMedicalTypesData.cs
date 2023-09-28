@@ -1,4 +1,5 @@
 ﻿using Repository.GeneratedModels;
+using Services.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,8 @@ namespace Services.EpilationMedicalTypes
         Task<bool> DeleteEpilationmedicaltype(int id);
 
         bool EpilationmedicaltypeExists(int id);
+
+        Task<List<MedicalListDto>> GetListEpilationmedicaltype();
 
     }
 }

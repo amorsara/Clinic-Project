@@ -233,12 +233,12 @@ namespace Services.Contacts
             return contact?.Medicalepilationlist;
         }
 
-        public async Task<bool> UpdateMedicalList(int id, Dictionary<string, string> medicalList, string type)
+        public async Task<bool> UpdateMedicalList(int id, List<MedicalListDto> medicalList, string type)
         {
             var medical = "";
-            foreach (KeyValuePair<string, string> item in medicalList)
+            foreach (var item in medicalList)
             {
-                medical += "," + item.Key + "," + item.Value;
+                medical += "," + item.name + "," + item.note + "," + item.check;
             }
 
             var contact = await GetContactById(id);
@@ -259,33 +259,40 @@ namespace Services.Contacts
             return ok;
         }
 
-        public async Task<Dictionary<string, string>?> GetMedicalListById(int id, string type)
+        public async Task<List<MedicalListDto>> GetMedicalListById(int id, string type)
         {
             var medical = await GetMedicalList(id, type);
-            var m = "";
+            var m = new List<MedicalListDto>();
             if (medical == null)
             {
                 if(type == "Laser")
                 {
-                    m = await _iLaserMedicalTypesData.GetStringLasermedicaltype();
+                    m = await _iLaserMedicalTypesData.GetListLasermedicaltype();
                 }
                 else
                 {
-                    m = await _iEpilationMedicalTypesData.GetStringEpilationmedicaltype();
-                }             
-            }
-            var medicalList = medical != null ? medical?.Split(",").ToList() : m.Split(",").ToList();
-            medicalList?.RemoveAt(0);
-            if(medicalList != null)
-            {
-                var medicalDic = new Dictionary<string, string>();
-                for(int i = 0; i < medicalList.Count - 1; i += 2)
-                {
-                    medicalDic.Add(medicalList[i], medicalList[i + 1]);
+                    m = await _iEpilationMedicalTypesData.GetListEpilationmedicaltype();
                 }
-                return medicalDic;
             }
-            return null;
+            else
+            {
+                var mm = medical?.Split(",").ToList();
+                mm?.RemoveAt(0);
+                for (int i=0; i<mm?.Count() - 1; i += 2)
+                {
+                    if (mm[i] == null)
+                    {
+                        continue;
+                    }
+
+                    var medicalListDto = new MedicalListDto();
+                    medicalListDto.name = mm[i];
+                    medicalListDto.note = mm[i+1];
+                    medicalListDto.check = mm[i+2] == "True" ? true : false;
+                    m.Add(medicalListDto);
+                }
+            }
+            return m;
         }
     }
 }

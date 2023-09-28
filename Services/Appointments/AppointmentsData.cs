@@ -43,6 +43,11 @@ namespace Services.Appointments
                 {
                     continue;
                 }
+                
+               if(appointment.Idappointment == 911)
+                {
+                    DateOnly dd = new DateOnly(2023, 08, 01);
+                }
                 if(appointment.Date >= sDate && appointment.Date <= eDate && (idRoom > 0 && appointment.Idroom == idRoom || idEmployee > 0 && appointment.Idemployee == idEmployee)) 
                 {
                     if (appointment.Timestart <= sTime && eTime <= appointment.Timeend)
@@ -109,7 +114,7 @@ namespace Services.Appointments
 
         public async Task<List<Appointment>> GetAllAppointments()
         {
-            return await _context.Appointments.ToListAsync();
+            return await _context.Appointments.OrderBy(a => a.Date).ToListAsync();
         }
 
         public async Task<List<Appointment>> GetAllAppointmentsForWeek(DateOnly? date = null)

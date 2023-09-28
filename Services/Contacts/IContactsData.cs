@@ -19,7 +19,7 @@ namespace Services.Contacts
 
         Task<bool> UpdateRemark(int id, string? remark, string type);
 
-        Task<bool> UpdateMedicalList(int id, Dictionary<string, string> medicalList, string type);
+        Task<bool> UpdateMedicalList(int id, List<MedicalListDto> medicalList, string type);
 
         Task<bool> UpdateRemarkLaser(LaserDetailsDto laserDetailsDto);
 
@@ -31,7 +31,7 @@ namespace Services.Contacts
 
         Task<string?> GetMedicalList(int id, string type);
 
-        Task<Dictionary<string, string>?> GetMedicalListById(int id, string type);
+        Task<List<MedicalListDto>> GetMedicalListById(int id, string type);
 
         Task<int?> GetAllCredit(int id);
 

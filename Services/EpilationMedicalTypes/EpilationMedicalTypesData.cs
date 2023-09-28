@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Repository.GeneratedModels;
+using Services.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -104,6 +105,27 @@ namespace Services.EpilationMedicalTypes
                 stringMedical += "," + medical.Nametype + "," + medical.Note;
             }
             return stringMedical;
+        }
+
+        public async Task<List<MedicalListDto>> GetListEpilationmedicaltype()
+        {
+            var medicals = await GetAllEpilationmedicaltypes();
+            var medicalList = new List<MedicalListDto>();
+
+            foreach (var medical in medicals)
+            {
+                if (medical == null)
+                {
+                    continue;
+                }
+
+                var medicalListDto = new MedicalListDto();
+                medicalListDto.name = medical.Nametype;
+                medicalListDto.note = medical.Note;
+                medicalListDto.check = medical.Ischeck;
+                medicalList.Add(medicalListDto);
+            }
+            return medicalList;
         }
     }
 }

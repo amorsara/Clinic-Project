@@ -10,4 +10,6 @@ public partial class Epilationmedicaltype
     public string? Nametype { get; set; }
 
     public string? Note { get; set; }
+
+    public bool? Ischeck { get; set; }
 }
