@@ -14,8 +14,6 @@ namespace Services.LaserMedicalTypes
 
         Task<Lasermedicaltype?> GetLasermedicaltypeById(int id);
 
-        Task<string> GetStringLasermedicaltype();
-
         Task<bool> UpdateLasermedicaltype(int id, Lasermedicaltype lasermedicaltype);
 
         Task<bool> CreateLasermedicaltype(Lasermedicaltype lasermedicaltype);

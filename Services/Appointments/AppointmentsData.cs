@@ -44,10 +44,10 @@ namespace Services.Appointments
                     continue;
                 }
                 
-               if(appointment.Idappointment == 911)
-                {
-                    DateOnly dd = new DateOnly(2023, 08, 01);
-                }
+               //if(appointment.Idappointment == 911)
+               // {
+               //     DateOnly dd = new DateOnly(2023, 08, 01);
+               // }
                 if(appointment.Date >= sDate && appointment.Date <= eDate && (idRoom > 0 && appointment.Idroom == idRoom || idEmployee > 0 && appointment.Idemployee == idEmployee)) 
                 {
                     if (appointment.Timestart <= sTime && eTime <= appointment.Timeend)
@@ -100,17 +100,6 @@ namespace Services.Appointments
             }
             return false;
         }
-
-        //public async Task<Appointment?> DeleteWait(int id)
-        //{
-        //    var appointment = await GetAppointmentById(id);
-        //    if(appointment == null)
-        //    {
-        //        return null;
-        //    }
-        //    appointment.Wait = false;
-        //    return appointment;
-        //}
 
         public async Task<List<Appointment>> GetAllAppointments()
         {
@@ -177,11 +166,6 @@ namespace Services.Appointments
             return listDate;
         }
 
-        //public async Task<List<Appointment>> GetWaitAppointments()
-        //{
-        //    return await _context.Appointments.Where(a => a.Wait == true).ToListAsync();
-        //}
-
         public async Task<Appointment?> UpdateRemined(int id)
         {
             var treatment =await GetAppointmentById(id);
@@ -218,6 +202,18 @@ namespace Services.Appointments
             }
 
             return true;
+        }
+
+        public async Task<bool> UpdateRemark(int id, string remark)
+        {
+            var appointment = await GetAppointmentById(id);
+            if(appointment == null)
+            {
+                return false;
+            }
+            appointment.Remark = remark;
+            var isOk = await UpdateAppointment(id, appointment);
+            return isOk;
         }
     }
 }

@@ -14,8 +14,6 @@ namespace Services.EpilationMedicalTypes
 
         Task<Epilationmedicaltype?> GetEpilationmedicaltypeById(int id);
 
-        Task<string> GetStringEpilationmedicaltype();
-
         Task<bool> UpdateEpilationmedicaltype(int id, Epilationmedicaltype epilationmedicaltype);
 
         Task<bool> CreateEpilationmedicaltype(Epilationmedicaltype epilationmedicaltype);
