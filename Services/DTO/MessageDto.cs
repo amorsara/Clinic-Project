@@ -20,5 +20,3 @@ namespace Services.DTO
     }
 }
 
-
-//{ id: 0,from: { name: '',id: '',color: ''},to: [{ name: '',id: '',color: ''},....],question: '',answer: ''}

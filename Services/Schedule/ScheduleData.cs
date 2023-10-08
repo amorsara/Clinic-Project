@@ -83,29 +83,7 @@ namespace Services.Schedule
             return list;
         }
 
-        //public async Task<List<RoomScheduleDto>> GetAllSchedulesForWeek(DateOnly date)
-        //{
-        //    int day = (int)date.DayOfWeek + 1;
-        //    var rooms = await _iRoomRef.GetAllRooms();
-        //    var list = new List<RoomScheduleDto>();
-        //    foreach (var room in rooms)
-        //    {
-        //        if (room == null)
-        //        {
-        //            continue;
-        //        }
-        //        var roomScheduleDto = new RoomScheduleDto();
-        //        roomScheduleDto.IdRoom = room.Idroom;
-        //        roomScheduleDto.nameRoom = room.Nameroom;
-        //        roomScheduleDto.listTreatments = await _iRoomRef.GetTreatmentsForRoom(room.Idroom);
-        //        var employees = await _iRoomRef.GetAllEmployeesForRoom(room.Idroom);
-        //        roomScheduleDto.Employees = await _iEmployeeRef.GetEmployeesForScheduleForWeek(employees, date, room.Idroom);
-        //        list.Add(roomScheduleDto);
-        //    }
-        //    return list;
-        //}
     }
 }
 
-// dd
 

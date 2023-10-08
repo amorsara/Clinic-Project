@@ -24,11 +24,4 @@ namespace Services.DTO
 }
 
 
-//{ "idClient":100,
-//"remarkLaser":null,
-//"hair":{ "name":null,"color":null},
-//"skin":null,
-//"listTreatments":[],
-//MedicalList: []}
-
 

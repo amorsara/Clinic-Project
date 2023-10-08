@@ -140,6 +140,28 @@ namespace Services.Inquiries
             return inquiry;
         }
 
+        //public async Task<bool> HaveNewInquiriesById(int id)
+        //{
+        //    //var oldMesaage = await _iEmployeesData.GetLastIdMessageById(id);
+        //    ////if (oldMesaage == null)
+        //    ////{
+        //    ////    return false;
+        //    ////}
+        //    ////var inquiries = await GetInquiries();
+        //    ////if (inquiries == null)
+        //    ////{
+        //    ////    return false;
+        //    ////}
+        //    ////var sId = "" + id;
+        //    ////inquiries = inquiries.Where(m => m.id != null && m.Idto.Contains(sId)).ToList();
+        //    ////if (inquiries == null)
+        //    ////{
+        //    ////    return false;
+        //    ////}
+        //    ////var last = inquiries[0].Idinquirie;
+        //    //return last > oldMesaage ? true : false;
+        //}
+
         public bool InquiryExists(int id)
         {
             var inquiry = _context.Inquiries.Where(c => c.Idinquirie == id).FirstOrDefault();

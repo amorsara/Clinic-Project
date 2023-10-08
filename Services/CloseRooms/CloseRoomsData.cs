@@ -260,25 +260,6 @@ namespace Services.CloseRooms
             return true;
         }
 
-        //public async Task<List<Closeroom>> GetAllCloseroomsForId(int id, DateOnly date)
-        //{
-        //    var closerooms = await GetCloserooms();
-        //    var nameRoom = await _iRoomRef.GetNameRoom(id);
-        //    nameRoom = nameRoom != null ? nameRoom : " ";
-        //    var list = new List<Closeroom>();
-        //    foreach (var item in closerooms)
-        //    {
-        //        //var i = "" + id;
-
-        //        if (item != null && item.Roomsname?.Contains(nameRoom) == true && (item.Startdate >= date && item.Startdate <= date.AddDays(5) || item.Enddate >= date && item.Enddate <= date.AddDays(5)))
-        //        {
-        //            list.Add(item);
-        //        }
-
-        //    }
-        //    return list;
-        //}
-
     }
 }
 

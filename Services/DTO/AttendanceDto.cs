@@ -18,5 +18,3 @@ namespace Services.DTO
     }
 }
 
-
-//{ employee: { id: 0,color: '',name: ''},date: 'yyyy-mm-dd',time: '00:00:00'}

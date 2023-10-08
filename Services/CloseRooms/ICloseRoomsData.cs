@@ -11,14 +11,21 @@ namespace Services.CloseRooms
     public interface ICloseRoomsData
     {
         Task<List<Closeroom>> GetCloserooms();
+
         Task<List<CloseRoomDto>> GetAllCloserooms();
+
         Task<List<CloseEventsDto>> GetCloseEventsForRoomsForWeek(DateOnly date);
+
         Task<bool> CancelAppointment(DateOnly date);
-        //Task<List<Closeroom>> GetAllCloseroomsForId(int id, DateOnly date);
+
         Task<Closeroom?> GetCloseroomById(int id);
+
         Task<bool> UpdateCloseroom(int id, Closeroom closeroom);
+
         Task<bool> CreateCloseroom(CloseRoomDto closeRoomDto);
+
         Task<bool> DeleteCloseroom(int id);
+
         bool CloseroomExists(int id);
     }
 }

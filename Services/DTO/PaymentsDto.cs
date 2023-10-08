@@ -46,11 +46,5 @@ namespace Services.DTO
 }
 
 
-//laser: selectedAreasLaser -- לשנות מ area ל laser
-//electrolysis: electrolysisTime --נשאר מחרוזת
-//AdvancedElectrolysis: advanced -- 
-//waxing: waxingArea
-
-
 
 

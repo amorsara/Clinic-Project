@@ -297,46 +297,4 @@ namespace Services.Contacts
     }
 }
 
-//public async Task<int?> GetAllCredit(int id)
-//{
-//    var contact = await GetContactById(id);
-//    return contact?.Credit;
-//}
-
-//public async Task<List<WaitTreatmentsDto>> GetAllWaitDates()
-//{
-//    var appointments = await _iAppointmentsData.GetAllWaitDates();
-//    var list = new List<WaitTreatmentsDto>();
-//    int cnt = 0;
-//    foreach (var appointment in appointments)
-//    {
-//        var contact = await GetContactById(appointment.Idcontact);
-//        if (contact == null || appointment.Date == null)
-//        {
-//            continue;
-//        }
-//        var waitTreatment = new WaitTreatmentsDto() ;
-//        waitTreatment.Id = cnt++;
-//        waitTreatment.FullName = contact.Firstname + " " + contact.Lastname;
-//        waitTreatment.Phonenumber1 = contact.Phonenumber1;
-//        waitTreatment.Phonenumber2 = contact.Phonenumber2;
-//        waitTreatment.Type = appointment.Treatmentname;
-//        waitTreatment.Date = (DateOnly)appointment.Date;
-//        waitTreatment.Remark = contact.Remark;
-//        list.Add(waitTreatment);
-//    }
-//    return list;
-//}
-
-
-//public async Task<List<Contact>> GetSemContacts()
-//{
-//    return await _context.Contacts.Where(c => c.Sem == true && c.Isshow == true).ToListAsync();            
-//}
-
-//public async Task<List<Contact>> GetActiveContacts()
-//{
-//    return await _context.Contacts.Where(c => c.Isactive == true && c.Isshow == true).ToListAsync();
-//}
-
 

@@ -21,6 +21,7 @@ namespace Services.EpilationTreatments
             _context = context;
             _iContactsData = contactsData;
         }
+
         public async Task<bool> CreateEpilationtreatment(Epilationtreatment epilationtreatment)
         {
             var isExsists = EpilationtreatmentExists(epilationtreatment.Idepilationtreatment);

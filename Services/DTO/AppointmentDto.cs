@@ -34,7 +34,3 @@ namespace Services.DTO
 
     }
 }
-
-
-//{ idTreated: int, treatment:'l/e/a', area["11", "22"..],date: '2323-07-11',startHouer: 'hh:mm' ,
-//        endTime: 'hh:mm' , Employee: "name" , Remark: "" , remined: bool , discount:bool}

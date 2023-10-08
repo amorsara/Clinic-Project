@@ -40,8 +40,6 @@ namespace Services.Employees
 
         Task<List<EmployeeDto>> GetEmployeesForSchedule(List<Employee> employees, bool regular, int idRoom);
 
-        //Task<List<EmployeeDto>> GetEmployeesForScheduleForWeek(List<Employee> employees, DateOnly date, int idRoom);
-
         Task<List<EmployeeFieldsDto>> GetAllEmployeesFields();
 
         Task<bool> UpdateEmployee(int id, Employee employee);

@@ -16,4 +16,3 @@ namespace Services.DTO
     }
 }
 
-//{ idWorker: 0,day: 0,start: 00:00}

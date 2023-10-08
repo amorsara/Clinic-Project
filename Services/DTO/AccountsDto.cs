@@ -47,10 +47,3 @@ namespace Services.DTO
 
 
 
- //{ "id": 153, "datePayment": "2023-09-06 15:59", "date": "2023-09-06", "fullName": "Itty Padwa-Pinter",
- //"phone": "0533149034", "tretment": [ "Electrolysis" ], "laser": [ "" ], "waxing": [ "" ], "electrolysis": "",
- //"advancedElectrolysis": "", "employee": "purple", "payed": 60, "type": "Cash", "debt": 10, "credit": 0, "allCredit": null, "remark": null }
-
-
-
-

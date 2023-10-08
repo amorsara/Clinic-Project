@@ -83,38 +83,5 @@ namespace App.Controllers
             }
             return schedules;
         }
-
-        //[HttpPost]
-        //[Route("/api/schedule/getallschedulesforweek")]
-        //public async Task<ActionResult<List<RoomScheduleDto>>> GetAllSchedulesForWeek(DateOnly date)
-        //{
-        //    var schedules = await _iScheduleData.GetAllSchedulesForWeek(date);
-        //    if (schedules == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return schedules;
-        //}
     }
 }
-
-
-
-
-//private static readonly string ScheduleCronExpression = "0****?*";
-
-//public static async System.Threading.Tasks StartAsync()
-//{
-//    try
-//    {
-//        var scheduler = await StdSchedulerFactory.getDefaultScheduler();
-//        if (!scheduler.IsStarted)
-//        {
-//            await scheduler.start();
-//        }
-//        var job1 = JobBuilder.Create<aaa>().WithIdentity("ExecuteTaskServiceCallJob1", "group1").Build();
-//        var trigger1 = TriggerBuilder.Create().WithIdentity("ExecuteTaskServiceCallTrigger1", "group1").WithCronSchedule(ScheduleCronExpression).Build();
-//        await scheduler.ScheduleJob(job1, trigger1);
-//    }
-//    catch (Exception ex) { }
-//}

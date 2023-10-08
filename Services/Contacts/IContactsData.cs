@@ -42,8 +42,3 @@ namespace Services.Contacts
         Task<ActionResult<Contact?>> UpdateTreatementNameForContact(int id, string? type);
     }
 }
-
-
-//Task<List<Contact>> GetSemContacts();
-//Task<List<Contact>> GetActiveContacts();
-//Task<List<WaitTreatmentsDto>> GetAllWaitDates();
