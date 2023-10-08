@@ -26,7 +26,7 @@ namespace Services.DTO
 
         public string? electrolysis { get; set; }
 
-        public string? Advanced { get; set; }
+        public string? AdvancedElectrolysis { get; set; }
 
         public string? employee { get; set;}
 

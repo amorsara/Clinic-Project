@@ -77,7 +77,7 @@ namespace Services.Payments
                 accountsDto.credit = payment.Credit;
                 accountsDto.employee = payment.Employee;
                 accountsDto.remark = payment.Remark;
-                accountsDto.Advanced = payment.Advanced;
+                accountsDto.AdvancedElectrolysis = payment.Advanced;
                 accountsDto.electrolysis = payment.Electrolysis;
                 accountsDto.waxing = payment.Waxing?.Split(",").ToList();
                 accountsDto.allCredit = await _iContactsData.GetAllCredit(payment.Idcontact);
@@ -128,11 +128,13 @@ namespace Services.Payments
             payment.Type = accountsDto.type;
             payment.Owes = accountsDto.Debt;
             payment.Credit = accountsDto.credit;
+            payment.Remark = accountsDto.remark;
             payment.Treatment = accountsDto.tretment?.Count != null ? String.Join(",", accountsDto.tretment) : null;
             payment.Laser = accountsDto.laser?.Count != null ? String.Join(",", accountsDto.laser) : null;
             payment.Waxing = accountsDto.waxing?.Count != null ? String.Join(",", accountsDto.waxing) : null;
-            payment.Advanced = accountsDto.Advanced;
+            payment.Advanced = accountsDto.AdvancedElectrolysis;
             payment.Electrolysis = accountsDto.electrolysis;
+
 
 
             _context.Entry(payment).State = EntityState.Modified;
