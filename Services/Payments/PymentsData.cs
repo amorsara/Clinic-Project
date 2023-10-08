@@ -92,8 +92,7 @@ namespace Services.Payments
             return list;
         }
 
-
-    public async Task<Payment?> GetPaymentById(int id)
+        public async Task<Payment?> GetPaymentById(int id)
         {
             var payment = await _context.Payments.FindAsync(id);
             return payment;
@@ -131,6 +130,9 @@ namespace Services.Payments
             payment.Credit = accountsDto.credit;
             payment.Treatment = accountsDto.tretment?.Count != null ? String.Join(",", accountsDto.tretment) : null;
             payment.Laser = accountsDto.laser?.Count != null ? String.Join(",", accountsDto.laser) : null;
+            payment.Waxing = accountsDto.waxing?.Count != null ? String.Join(",", accountsDto.waxing) : null;
+            payment.Advanced = accountsDto.Advanced;
+            payment.Electrolysis = accountsDto.electrolysis;
 
 
             _context.Entry(payment).State = EntityState.Modified;
