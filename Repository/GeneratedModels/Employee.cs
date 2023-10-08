@@ -22,6 +22,8 @@ public partial class Employee
 
     public int? Lastmessageread { get; set; }
 
+    public int? Lastinquiry { get; set; }
+
     [JsonIgnore]
     public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 

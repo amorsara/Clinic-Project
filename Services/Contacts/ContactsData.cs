@@ -280,7 +280,7 @@ namespace Services.Contacts
                 mm?.RemoveAt(0);
                 for (int i=0; i<mm?.Count() - 1; i += 2)
                 {
-                    if (mm[i] == null)
+                    if (mm?[i] == null)
                     {
                         continue;
                     }
