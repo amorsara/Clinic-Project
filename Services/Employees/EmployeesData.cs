@@ -127,23 +127,6 @@ namespace Services.Employees
             return list;
         }
 
-        //public async Task<List<EmployeeDto>> GetEmployeesForScheduleForWeek(List<Employee> employees, DateOnly date, int idRoom)
-        //{
-        //    var list = new List<EmployeeDto>();
-        //    int i = 0;
-        //    foreach (var e in employees)
-        //    {
-        //        var emp = new EmployeeDto();
-        //        emp.Id = i++;
-        //        emp.IdWorker = e.Idemployee;
-        //        emp.nameWorker = e.Name;
-        //        emp.colorWorker = e.Color;
-        //        emp.weeklyHouers = await _iWorkHourRef.GetWorkHourByEmployeeForWeek(idRoom, e.Idemployee, date);
-        //        list.Add(emp);
-        //    }
-        //    return list;
-        //}
-
         public async Task<int?> GetEmployeIdByName(string? name)
         {
             var employee = await _context.Employees.Where(e => e.Name == name).FirstOrDefaultAsync();
@@ -380,6 +363,23 @@ namespace Services.Employees
     }
 }
 
+
+//public async Task<List<EmployeeDto>> GetEmployeesForScheduleForWeek(List<Employee> employees, DateOnly date, int idRoom)
+//{
+//    var list = new List<EmployeeDto>();
+//    int i = 0;
+//    foreach (var e in employees)
+//    {
+//        var emp = new EmployeeDto();
+//        emp.Id = i++;
+//        emp.IdWorker = e.Idemployee;
+//        emp.nameWorker = e.Name;
+//        emp.colorWorker = e.Color;
+//        emp.weeklyHouers = await _iWorkHourRef.GetWorkHourByEmployeeForWeek(idRoom, e.Idemployee, date);
+//        list.Add(emp);
+//    }
+//    return list;
+//}
 
 
 //if(employee.Laser == true && treatmentsType != null && treatmentsType.Contains("Laser"))

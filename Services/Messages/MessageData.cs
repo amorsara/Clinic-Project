@@ -118,11 +118,13 @@ namespace Services.Messages
                     list.Add(mess);
                 }
             }
-
-            var isOk = await _iEmployeesData.UpdateLastMessageIdForEmployee(id, list[0].id);
-            if(isOk == false)
+            if(list.Count > 0)
             {
-                return null;  
+                var isOk = await _iEmployeesData.UpdateLastMessageIdForEmployee(id, list[0].id);
+                if (isOk == false)
+                {
+                    return null;
+                }
             }
             return list;
         }
