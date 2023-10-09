@@ -16,7 +16,7 @@ namespace Services.Inquiries
 
         Task<List<InquiryDto>?> GetAllInquiries(int id);
 
-        //Task<bool> HaveNewInquiriesById(int id);
+        Task<bool> HaveNewInquiriesById(int id);
 
         Task<Inquiry?> GetInquiryById(int id);
 

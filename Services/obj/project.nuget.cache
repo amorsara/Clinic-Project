@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "0yBlCyOSXT9+AF7NpZ6dpgmrPlwZ7MxeQ8OTLw1KX0cux23dHKBibReeBk8apF2e06JkExRMJb1Y4TaClYuUQg==",
+  "dgSpecHash": "vHnG4/+PT4ASmK4W6qfcu1uM2QmDsevxPjHxZR9ypp2R0zZL+oXiEv6xHAvi+iN+ULwuJjaUyVSJSVte+NLeZw==",
   "success": true,
-  "projectFilePath": "D:\\Clinic Project\\Clinic\\Services\\Services.csproj",
+  "projectFilePath": "E:\\Clinic Project\\Clinic\\Services\\Services.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\user1\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\user1\\.nuget\\packages\\microsoft.aspnetcore.authentication.core\\2.2.0\\microsoft.aspnetcore.authentication.core.2.2.0.nupkg.sha512",

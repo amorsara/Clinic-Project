@@ -26,3 +26,17 @@ F:\Clinic Project\Clinic\Repository\obj\Debug\net6.0\refint\Repository.dll
 F:\Clinic Project\Clinic\Repository\obj\Debug\net6.0\Repository.pdb
 F:\Clinic Project\Clinic\Repository\obj\Debug\net6.0\Repository.genruntimeconfig.cache
 F:\Clinic Project\Clinic\Repository\obj\Debug\net6.0\ref\Repository.dll
+E:\Clinic Project\Clinic\Repository\bin\Debug\net6.0\Repository.deps.json
+E:\Clinic Project\Clinic\Repository\bin\Debug\net6.0\Repository.runtimeconfig.json
+E:\Clinic Project\Clinic\Repository\bin\Debug\net6.0\Repository.dll
+E:\Clinic Project\Clinic\Repository\bin\Debug\net6.0\Repository.pdb
+E:\Clinic Project\Clinic\Repository\obj\Debug\net6.0\Repository.csproj.AssemblyReference.cache
+E:\Clinic Project\Clinic\Repository\obj\Debug\net6.0\Repository.GeneratedMSBuildEditorConfig.editorconfig
+E:\Clinic Project\Clinic\Repository\obj\Debug\net6.0\Repository.AssemblyInfoInputs.cache
+E:\Clinic Project\Clinic\Repository\obj\Debug\net6.0\Repository.AssemblyInfo.cs
+E:\Clinic Project\Clinic\Repository\obj\Debug\net6.0\Repository.csproj.CoreCompileInputs.cache
+E:\Clinic Project\Clinic\Repository\obj\Debug\net6.0\Repository.dll
+E:\Clinic Project\Clinic\Repository\obj\Debug\net6.0\refint\Repository.dll
+E:\Clinic Project\Clinic\Repository\obj\Debug\net6.0\Repository.pdb
+E:\Clinic Project\Clinic\Repository\obj\Debug\net6.0\Repository.genruntimeconfig.cache
+E:\Clinic Project\Clinic\Repository\obj\Debug\net6.0\ref\Repository.dll

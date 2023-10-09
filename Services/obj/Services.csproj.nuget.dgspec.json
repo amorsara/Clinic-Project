@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Clinic Project\\Clinic\\Services\\Services.csproj": {}
+    "E:\\Clinic Project\\Clinic\\Services\\Services.csproj": {}
   },
   "projects": {
-    "D:\\Clinic Project\\Clinic\\Repository\\Repository.csproj": {
+    "E:\\Clinic Project\\Clinic\\Repository\\Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Clinic Project\\Clinic\\Repository\\Repository.csproj",
+        "projectUniqueName": "E:\\Clinic Project\\Clinic\\Repository\\Repository.csproj",
         "projectName": "Repository",
-        "projectPath": "D:\\Clinic Project\\Clinic\\Repository\\Repository.csproj",
+        "projectPath": "E:\\Clinic Project\\Clinic\\Repository\\Repository.csproj",
         "packagesPath": "C:\\Users\\user1\\.nuget\\packages\\",
-        "outputPath": "D:\\Clinic Project\\Clinic\\Repository\\obj\\",
+        "outputPath": "E:\\Clinic Project\\Clinic\\Repository\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\user1\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -74,14 +74,14 @@
         }
       }
     },
-    "D:\\Clinic Project\\Clinic\\Services\\Services.csproj": {
+    "E:\\Clinic Project\\Clinic\\Services\\Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Clinic Project\\Clinic\\Services\\Services.csproj",
+        "projectUniqueName": "E:\\Clinic Project\\Clinic\\Services\\Services.csproj",
         "projectName": "Services",
-        "projectPath": "D:\\Clinic Project\\Clinic\\Services\\Services.csproj",
+        "projectPath": "E:\\Clinic Project\\Clinic\\Services\\Services.csproj",
         "packagesPath": "C:\\Users\\user1\\.nuget\\packages\\",
-        "outputPath": "D:\\Clinic Project\\Clinic\\Services\\obj\\",
+        "outputPath": "E:\\Clinic Project\\Clinic\\Services\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\user1\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -98,8 +98,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\Clinic Project\\Clinic\\Repository\\Repository.csproj": {
-                "projectPath": "D:\\Clinic Project\\Clinic\\Repository\\Repository.csproj"
+              "E:\\Clinic Project\\Clinic\\Repository\\Repository.csproj": {
+                "projectPath": "E:\\Clinic Project\\Clinic\\Repository\\Repository.csproj"
               }
             }
           }

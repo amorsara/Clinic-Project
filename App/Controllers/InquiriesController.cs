@@ -72,6 +72,14 @@ namespace App.Controllers
             return inquiries;
         }
 
+        [HttpGet]
+        [Route("/api/inquiries/havenewinquiriesbyid/{id}")]
+        public async Task<ActionResult> HaveNewInquiriesById(int id)
+        {
+            var res = await _iInquiriesData.HaveNewInquiriesById(id);
+            return Ok(res);
+        }
+
 
         [HttpPut]
         [Route("/api/inquiries/updateinquiry/{id}")]
