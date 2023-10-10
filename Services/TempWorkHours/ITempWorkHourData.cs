@@ -14,6 +14,8 @@ namespace Services.TempWorkHours
 
         Task<List<TempWorkHourDto>> GetAllTempworkhoursForId(int id);
 
+        Task<List<TempWorkHourDto>> GetAllTempworkhours();
+
         Task<Tempworkhour?> GetTempworkhourById(int id);
 
         Task<bool> UpdateTempworkhourWrapper(int id, TempWorkHourDto tempWorkHourDto);

@@ -36,6 +36,18 @@ namespace App.Controllers
         }
 
         [HttpGet]
+        [Route("/api/tempworkhours/getalltempworkhours")]
+        public async Task<ActionResult<IEnumerable<TempWorkHourDto>>> GetAllTempworkhours()
+        {
+            var tempworkhours = await _iTempWorkHourData.GetAllTempworkhours();
+            if (tempworkhours == null)
+            {
+                return NotFound();
+            }
+            return tempworkhours;
+        }
+
+        [HttpGet]
         [Route("/api/tempworkhours/getalltempworkhoursforid/{id}")]
         public async Task<ActionResult<IEnumerable<TempWorkHourDto>>> GetAllTempworkhoursForId(int id)
         {

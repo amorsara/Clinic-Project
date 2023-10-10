@@ -198,5 +198,30 @@ namespace Services.TempWorkHours
 
             return true;
         }
+
+        public async Task<List<TempWorkHourDto>> GetAllTempworkhours()
+        {
+            var list = new List<TempWorkHourDto>();
+            var workhours = await _context.Tempworkhours.ToListAsync();
+            foreach (var workhour in workhours)
+            {
+                if (workhour == null)
+                {
+                    continue;
+                }
+                var tempWorkHourDto = new TempWorkHourDto();
+                tempWorkHourDto.id = workhour.Idtempworkhour;
+                tempWorkHourDto.startHouer = workhour.Starthouer;
+                tempWorkHourDto.endTime = workhour.Endtime;
+                tempWorkHourDto.date = workhour.Date;
+                tempWorkHourDto.day = workhour.Day;
+                tempWorkHourDto.status = workhour.Status;
+                tempWorkHourDto.idWorker = workhour.Idemployee;
+                tempWorkHourDto.idroom = workhour.Idroom;
+                tempWorkHourDto.nameRoom = await _iRoomsData.GetNameRoom(workhour.Idroom);
+                list.Add(tempWorkHourDto);
+            }
+            return list;
+        }
     }
 }

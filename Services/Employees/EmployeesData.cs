@@ -92,11 +92,10 @@ namespace Services.Employees
         {
             var employees = await GetAllEmployees();
             var listEmployeeFields = new List<EmployeeFieldsDto>();
-            int i = 0;
             foreach(var employee in employees)
             {
                 var employeeFieldesDto = new EmployeeFieldsDto();
-                employeeFieldesDto.Id = i++;
+                employeeFieldesDto.Id = employee.Idemployee;
                 employeeFieldesDto.nameWorker = employee.Name;
                 employeeFieldesDto.colorWorker = employee.Color;
                 if(employee == null || employee.Isshow == false)
