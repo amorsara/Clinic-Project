@@ -13,6 +13,8 @@ namespace Services.Appointments
     {
         Task<List<Appointment>> GetAllAppointments();
 
+        Task<List<Appointment>> GetAllPayedAppointments();
+
         Task<List<Appointment>> GetAllAppointmentsForWeek(DateOnly? date = null);
 
         Task<List<Appointment>> GetAllWaitDates();
@@ -32,6 +34,8 @@ namespace Services.Appointments
         Task<Appointment?> UpdateRemined(int id);
 
         Task<bool> UpdateRemark(int id, string remark);
+
+        Task<bool> UpdateIsPay(int id);
 
         Task<bool> UpdateAppointment(int id, Appointment appointment);
     }

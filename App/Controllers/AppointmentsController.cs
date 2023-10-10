@@ -44,6 +44,18 @@ namespace App.Controllers
         }
 
         [HttpGet]
+        [Route("/api/appointments/getallpayedappointments")]
+        public async Task<ActionResult<IEnumerable<Appointment>>> GetAllPayedAppointments()
+        {
+            var appointments = await _iAppointmentsData.GetAllPayedAppointments();
+            if (appointments == null)
+            {
+                return NotFound();
+            }
+            return appointments;
+        }
+
+        [HttpGet]
         [Route("/api/appointments/getappointmentbyid/{id}")]
         public async Task<ActionResult<Appointment>> GetAppointmentById(int id)
         {
@@ -78,6 +90,18 @@ namespace App.Controllers
                 return BadRequest();
             }
          
+            return Ok(res);
+        }
+
+        [HttpGet]
+        [Route("/api/appointments/updateispay/{id}")]
+        public async Task<ActionResult<Appointment>> UpdateIsPay(int id)
+        {
+            var res = await _iAppointmentsData.UpdateIsPay(id);
+            if (res == false)
+            {
+                return BadRequest();
+            }
             return Ok(res);
         }
 

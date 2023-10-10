@@ -15,6 +15,8 @@ public partial class ClinicDBContext : DbContext
     {
     }
 
+    public virtual DbSet<Aggregatedcounter> Aggregatedcounters { get; set; }
+
     public virtual DbSet<Appointment> Appointments { get; set; }
 
     public virtual DbSet<Attendance> Attendances { get; set; }
@@ -22,6 +24,8 @@ public partial class ClinicDBContext : DbContext
     public virtual DbSet<Closeroom> Closerooms { get; set; }
 
     public virtual DbSet<Contact> Contacts { get; set; }
+
+    public virtual DbSet<Counter> Counters { get; set; }
 
     public virtual DbSet<Employee> Employees { get; set; }
 
@@ -31,7 +35,15 @@ public partial class ClinicDBContext : DbContext
 
     public virtual DbSet<Epilationtreatment> Epilationtreatments { get; set; }
 
+    public virtual DbSet<Hash> Hashes { get; set; }
+
     public virtual DbSet<Inquiry> Inquiries { get; set; }
+
+    public virtual DbSet<Job> Jobs { get; set; }
+
+    public virtual DbSet<Jobparameter> Jobparameters { get; set; }
+
+    public virtual DbSet<Jobqueue> Jobqueues { get; set; }
 
     public virtual DbSet<Lasermedicaltype> Lasermedicaltypes { get; set; }
 
@@ -39,11 +51,23 @@ public partial class ClinicDBContext : DbContext
 
     public virtual DbSet<Leserarea> Leserareas { get; set; }
 
+    public virtual DbSet<List> Lists { get; set; }
+
+    public virtual DbSet<Lock> Locks { get; set; }
+
     public virtual DbSet<Message> Messages { get; set; }
 
     public virtual DbSet<Payment> Payments { get; set; }
 
     public virtual DbSet<Room> Rooms { get; set; }
+
+    public virtual DbSet<Schema> Schemas { get; set; }
+
+    public virtual DbSet<Server> Servers { get; set; }
+
+    public virtual DbSet<Set> Sets { get; set; }
+
+    public virtual DbSet<State> States { get; set; }
 
     public virtual DbSet<Tempcloseemployee> Tempcloseemployees { get; set; }
 
@@ -58,15 +82,23 @@ public partial class ClinicDBContext : DbContext
     public virtual DbSet<Workhour> Workhours { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        if (!optionsBuilder.IsConfigured)
-        {
-            optionsBuilder.UseNpgsql("ClinicDBConnectionString");
-        }
-    }
+        => optionsBuilder.UseNpgsql("Name=ClinicDBConnectionString");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Aggregatedcounter>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("aggregatedcounter_pkey");
+
+            entity.ToTable("aggregatedcounter", "hangfire");
+
+            entity.HasIndex(e => e.Key, "aggregatedcounter_key_key").IsUnique();
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Expireat).HasColumnName("expireat");
+            entity.Property(e => e.Key).HasColumnName("key");
+            entity.Property(e => e.Value).HasColumnName("value");
+        });
 
         modelBuilder.Entity<Appointment>(entity =>
         {
@@ -85,6 +117,7 @@ public partial class ClinicDBContext : DbContext
             entity.Property(e => e.Idcontact).HasColumnName("idcontact");
             entity.Property(e => e.Idemployee).HasColumnName("idemployee");
             entity.Property(e => e.Idroom).HasColumnName("idroom");
+            entity.Property(e => e.Ispay).HasColumnName("ispay");
             entity.Property(e => e.Isremaind).HasColumnName("isremaind");
             entity.Property(e => e.Remark)
                 .HasColumnType("character varying")
@@ -203,6 +236,22 @@ public partial class ClinicDBContext : DbContext
             entity.Property(e => e.Waxing).HasColumnName("waxing");
         });
 
+        modelBuilder.Entity<Counter>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("counter_pkey");
+
+            entity.ToTable("counter", "hangfire");
+
+            entity.HasIndex(e => e.Expireat, "ix_hangfire_counter_expireat");
+
+            entity.HasIndex(e => e.Key, "ix_hangfire_counter_key");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Expireat).HasColumnName("expireat");
+            entity.Property(e => e.Key).HasColumnName("key");
+            entity.Property(e => e.Value).HasColumnName("value");
+        });
+
         modelBuilder.Entity<Employee>(entity =>
         {
             entity.HasKey(e => e.Idemployee).HasName("employees_pkey");
@@ -290,6 +339,24 @@ public partial class ClinicDBContext : DbContext
                 .HasConstraintName("EpilationTreatments_contact_id_fkey");
         });
 
+        modelBuilder.Entity<Hash>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("hash_pkey");
+
+            entity.ToTable("hash", "hangfire");
+
+            entity.HasIndex(e => new { e.Key, e.Field }, "hash_key_field_key").IsUnique();
+
+            entity.HasIndex(e => e.Expireat, "ix_hangfire_hash_expireat");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Expireat).HasColumnName("expireat");
+            entity.Property(e => e.Field).HasColumnName("field");
+            entity.Property(e => e.Key).HasColumnName("key");
+            entity.Property(e => e.Updatecount).HasColumnName("updatecount");
+            entity.Property(e => e.Value).HasColumnName("value");
+        });
+
         modelBuilder.Entity<Inquiry>(entity =>
         {
             entity.HasKey(e => e.Idinquirie).HasName("inquiries_pkey");
@@ -322,6 +389,68 @@ public partial class ClinicDBContext : DbContext
                 .HasForeignKey(d => d.Idemployee)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("Inquiries_employee_id_fkey");
+        });
+
+        modelBuilder.Entity<Job>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("job_pkey");
+
+            entity.ToTable("job", "hangfire");
+
+            entity.HasIndex(e => e.Expireat, "ix_hangfire_job_expireat");
+
+            entity.HasIndex(e => e.Statename, "ix_hangfire_job_statename");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Arguments)
+                .HasColumnType("jsonb")
+                .HasColumnName("arguments");
+            entity.Property(e => e.Createdat).HasColumnName("createdat");
+            entity.Property(e => e.Expireat).HasColumnName("expireat");
+            entity.Property(e => e.Invocationdata)
+                .HasColumnType("jsonb")
+                .HasColumnName("invocationdata");
+            entity.Property(e => e.Stateid).HasColumnName("stateid");
+            entity.Property(e => e.Statename).HasColumnName("statename");
+            entity.Property(e => e.Updatecount).HasColumnName("updatecount");
+        });
+
+        modelBuilder.Entity<Jobparameter>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("jobparameter_pkey");
+
+            entity.ToTable("jobparameter", "hangfire");
+
+            entity.HasIndex(e => new { e.Jobid, e.Name }, "ix_hangfire_jobparameter_jobidandname");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Jobid).HasColumnName("jobid");
+            entity.Property(e => e.Name).HasColumnName("name");
+            entity.Property(e => e.Updatecount).HasColumnName("updatecount");
+            entity.Property(e => e.Value).HasColumnName("value");
+
+            entity.HasOne(d => d.Job).WithMany(p => p.Jobparameters)
+                .HasForeignKey(d => d.Jobid)
+                .HasConstraintName("jobparameter_jobid_fkey");
+        });
+
+        modelBuilder.Entity<Jobqueue>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("jobqueue_pkey");
+
+            entity.ToTable("jobqueue", "hangfire");
+
+            entity.HasIndex(e => new { e.Jobid, e.Queue }, "ix_hangfire_jobqueue_jobidandqueue");
+
+            entity.HasIndex(e => new { e.Queue, e.Fetchedat }, "ix_hangfire_jobqueue_queueandfetchedat");
+
+            entity.HasIndex(e => new { e.Queue, e.Fetchedat, e.Jobid }, "jobqueue_queue_fetchat_jobid");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Fetchedat).HasColumnName("fetchedat");
+            entity.Property(e => e.Jobid).HasColumnName("jobid");
+            entity.Property(e => e.Queue).HasColumnName("queue");
+            entity.Property(e => e.Updatecount).HasColumnName("updatecount");
         });
 
         modelBuilder.Entity<Lasermedicaltype>(entity =>
@@ -384,6 +513,34 @@ public partial class ClinicDBContext : DbContext
             entity.Property(e => e.Namearea)
                 .HasColumnType("character varying")
                 .HasColumnName("namearea");
+        });
+
+        modelBuilder.Entity<List>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("list_pkey");
+
+            entity.ToTable("list", "hangfire");
+
+            entity.HasIndex(e => e.Expireat, "ix_hangfire_list_expireat");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Expireat).HasColumnName("expireat");
+            entity.Property(e => e.Key).HasColumnName("key");
+            entity.Property(e => e.Updatecount).HasColumnName("updatecount");
+            entity.Property(e => e.Value).HasColumnName("value");
+        });
+
+        modelBuilder.Entity<Lock>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("lock", "hangfire");
+
+            entity.HasIndex(e => e.Resource, "lock_resource_key").IsUnique();
+
+            entity.Property(e => e.Acquired).HasColumnName("acquired");
+            entity.Property(e => e.Resource).HasColumnName("resource");
+            entity.Property(e => e.Updatecount).HasColumnName("updatecount");
         });
 
         modelBuilder.Entity<Message>(entity =>
@@ -471,6 +628,74 @@ public partial class ClinicDBContext : DbContext
             entity.Property(e => e.Treatmentstype)
                 .HasColumnType("character varying")
                 .HasColumnName("treatmentstype");
+        });
+
+        modelBuilder.Entity<Schema>(entity =>
+        {
+            entity.HasKey(e => e.Version).HasName("schema_pkey");
+
+            entity.ToTable("schema", "hangfire");
+
+            entity.Property(e => e.Version)
+                .ValueGeneratedNever()
+                .HasColumnName("version");
+        });
+
+        modelBuilder.Entity<Server>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("server_pkey");
+
+            entity.ToTable("server", "hangfire");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Data)
+                .HasColumnType("jsonb")
+                .HasColumnName("data");
+            entity.Property(e => e.Lastheartbeat).HasColumnName("lastheartbeat");
+            entity.Property(e => e.Updatecount).HasColumnName("updatecount");
+        });
+
+        modelBuilder.Entity<Set>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("set_pkey");
+
+            entity.ToTable("set", "hangfire");
+
+            entity.HasIndex(e => e.Expireat, "ix_hangfire_set_expireat");
+
+            entity.HasIndex(e => new { e.Key, e.Score }, "ix_hangfire_set_key_score");
+
+            entity.HasIndex(e => new { e.Key, e.Value }, "set_key_value_key").IsUnique();
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Expireat).HasColumnName("expireat");
+            entity.Property(e => e.Key).HasColumnName("key");
+            entity.Property(e => e.Score).HasColumnName("score");
+            entity.Property(e => e.Updatecount).HasColumnName("updatecount");
+            entity.Property(e => e.Value).HasColumnName("value");
+        });
+
+        modelBuilder.Entity<State>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("state_pkey");
+
+            entity.ToTable("state", "hangfire");
+
+            entity.HasIndex(e => e.Jobid, "ix_hangfire_state_jobid");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Createdat).HasColumnName("createdat");
+            entity.Property(e => e.Data)
+                .HasColumnType("jsonb")
+                .HasColumnName("data");
+            entity.Property(e => e.Jobid).HasColumnName("jobid");
+            entity.Property(e => e.Name).HasColumnName("name");
+            entity.Property(e => e.Reason).HasColumnName("reason");
+            entity.Property(e => e.Updatecount).HasColumnName("updatecount");
+
+            entity.HasOne(d => d.Job).WithMany(p => p.States)
+                .HasForeignKey(d => d.Jobid)
+                .HasConstraintName("state_jobid_fkey");
         });
 
         modelBuilder.Entity<Tempcloseemployee>(entity =>

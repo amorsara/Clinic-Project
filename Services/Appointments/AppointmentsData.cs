@@ -87,6 +87,7 @@ namespace Services.Appointments
         public async Task<bool> CreateAppointment(Appointment appointments)
         {
             appointments.Cancle = false;
+            appointments.Ispay = false;
             var isExsists = AppointmentExists(appointments.Idappointment);
             if (isExsists)
             {
@@ -214,6 +215,24 @@ namespace Services.Appointments
             appointment.Remark = remark;
             var isOk = await UpdateAppointment(id, appointment);
             return isOk;
+        }
+
+        public async Task<bool> UpdateIsPay(int id)
+        {
+            var appointment = await GetAppointmentById(id);
+            if(appointment == null)
+            {
+                return false;
+            }
+            appointment.Ispay = true;
+            var isOk = await UpdateAppointment(id, appointment);
+            return isOk;
+        }
+
+        public async Task<List<Appointment>> GetAllPayedAppointments()
+        {
+            var appointment = await _context.Appointments.Where(a => a.Ispay == true).OrderBy(a => a.Date).ToListAsync();
+            return appointment;
         }
     }
 }
