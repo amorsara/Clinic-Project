@@ -153,6 +153,7 @@ public partial class ClinicDBContext : DbContext
             entity.Property(e => e.Idattendance).HasColumnName("idattendance");
             entity.Property(e => e.Date).HasColumnName("date");
             entity.Property(e => e.Idemployee).HasColumnName("idemployee");
+            entity.Property(e => e.R).HasColumnName("r");
             entity.Property(e => e.Timeenter).HasColumnName("timeenter");
             entity.Property(e => e.Timeexit).HasColumnName("timeexit");
 

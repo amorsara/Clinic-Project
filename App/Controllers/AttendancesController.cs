@@ -99,6 +99,7 @@ namespace App.Controllers
             attendance.Idemployee = attendancedto.employee?.Id == null ? 0 : attendancedto.employee.Id;
             attendance.Date = attendancedto.date;
             attendance.Timeenter = attendancedto.time;
+            attendance.R = attendancedto.r;
 
             var res = await _iAttendancesData.CreateAttendance(attendance);
             if(res == false)
@@ -120,6 +121,7 @@ namespace App.Controllers
             attendance.Idemployee = attendancedto.employee?.Id == null ? 0 : attendancedto.employee.Id;
             attendance.Date = attendancedto.date;
             attendance.Timeexit = attendancedto.time;
+            attendance.R = attendancedto.r;
 
             var res = await _iAttendancesData.ExitAttendance(attendance);
             if (res == false)

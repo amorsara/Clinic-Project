@@ -45,5 +45,7 @@ namespace Services.DTO
         public bool? cancel { get; set; }
 
         public string? detailsType { get; set; }
+
+        public bool isPay { get; set; }
     }
 }

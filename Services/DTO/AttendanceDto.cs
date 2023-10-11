@@ -15,6 +15,8 @@ namespace Services.DTO
         public DateOnly date { get; set; }
 
         public TimeOnly time { get;  set; }
+
+        public bool r { get; set; }
     }
 }
 

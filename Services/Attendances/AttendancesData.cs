@@ -75,8 +75,8 @@ namespace Services.Attendances
 
         public async Task<bool> ExitAttendance(Attendance attendance)
         {
-            var attend = await _context.Attendances.Where(a => a.Idemployee == attendance.Idemployee && a.Date == attendance.Date && a.Timeenter != null && a.Timeexit == null).FirstOrDefaultAsync();
-            if(attend == null || attend.Timeexit != null) // לא הכניסו שעת כניסה...
+            var attend = await _context.Attendances.Where(a => a.Idemployee == attendance.Idemployee && a.Date == attendance.Date && a.Timeenter != null && a.Timeexit == null && a.R == attendance.R).FirstOrDefaultAsync();
+            if(attend == null || attend.Timeexit != null) // לא הכניסו שעת כניסה המתאימה לסוג הכניסה...
             {
                 var isOk = await CreateAttendance(attendance);
                 return isOk;
