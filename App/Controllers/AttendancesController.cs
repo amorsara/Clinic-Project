@@ -36,10 +36,23 @@ namespace App.Controllers
 
         [HttpGet]
         [Route("/api/attendances/getallattendances")]
-        public async Task<ActionResult<IEnumerable<AllAttendanceDto>>> GetAllAttendances(bool? r)
+        public async Task<ActionResult<IEnumerable<AllAttendanceDto>>> GetAllAttendances()
         {
             var status = false;
-            if(r == true)
+            var attendances = await _iAttendancesData.GetAllAttendances(status);
+            if (attendances == null)
+            {
+                return NotFound();
+            }
+            return attendances;
+        }
+
+        [HttpGet]
+        [Route("/api/attendances/getallattendanceswithstatus/{r}")]
+        public async Task<ActionResult<IEnumerable<AllAttendanceDto>>> GetAllAttendances(bool r)
+        {
+            var status = false;
+            if (r == true)
             {
                 status = true;
             }
