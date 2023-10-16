@@ -278,7 +278,7 @@ namespace Services.Contacts
             {
                 var mm = medical?.Split(",").ToList();
                 mm?.RemoveAt(0);
-                for (int i=0; i<mm?.Count() - 1; i += 2)
+                for (int i=0; i<mm?.Count() - 1; i += 3)
                 {
                     if (mm?[i] == null)
                     {

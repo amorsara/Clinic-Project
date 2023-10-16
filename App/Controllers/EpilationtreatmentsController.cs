@@ -106,7 +106,7 @@ namespace App.Controllers
             return Ok();
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("/api/epilationtreatments/updatemedicallist/{id}")]
         public async Task<ActionResult> UpdateMedicalList(int id, List<MedicalListDto> medicalList)
         {
