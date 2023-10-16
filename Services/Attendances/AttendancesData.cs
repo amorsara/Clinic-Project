@@ -89,9 +89,9 @@ namespace Services.Attendances
             }
         }
 
-        public async Task<List<AllAttendanceDto>> GetAllAttendances()
+        public async Task<List<AllAttendanceDto>> GetAllAttendances(bool r)
         {
-            var allAttendances = await GetAttendances();
+            var allAttendances = await _context.Attendances.Where(a => a.R == r).ToListAsync();
             var list = new List<AllAttendanceDto>();
             foreach (var attendance in allAttendances)
             {
