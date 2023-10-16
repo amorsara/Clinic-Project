@@ -79,6 +79,7 @@ namespace Services.Payments
                 accountsDto.remark = payment.Remark;
                 accountsDto.AdvancedElectrolysis = payment.Advanced;
                 accountsDto.electrolysis = payment.Electrolysis;
+                accountsDto.r = payment.R;
                 accountsDto.waxing = payment.Waxing?.Split(",").ToList();
                 accountsDto.allCredit = await _iContactsData.GetAllCredit(payment.Idcontact);
                 var contact = await _iContactsData.GetContactById(payment.Idcontact);
@@ -134,6 +135,7 @@ namespace Services.Payments
             payment.Waxing = accountsDto.waxing?.Count != null ? String.Join(",", accountsDto.waxing) : null;
             payment.Advanced = accountsDto.AdvancedElectrolysis;
             payment.Electrolysis = accountsDto.electrolysis;
+            payment.R = accountsDto.r;
 
 
 

@@ -41,6 +41,8 @@ namespace Services.DTO
         public int? allCredit { get; set; }
 
         public string? remark { get; set;}  
+
+        public bool? r { get; set; }
     }
 }
 
