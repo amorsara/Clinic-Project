@@ -12,7 +12,7 @@ namespace Services.Attendances
     {
         Task<List<Attendance>> GetAttendances();
 
-        Task<List<AllAttendanceDto>> GetAllAttendances(bool r);
+        Task<List<AllAttendanceDto>> GetAllAttendances(bool? r = null);
 
         Task<Attendance?> GetAttendanceById(int id);
 

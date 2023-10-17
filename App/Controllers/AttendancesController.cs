@@ -38,8 +38,7 @@ namespace App.Controllers
         [Route("/api/attendances/getallattendances")]
         public async Task<ActionResult<IEnumerable<AllAttendanceDto>>> GetAllAttendances()
         {
-            var status = false;
-            var attendances = await _iAttendancesData.GetAllAttendances(status);
+            var attendances = await _iAttendancesData.GetAllAttendances(null);
             if (attendances == null)
             {
                 return NotFound();
