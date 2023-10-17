@@ -19,7 +19,7 @@ namespace Services.DTO
 
         public List<LasertreatmentDto>? listTreatments { get; set;}
 
-        public Dictionary<string, string>? MedicalList { get; set; }
+        public List<MedicalListDto>? MedicalList { get; set; }
     }
 }
 

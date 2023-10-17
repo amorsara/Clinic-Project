@@ -160,7 +160,7 @@ namespace App.Controllers
 
         [HttpPost]
         [Route("/api/lasertreatments/updatelasertreatmentdetails")]
-        public async Task<ActionResult<Lasertreatment>> UpdateLasertreatmentDetails(LaserDetailsDto laserDetailsDto)
+        public async Task<ActionResult> UpdateLasertreatmentDetails(LaserDetailsDto laserDetailsDto)
         {
             var isOk = await _iContactsData.UpdateRemarkLaser(laserDetailsDto);
             if(isOk == false)

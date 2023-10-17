@@ -13,7 +13,7 @@ namespace Services.LaserTreatments
     {
         Task<List<Lasertreatment>> GetLasertreatments();
 
-        Task<LaserCardDto> GetAllLaserTreatment(int id);
+        Task<LaserCardDto?> GetAllLaserTreatment(int id);
 
         Task<Lasertreatment?> GetLasertreatmentById(int id);
 

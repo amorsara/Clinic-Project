@@ -73,20 +73,8 @@ namespace Services.EpilationTreatments
             var epilationTreatments = await GetEpilationtreatments();
             var remark = await _iContactsData.GetRemark(id, "epilation");
 
-            var medicals = await _iContactsData.GetMedicalList(id, "Epilation");
-            var medicalList = medicals != null ? medicals?.Split(",").ToList() : null;
-            medicalList?.RemoveAt(0);
-            if (medicalList != null)
-            {
-                var medicalDic = new Dictionary<string, string>();
-
-                for (int i = 0; i < medicalList.Count - 1; i += 2)
-                {
-                    medicalDic.Add(medicalList[i], medicalList[i + 1]);
-                }
-                epilationCard.MedicalList = medicalDic;
-            }
-
+            var medicals = await _iContactsData.GetMedicalListById(id, "Epilation");
+            epilationCard.MedicalList = medicals;
 
             foreach (var epilationTreatment in epilationTreatments)
             {

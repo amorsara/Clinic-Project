@@ -14,6 +14,6 @@ namespace Services.DTO
 
         public List<EpilationtreatmentDto>? listTreatments { get; set; }
 
-        public Dictionary<string, string>? MedicalList { get; set; }
+        public List<MedicalListDto>? MedicalList { get; set; }
     }
 }
