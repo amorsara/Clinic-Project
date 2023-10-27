@@ -62,6 +62,7 @@ builder.Services.AddScoped<IWaxingTypesData, WaxingTypesData>();
 builder.Services.AddScoped<IEpilationMedicalTypesData, EpilationMedicalTypesData>();
 builder.Services.AddScoped<ILaserMedicalTypesData, LaserMedicalTypesData>();
 
+builder.Logging.AddConsole();
 
 var app = builder.Build();
 

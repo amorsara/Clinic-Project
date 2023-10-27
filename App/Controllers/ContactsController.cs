@@ -17,22 +17,26 @@ namespace App.Controllers
     {
         private readonly ClinicDBContext _context;
         private readonly IContactsData _iContactsData;
+        private readonly ILogger<ContactsController> _logger;
 
-        public ContactsController(ClinicDBContext context, IContactsData contactsData)
+        public ContactsController(ClinicDBContext context, IContactsData contactsData, ILogger<ContactsController> logger)
         {
             _context = context;
             _iContactsData = contactsData;
+            _logger = logger;
         }
 
         [HttpGet]
         [Route("/api/contacts/getallcontacts")]
         public async Task<ActionResult<IEnumerable<Contact>>> GetAllContacts()
         {
+            _logger.LogInformation("Starting treatment: GetAllContacts");
             var contacts = await _iContactsData.GetAllContacts();
             if (contacts == null)
             {
                  return NotFound();
             }
+            _logger.LogInformation("Finishing treatment: GetAllContacts");
             return contacts;
         }
 
@@ -40,11 +44,13 @@ namespace App.Controllers
         [Route("/api/contacts/getallcontactswithdates")]
         public async Task<ActionResult<IEnumerable<ContactDateDto>>> GetAllContactsWithDates()
         {
+            _logger.LogInformation("Starting treatment: GetAllContactsWithDates");
             var contacts = await _iContactsData.GetContactsWithDates();
             if (contacts == null)
             {
                 return NotFound();
             }
+            _logger.LogInformation("Finishing treatment: GetAllContactsWithDates");
             return contacts;
         }
 
@@ -52,11 +58,13 @@ namespace App.Controllers
         [Route("/api/contacts/getcontactbyid/{id}")]
         public async Task<ActionResult<Contact>> GetContactById(int id)
         {
+            _logger.LogInformation("Starting treatment: GetContactById");
             var contact = await _iContactsData.GetContactById(id);
             if (contact == null)
             {
                 return NotFound();
             }         
+            _logger.LogInformation("Finishing treatment: GetContactById");
             return contact;
         }
 
@@ -64,11 +72,13 @@ namespace App.Controllers
         [Route("/api/contacts/getmedicallistbyid/{id}/{type}")]
         public async Task<ActionResult<List<MedicalListDto>>> GetMedicalListById(int id, string type)
         {
+            _logger.LogInformation("Starting treatment: GetMedicalListById");
             var medical = await _iContactsData.GetMedicalListById(id, type);
             if (medical == null)
             {
                 return NotFound();
             }
+            _logger.LogInformation("Finishing treatment: GetMedicalListById");
             return medical;
         }
 
@@ -76,6 +86,7 @@ namespace App.Controllers
         [Route("/api/contacts/updatecontactwrapper")]
         public async Task<IActionResult> UpdateContactWrapper(ContactDto contact)
         {
+            _logger.LogInformation("Starting treatment: UpdateContactWrapper");
             var newContact = await _iContactsData.GetContactById(contact.id);
             if(newContact == null)
             {
@@ -96,6 +107,7 @@ namespace App.Controllers
             newContact.Credit = contact.credit == null ? null : contact.credit;
             newContact.Isshow = contact.IsShow == null ? true : contact.IsShow;
             var c = await UpdateContact(newContact.Idcontact, newContact);
+            _logger.LogInformation("Finishing treatment: UpdateContactWrapper");
             return c;
         }
 
@@ -103,6 +115,7 @@ namespace App.Controllers
         [Route("/api/contacts/updatecontact/{id}")]
         public async Task<IActionResult> UpdateContact(int id, Contact contact)
         {
+            _logger.LogInformation("Starting treatment: UpdateContact");
             if (id != contact.Idcontact)
             {
                 return NoContent();
@@ -112,6 +125,7 @@ namespace App.Controllers
             {
                 return BadRequest();
             }
+            _logger.LogInformation("Finishing treatment: UpdateContact");
             return Ok();
         }
 
@@ -119,7 +133,9 @@ namespace App.Controllers
         [Route("/api/contacts/createcontact")]
         public async Task<ActionResult<Contact>> CreateContact(Contact contact)
         {
+            _logger.LogInformation("Starting treatment: CreateContact");
             var result = await _iContactsData.CreateContact(contact);
+            _logger.LogInformation("Finishing treatment: CreateContact");
             if (result)
             {
                 return CreatedAtAction("CreateContact", new { id = contact.Idcontact }, contact);
@@ -134,6 +150,7 @@ namespace App.Controllers
         [Route("/api/contacts/createcontactwarpper")]
         public async Task<ActionResult<Contact>> CreateContactWarpper(ContactDto contactDetails)
         {
+            _logger.LogInformation("Starting treatment: CreateContactWarpper");
             Console.WriteLine(contactDetails);
             var newContact = new Contact();
             newContact.Credit = 0;
@@ -168,7 +185,7 @@ namespace App.Controllers
             }
 
             var contact = await CreateContact(newContact);
-
+            _logger.LogInformation("Finishing treatment: CreateContactWarpper");
             return contact;       
         }
 
@@ -177,6 +194,7 @@ namespace App.Controllers
         [Route("/api/contacts/deletecontact/{id}")]
         public async Task<IActionResult> DeleteContact(int id)
         {
+             _logger.LogInformation("Starting treatment: DeleteContact");
             var contact = await _iContactsData.GetContactById(id);
             if(contact == null)
             {
@@ -184,6 +202,7 @@ namespace App.Controllers
             }
             contact.Isshow = false;
             var isOk = await UpdateContact(contact.Idcontact, contact);
+            _logger.LogInformation("Finishing treatment: DeleteContact");
             return Ok(isOk);
         }
 
@@ -193,6 +212,7 @@ namespace App.Controllers
         [Route("/api/contacts/deletecontactbyid/{id}")]
         public async Task<IActionResult> DeleteContactById(int id)
         {
+            _logger.LogInformation("Starting treatment: DeleteContactById");
             if (_context.Contacts == null)
             {
                 return NotFound();
@@ -205,7 +225,7 @@ namespace App.Controllers
 
             _context.Contacts.Remove(contact);
             await _context.SaveChangesAsync();
-
+            _logger.LogInformation("Finishing treatment: DeleteContactById");
             return NoContent();
         }
 
