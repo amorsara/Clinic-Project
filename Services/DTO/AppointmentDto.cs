@@ -32,5 +32,9 @@ namespace Services.DTO
 
         public bool? discount { get; set; }
 
+        public int contactId { get; set; }
+        
+        public ContactDto contact { get; set; }
+
     }
 }

@@ -21,6 +21,8 @@ namespace Services.DTO
         public List<ListFieldsDto?> Values { get; set; } = new List<ListFieldsDto?>();
 
         public int? credit { get; set; }
+
+        public ICollection<AppointmentDto> appointments { get; set; }
     }
 }
 

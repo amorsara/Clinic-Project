@@ -73,35 +73,34 @@ namespace Services.Contacts
 
         public async Task<List<ContactDateDto>> GetContactsWithDates()
         {
-            var contacts = await GetAllContacts();
-            var listContacts = new List<ContactDateDto>();
-            foreach (var contact in contacts)
+            DateOnly today = DateOnly.FromDateTime(DateTime.Now);
+            return await _context.Contacts
+            .Include(c => c.appointments)
+            .Where(c => c.Isshow)
+            .Select(c => new ContactDateDto
             {
-                if(contact.Isshow == false)
-                {
-                    continue;
-                }
-                var contactDates = new ContactDateDto();
-                var listDates = await _iAppointmentsData.GetDatesOfAppointments(contact.Idcontact);
-                contactDates.Idcontact = contact.Idcontact;
-                contactDates.Treatment[0] = (bool)(contact.Laser != null ? contact.Laser : false);
-                contactDates.Treatment[1] = (bool)(contact.Waxing != null ? contact.Waxing : false); ;
-                contactDates.Treatment[2] = (bool)(contact.Electrolysis != null ? contact.Electrolysis : false);
-                contactDates.Firstname = contact.Firstname;
-                contactDates.Lastname = contact.Lastname;
-                contactDates.Phonenumber1 = contact.Phonenumber1;
-                contactDates.Phonenumber2 = contact.Phonenumber2;
-                contactDates.Phonenumber3 = contact.Phonenumber3;
-                contactDates.Sem = contact.Sem.ToString();
-                contactDates.Email = contact.Email;
-                contactDates.Remark = contact.Remark;
-                contactDates.Isactive = contact.Isactive;
-                contactDates.ListDates = listDates.ToList();
-                contactDates.allCredit = contact.Credit;
-                contactDates.isshow = contact.Isshow;
-                listContacts.Add(contactDates);
-            }
-            return listContacts;
+                Idcontact = c.Idcontact,
+                Treatment[0] = (bool)(contact.Laser != null ? contact.Laser : false),
+                Treatment[1] = (bool)(contact.Waxing != null ? contact.Waxing : false),
+                Treatment[2] = (bool)(contact.Electrolysis != null ? contact.Electrolysis : false),
+                Firstname = c.Firstname,
+                Lastname = c.Lastname,
+                Phonenumber1 = c.Phonenumber1,
+                Phonenumber2 = c.Phonenumber2,
+                Phonenumber3 = c.Phonenumber3,
+                Sem = c.Sem.ToString(),
+                Email = c.Email,
+                Remark = c.Remark,
+                Isactive = c.Isactive,
+                ListDates = c.Appointments.Where(a => a.Date >= today).Select(a => new FutureDateDto{
+                    date = appointment.Date,
+                    startHour = appointment.Timestart,
+                    endTime = appointment.Timeend,
+                    treatment = appointment.Treatmentname
+                }).ToList(),
+                allCredit = c.Credit,
+                isshow = c.Isshow   
+            }).ToListAsync(); 
         }
 
         public async Task<bool> UpdateContact(int id, Contact contact)
