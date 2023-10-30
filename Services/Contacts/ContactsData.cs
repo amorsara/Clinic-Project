@@ -93,10 +93,10 @@ namespace Services.Contacts
                 Remark = c.Remark,
                 Isactive = c.Isactive,
                 ListDates = c.Appointments.Where(a => a.Date >= today).Select(a => new FutureDateDto{
-                    date = appointment.Date,
-                    startHour = appointment.Timestart,
-                    endTime = appointment.Timeend,
-                    treatment = appointment.Treatmentname
+                    date = a.Date,
+                    startHour = a.Timestart,
+                    endTime = a.Timeend,
+                    treatment = a.Treatmentname
                 }).ToList(),
                 allCredit = c.Credit,
                 isshow = c.Isshow   
