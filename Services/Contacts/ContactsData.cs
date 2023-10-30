@@ -17,14 +17,12 @@ namespace Services.Contacts
     {
 
         private readonly ClinicDBContext _context;
-        private readonly IAppointmentsData _iAppointmentsData;
         private readonly ILaserMedicalTypesData _iLaserMedicalTypesData;
         private readonly IEpilationMedicalTypesData _iEpilationMedicalTypesData;
 
-        public ContactsData(ClinicDBContext context, IAppointmentsData appointmentsData, ILaserMedicalTypesData iLaserMedicalTypesData, IEpilationMedicalTypesData epilationMedicalTypesData)
+        public ContactsData(ClinicDBContext context,ILaserMedicalTypesData iLaserMedicalTypesData, IEpilationMedicalTypesData epilationMedicalTypesData)
         {
             _context = context;
-            _iAppointmentsData = appointmentsData;
             _iLaserMedicalTypesData = iLaserMedicalTypesData;
             _iEpilationMedicalTypesData = epilationMedicalTypesData;
         }
@@ -75,7 +73,7 @@ namespace Services.Contacts
         {
             DateOnly today = DateOnly.FromDateTime(DateTime.Now);
             return await _context.Contacts
-            .Include(c => c.appointments)
+            .Include(c => c.Appointments)
             .Where(c => c.Isshow)
             .Select(c => new ContactDateDto
             {
