@@ -74,7 +74,7 @@ namespace Services.Contacts
             DateOnly today = DateOnly.FromDateTime(DateTime.Now);
             return await _context.Contacts
             .Include(c => c.Appointments)
-            .Where(c => c.Isshow)
+            .Where(c => (bool)c.Isshow)
             .Select(c => new ContactDateDto
             {
                 Idcontact = c.Idcontact,
