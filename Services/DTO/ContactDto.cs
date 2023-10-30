@@ -22,7 +22,6 @@ namespace Services.DTO
 
         public int? credit { get; set; }
 
-        public ICollection<AppointmentDto> appointments { get; set; }
     }
 }
 
