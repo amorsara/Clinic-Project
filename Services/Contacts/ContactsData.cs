@@ -80,11 +80,11 @@ namespace Services.Contacts
             .Select(c => new ContactDateDto
             {
                 Idcontact = c.Idcontact,
-                Treatment = [
+                Treatment = new[] {
                     (bool)(c.Laser != null ? c.Laser : false),
                     (bool)(c.Waxing != null ? c.Waxing : false),
                     (bool)(c.Electrolysis != null ? c.Electrolysis : false)
-                ],
+                },
                 Firstname = c.Firstname,
                 Lastname = c.Lastname,
                 Phonenumber1 = c.Phonenumber1,
