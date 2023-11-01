@@ -118,6 +118,43 @@ namespace Services.Appointments
             return await _context.Appointments.Where(a => a.Date >= date && a.Date <= date2.AddDays(5)).ToListAsync();
         }
 
+        public async Task<List<AppointmentScheduleDto>> GetAllAppointmentDataForWeek(DateOnly date)
+        {
+            var date2 = (DateOnly)date;
+
+            // Query the database to get the required data
+            var appointmentsData = await _context.Appointments
+                .Where(a => a.Date >= date && a.Date <= date2.AddDays(5))
+                .Select(a => new AppointmentScheduleDto
+                {
+                    Idappointment = a.Idappointment,
+                    Idcontact = a.Contact.Idcontact,
+                    Timestart = a.Timestart,
+                    Timeend = a.Timeend,
+                    Date = a.Date,
+                    Treatmentname = a.Treatmentname,
+                    Isremaind = a.Isremaind,
+                    Cancle = a.Cancle,
+                    Idemployee = a.Employee.Idemployee,
+                    Color = a.Employee.Color,
+                    RoomName = a.Room.Name,
+                    Shift = a.Employee.WorkHours
+                        .FirstOrDefault(wh => wh.EmployeeId == a.Idemployee && wh.Timestart == a.Timestart)
+                        .Shift,
+                    Firstname = a.Contact.Firstname,
+                    Lastname = a.Contact.Lastname,
+                    Remark = a.Remark,
+                    Phonenumber1 = a.Contact.Phonenumber1,
+                    Phonenumber2 = a.Contact.Phonenumber2,
+                    Phonenumber3 = a.Contact.Phonenumber3,
+                    Duration = a.Duration,
+                    Area = a.Area,
+                    Ispay = a.Ispay
+                })
+                .ToListAsync();
+            return appointmentsData;
+        }
+
         public async Task<List<DateOnly>> GetAllFutureDatesById(int id)
         {
             DateOnly today = DateOnly.FromDateTime(DateTime.Now);
