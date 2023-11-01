@@ -17,7 +17,7 @@ namespace Services.Appointments
 
         Task<List<Appointment>> GetAllAppointmentsForWeek(DateOnly? date = null);
 
-        Task<List<Appointment>> GetAllAppointmentDataForWeek(DateOnly date);
+        Task<List<AppointmentScheduleDto>> GetAllAppointmentDataForWeek(DateOnly date);
 
         Task<List<Appointment>> GetAllWaitDates();
 
