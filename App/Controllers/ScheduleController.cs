@@ -40,7 +40,7 @@ namespace App.Controllers
         [Route("/api/schedule/getalldatesforweek")]
         public async Task<ActionResult<IEnumerable<ScheduleDto>>> GetAllDatesForWeek(DateDto date)
         {
-            var schedules = await _iScheduleData.GetAllDates(date.sunday);
+            var schedules = await _iScheduleData.GetAllDatesForWeek(date.sunday);
             if (schedules == null)
             {
                 return NotFound();
