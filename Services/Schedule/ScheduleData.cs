@@ -38,26 +38,26 @@ namespace Services.Schedule
             {
                 var scheduleDto = new ScheduleDto
                 {
-                    Id = appointmentData.Idappointment,
-                    IdContact = appointmentData.Idcontact,
-                    startHouer = appointmentData.Timestart,
-                    endTime = appointmentData.Timeend,
-                    Date = appointmentData.Date,
-                    type = appointmentData.Treatmentname,
-                    isRemined = appointmentData.Isremaind,
-                    cancel = appointmentData.Cancle,
-                    idWorker = appointmentData.Idemployee,
-                    colorWorker = appointmentData.Color,
-                    nameRoom = appointmentData.RoomName,
-                    shift = (char?)appointmentData.Shift,
-                    firstName = appointmentData.Firstname,
-                    lastName = appointmentData.Lastname,
-                    note = appointmentData.Remark,
-                    phone1 = appointmentData.Phonenumber1,
-                    phonen2 = appointmentData.Phonenumber2,
-                    phone3 = appointmentData.Phonenumber3,
-                    detailsType = appointmentData.Duration != 0 ? appointmentData.Duration.ToString() : appointmentData.Area,
-                    isPay = appointmentData.Ispay == true ? true : false
+                    Id = appointment.Idappointment,
+                    IdContact = appointment.Idcontact,
+                    startHouer = appointment.Timestart,
+                    endTime = appointment.Timeend,
+                    Date = appointment.Date,
+                    type = appointment.Treatmentname,
+                    isRemined = appointment.Isremaind,
+                    cancel = appointment.Cancle,
+                    idWorker = appointment.Idemployee,
+                    colorWorker = appointment.Color,
+                    nameRoom = appointment.RoomName,
+                    shift = (char?)appointment.Shift,
+                    firstName = appointment.Firstname,
+                    lastName = appointment.Lastname,
+                    note = appointment.Remark,
+                    phone1 = appointment.Phonenumber1,
+                    phonen2 = appointment.Phonenumber2,
+                    phone3 = appointment.Phonenumber3,
+                    detailsType = appointment.Duration != 0 ? appointment.Duration.ToString() : appointment.Area,
+                    isPay = appointment.Ispay == true ? true : false
                 };
                 list.Add(scheduleDto);
             }
