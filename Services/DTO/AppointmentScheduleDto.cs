@@ -10,12 +10,12 @@ namespace Services.DTO
     {
         public int Idappointment { get; set; }
         public int? Idcontact { get; set; }
-        public TimeSpan Timestart { get; set; }
-        public TimeSpan Timeend { get; set; }
-        public DateOnly Date { get; set; }
+        public TimeOnly? Timestart { get; set; }
+        public TimeOnly? Timeend { get; set; }
+        public DateOnly? Date { get; set; }
         public string Treatmentname { get; set; }
-        public bool Isremaind { get; set; }
-        public bool Cancle { get; set; }
+        public int? Isremaind { get; set; }
+        public bool? Cancle { get; set; }
         public int Idemployee { get; set; }
         public string Color { get; set; }
         public string RoomName { get; set; }

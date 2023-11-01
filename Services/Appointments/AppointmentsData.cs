@@ -139,7 +139,7 @@ namespace Services.Appointments
                     Color = a.IdemployeeNavigation.Color,
                     RoomName = a.IdroomNavigation.Nameroom,
                     Shift = a.IdemployeeNavigation.Workhours
-                        .FirstOrDefault(w => w.Idemployee == id && w.Starthour <= a.Timestart && w.Endhour >= a.Timestart)
+                        .FirstOrDefault(w => w.Idemployee == a.Idemployee && w.Starthour <= a.Timestart && w.Endhour >= a.Timestart)
                         .Shift,
                     Firstname = a.IdcontactNavigation.Firstname,
                     Lastname = a.IdcontactNavigation.Lastname,
