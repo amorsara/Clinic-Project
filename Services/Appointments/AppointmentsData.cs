@@ -128,25 +128,25 @@ namespace Services.Appointments
                 .Select(a => new AppointmentScheduleDto
                 {
                     Idappointment = a.Idappointment,
-                    Idcontact = a.Contact.Idcontact,
+                    Idcontact = a.Idcontact,
                     Timestart = a.Timestart,
                     Timeend = a.Timeend,
                     Date = a.Date,
                     Treatmentname = a.Treatmentname,
                     Isremaind = a.Isremaind,
                     Cancle = a.Cancle,
-                    Idemployee = a.Employee.Idemployee,
-                    Color = a.Employee.Color,
+                    Idemployee = a.Idemployee,
+                    Color = a.IdemployeeNavigation.Color,
                     RoomName = a.Room.Name,
-                    Shift = a.Employee.WorkHours
+                    Shift = a.IdemployeeNavigation.WorkHours
                         .FirstOrDefault(wh => wh.EmployeeId == a.Idemployee && wh.Timestart == a.Timestart)
                         .Shift,
-                    Firstname = a.Contact.Firstname,
-                    Lastname = a.Contact.Lastname,
+                    Firstname = a.IdcontactNavigation.Firstname,
+                    Lastname = a.IdcontactNavigation.Lastname,
                     Remark = a.Remark,
-                    Phonenumber1 = a.Contact.Phonenumber1,
-                    Phonenumber2 = a.Contact.Phonenumber2,
-                    Phonenumber3 = a.Contact.Phonenumber3,
+                    Phonenumber1 = a.IdcontactNavigation.Phonenumber1,
+                    Phonenumber2 = a.IdcontactNavigation.Phonenumber2,
+                    Phonenumber3 = a.IdcontactNavigation.Phonenumber3,
                     Duration = a.Duration,
                     Area = a.Area,
                     Ispay = a.Ispay
