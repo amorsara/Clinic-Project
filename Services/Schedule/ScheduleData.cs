@@ -33,7 +33,7 @@ namespace Services.Schedule
         public async Task<List<ScheduleDto>> GetAllDates(DateOnly? date = null)
         {
             var list = new List<ScheduleDto>();
-            var appointments = await _iAppintmentsData.GetAllAppointmentsForWeek(date);
+            var appointments = await _iAppintmentsData.GetAllAppointmentDataForWeek(date);
             foreach (var appointment in appointments)
             {
                 var scheduleDto = new ScheduleDto

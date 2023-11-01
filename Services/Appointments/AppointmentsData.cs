@@ -107,17 +107,6 @@ namespace Services.Appointments
             return await _context.Appointments.OrderBy(a => a.Date).ToListAsync();
         }
 
-        public async Task<List<Appointment>> GetAllAppointmentsForWeek(DateOnly? date = null)
-        {
-            if (date == null)
-            {
-                return await GetAllAppointments();
-            }
-
-            var date2 = (DateOnly)date;
-            return await _context.Appointments.Where(a => a.Date >= date && a.Date <= date2.AddDays(5)).ToListAsync();
-        }
-
         public async Task<List<AppointmentScheduleDto>> GetAllAppointmentDataForWeek(DateOnly date)
         {
             var date2 = (DateOnly)date;
