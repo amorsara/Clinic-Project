@@ -137,7 +137,7 @@ namespace Services.Appointments
                     Cancle = a.Cancle,
                     Idemployee = a.Idemployee,
                     Color = a.IdemployeeNavigation.Color,
-                    RoomName = a.Room.Name,
+                    RoomName = a.IdroomNavigation.Nameroom,
                     Shift = a.IdemployeeNavigation.Workhours
                         .FirstOrDefault(w => w.Idemployee == id && w.Starthour <= a.Timestart && w.Endhour >= a.Timestart)
                         .Shift,
