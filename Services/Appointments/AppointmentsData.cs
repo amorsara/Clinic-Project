@@ -138,7 +138,7 @@ namespace Services.Appointments
                     Idemployee = a.Idemployee,
                     Color = a.IdemployeeNavigation.Color,
                     RoomName = a.Room.Name,
-                    Shift = a.IdemployeeNavigation.WorkHours
+                    Shift = a.IdemployeeNavigation.Workhours
                         .FirstOrDefault(wh => wh.EmployeeId == a.Idemployee && wh.Timestart == a.Timestart)
                         .Shift,
                     Firstname = a.IdcontactNavigation.Firstname,
@@ -147,9 +147,9 @@ namespace Services.Appointments
                     Phonenumber1 = a.IdcontactNavigation.Phonenumber1,
                     Phonenumber2 = a.IdcontactNavigation.Phonenumber2,
                     Phonenumber3 = a.IdcontactNavigation.Phonenumber3,
-                    Duration = a.Duration,
+                    Duration = (int)a.Duration,
                     Area = a.Area,
-                    Ispay = a.Ispay
+                    Ispay = (bool)a.Ispay
                 })
                 .ToListAsync();
             return appointmentsData;
