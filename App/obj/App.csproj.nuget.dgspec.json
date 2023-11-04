@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Clinic Project\\Clinic\\App\\App.csproj": {}
+    "C:\\Users\\user1\\Desktop\\Projects\\oo-server\\Clinic-Project\\App\\App.csproj": {}
   },
   "projects": {
-    "D:\\Clinic Project\\Clinic\\App\\App.csproj": {
+    "C:\\Users\\user1\\Desktop\\Projects\\oo-server\\Clinic-Project\\App\\App.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Clinic Project\\Clinic\\App\\App.csproj",
+        "projectUniqueName": "C:\\Users\\user1\\Desktop\\Projects\\oo-server\\Clinic-Project\\App\\App.csproj",
         "projectName": "App",
-        "projectPath": "D:\\Clinic Project\\Clinic\\App\\App.csproj",
+        "projectPath": "C:\\Users\\user1\\Desktop\\Projects\\oo-server\\Clinic-Project\\App\\App.csproj",
         "packagesPath": "C:\\Users\\user1\\.nuget\\packages\\",
-        "outputPath": "D:\\Clinic Project\\Clinic\\App\\obj\\",
+        "outputPath": "C:\\Users\\user1\\Desktop\\Projects\\oo-server\\Clinic-Project\\App\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\user1\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,11 +28,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\Clinic Project\\Clinic\\Repository\\Repository.csproj": {
-                "projectPath": "D:\\Clinic Project\\Clinic\\Repository\\Repository.csproj"
+              "C:\\Users\\user1\\Desktop\\Projects\\oo-server\\Clinic-Project\\Repository\\Repository.csproj": {
+                "projectPath": "C:\\Users\\user1\\Desktop\\Projects\\oo-server\\Clinic-Project\\Repository\\Repository.csproj"
               },
-              "D:\\Clinic Project\\Clinic\\Services\\Services.csproj": {
-                "projectPath": "D:\\Clinic Project\\Clinic\\Services\\Services.csproj"
+              "C:\\Users\\user1\\Desktop\\Projects\\oo-server\\Clinic-Project\\Services\\Services.csproj": {
+                "projectPath": "C:\\Users\\user1\\Desktop\\Projects\\oo-server\\Clinic-Project\\Services\\Services.csproj"
               }
             }
           }
@@ -114,7 +114,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -126,18 +127,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Clinic Project\\Clinic\\Repository\\Repository.csproj": {
+    "C:\\Users\\user1\\Desktop\\Projects\\oo-server\\Clinic-Project\\Repository\\Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Clinic Project\\Clinic\\Repository\\Repository.csproj",
+        "projectUniqueName": "C:\\Users\\user1\\Desktop\\Projects\\oo-server\\Clinic-Project\\Repository\\Repository.csproj",
         "projectName": "Repository",
-        "projectPath": "D:\\Clinic Project\\Clinic\\Repository\\Repository.csproj",
+        "projectPath": "C:\\Users\\user1\\Desktop\\Projects\\oo-server\\Clinic-Project\\Repository\\Repository.csproj",
         "packagesPath": "C:\\Users\\user1\\.nuget\\packages\\",
-        "outputPath": "D:\\Clinic Project\\Clinic\\Repository\\obj\\",
+        "outputPath": "C:\\Users\\user1\\Desktop\\Projects\\oo-server\\Clinic-Project\\Repository\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\user1\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -187,7 +188,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -196,18 +198,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Clinic Project\\Clinic\\Services\\Services.csproj": {
+    "C:\\Users\\user1\\Desktop\\Projects\\oo-server\\Clinic-Project\\Services\\Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Clinic Project\\Clinic\\Services\\Services.csproj",
+        "projectUniqueName": "C:\\Users\\user1\\Desktop\\Projects\\oo-server\\Clinic-Project\\Services\\Services.csproj",
         "projectName": "Services",
-        "projectPath": "D:\\Clinic Project\\Clinic\\Services\\Services.csproj",
+        "projectPath": "C:\\Users\\user1\\Desktop\\Projects\\oo-server\\Clinic-Project\\Services\\Services.csproj",
         "packagesPath": "C:\\Users\\user1\\.nuget\\packages\\",
-        "outputPath": "D:\\Clinic Project\\Clinic\\Services\\obj\\",
+        "outputPath": "C:\\Users\\user1\\Desktop\\Projects\\oo-server\\Clinic-Project\\Services\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\user1\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -224,8 +226,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\Clinic Project\\Clinic\\Repository\\Repository.csproj": {
-                "projectPath": "D:\\Clinic Project\\Clinic\\Repository\\Repository.csproj"
+              "C:\\Users\\user1\\Desktop\\Projects\\oo-server\\Clinic-Project\\Repository\\Repository.csproj": {
+                "projectPath": "C:\\Users\\user1\\Desktop\\Projects\\oo-server\\Clinic-Project\\Repository\\Repository.csproj"
               }
             }
           }
@@ -255,7 +257,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -264,7 +267,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }

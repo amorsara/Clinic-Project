@@ -92,6 +92,7 @@ namespace Services.Contacts
                 Email = c.Email,
                 Remark = c.Remark,
                 Isactive = c.Isactive,
+                Howcomeus = c.Howcomeus,
                 ListDates = c.Appointments.Where(a => a.Date >= today).Select(a => new FutureDateDto{
                     date = a.Date,
                     startHour = a.Timestart,

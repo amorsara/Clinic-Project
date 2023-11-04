@@ -24,6 +24,7 @@ namespace Services.DTO
         public string? Phonenumber3 { get; set; }
 
         public string? Email { get; set; }
+        public string? Howcomeus { get; set; }
 
         public string? Sem { get; set; }  
 

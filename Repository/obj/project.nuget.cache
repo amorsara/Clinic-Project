@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "z3e7IjScQ4+chPHkJYsZ2WnIqx5RBtcUn5KHabPzXJyPekNcGjswzG7ECWE7KjxBWP+RivvCB0UUUhuhnyr6BA==",
+  "dgSpecHash": "qMbLydbF9Sbd8H0YBWCGtDKRxG98Sl4paYTXU0GqlxsU39rEbRENEkjhurj536nIht1r8Eu0hBqgqvpn62SHfg==",
   "success": true,
-  "projectFilePath": "D:\\Clinic Project\\Clinic\\Repository\\Repository.csproj",
+  "projectFilePath": "C:\\Users\\user1\\Desktop\\Projects\\oo-server\\Clinic-Project\\Repository\\Repository.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\user1\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\user1\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.8\\microsoft.entityframeworkcore.7.0.8.nupkg.sha512",
