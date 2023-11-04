@@ -154,7 +154,7 @@ namespace Services.Messages
             }
             var sId = "" + id;
             messages = messages.Where(m => m.Idto != null && m.Idto.Contains(sId)).ToList();
-            if (messages == null)
+            if (messages == null|| messages.Count() == 0)
             {
                 return false;
             }

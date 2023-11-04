@@ -129,16 +129,13 @@ namespace Services.Payments
             payment.Type = accountsDto.type;
             payment.Owes = accountsDto.Debt;
             payment.Credit = accountsDto.credit;
-            payment.Remark = accountsDto.remark;
+            //payment.Remark = accountsDto.remark;
             payment.Treatment = accountsDto.tretment?.Count != null ? String.Join(",", accountsDto.tretment) : null;
             payment.Laser = accountsDto.laser?.Count != null ? String.Join(",", accountsDto.laser) : null;
             payment.Waxing = accountsDto.waxing?.Count != null ? String.Join(",", accountsDto.waxing) : null;
             payment.Advanced = accountsDto.AdvancedElectrolysis;
             payment.Electrolysis = accountsDto.electrolysis;
             payment.R = accountsDto.r;
-
-
-
             _context.Entry(payment).State = EntityState.Modified;
 
             try
