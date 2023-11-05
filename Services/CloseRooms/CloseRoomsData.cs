@@ -164,7 +164,7 @@ namespace Services.CloseRooms
         public async Task<List<CloseEventsDto>> GetCloseEventsForRoomsForWeek(DateOnly date)
         {
             var date2 = (DateOnly)date;
-            var closeRooms = await _context.Closerooms.Where(c => c.Startdate >= date && c.Startdate <= date2.AddDays(5) || c.Enddate >= date && c.Enddate <= date.AddDays(5)).ToListAsync();
+            var closeRooms = await _context.Closerooms.Where(c => c.Startdate >= date && c.Startdate <= date2.AddDays(6) || c.Enddate >= date && c.Enddate <= date.AddDays(6)).ToListAsync();
 
             var listEvents = new List<CloseEventsDto>();
             foreach(var c in closeRooms)
@@ -193,9 +193,9 @@ namespace Services.CloseRooms
                         var d2 = (DateOnly)c.Enddate;
                         while(d1 <= d2)
                         {
-                            if(d1 < date || d1 > date2.AddDays(5))
+                            if(d1 < date || d1 > date2.AddDays(6))
                             {
-                                continue;
+                                break;
                             }
                             var closeEvent = new CloseEventsDto();
                             closeEvent.id = c.Idcloseroom;

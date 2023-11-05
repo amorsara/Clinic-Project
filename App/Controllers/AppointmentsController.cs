@@ -104,6 +104,7 @@ namespace App.Controllers
             }
             return Ok(res);
         }
+    
 
         [HttpPut]
         [Route("/api/appointments/updateappointment/{id}")]
