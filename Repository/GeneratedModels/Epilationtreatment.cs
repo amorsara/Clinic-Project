@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Repository.GeneratedModels;
 
@@ -22,6 +23,7 @@ public partial class Epilationtreatment
     public string? Techniqe { get; set; }
 
     public string? Results { get; set; }
+    [JsonIgnore]
 
     public virtual Contact IdcontactNavigation { get; set; } = null!;
 }

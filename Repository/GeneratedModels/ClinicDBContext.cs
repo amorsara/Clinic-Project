@@ -82,7 +82,13 @@ public partial class ClinicDBContext : DbContext
     public virtual DbSet<Workhour> Workhours { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseNpgsql("Name=ClinicDBConnectionString");
+    {
+        if (!optionsBuilder.IsConfigured)
+        {
+            optionsBuilder.UseNpgsql("ClinicDBConnectionString");
+        }
+    }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -118,6 +124,7 @@ public partial class ClinicDBContext : DbContext
             entity.Property(e => e.Idemployee).HasColumnName("idemployee");
             entity.Property(e => e.Idroom).HasColumnName("idroom");
             entity.Property(e => e.Ispay).HasColumnName("ispay");
+            entity.Property(e => e.Isr).HasColumnName("isr");
             entity.Property(e => e.Isremaind).HasColumnName("isremaind");
             entity.Property(e => e.Remark)
                 .HasColumnType("character varying")

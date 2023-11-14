@@ -17,7 +17,7 @@ public partial class Attendance
     public TimeOnly? Timeexit { get; set; }
 
     public bool? R { get; set; }
-
     [JsonIgnore]
+
     public virtual Employee IdemployeeNavigation { get; set; } = null!;
 }

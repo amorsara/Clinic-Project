@@ -37,7 +37,7 @@ public partial class Payment
     public string? Waxing { get; set; }
 
     public string? Advanced { get; set; }
-
     [JsonIgnore]
+
     public virtual Contact IdcontactNavigation { get; set; } = null!;
 }
