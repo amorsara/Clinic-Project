@@ -16,6 +16,5 @@ public partial class Message
 
     public string? Answer { get; set; }
     [JsonIgnore]
-
     public virtual Employee IdfromNavigation { get; set; } = null!;
 }

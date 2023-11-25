@@ -190,7 +190,7 @@ namespace Services.Contacts
             return contact?.Remarkelecr;
         }
 
-        public async Task<bool> UpdateAllCredit(int id, int allCredit)
+        public async Task<bool> UpdateAllCredit(int id, double allCredit)
         {
             var contact = await GetContactById(id);
             if(contact == null)
@@ -217,7 +217,7 @@ namespace Services.Contacts
             return isOk;
         }
 
-        public async Task<int?> GetAllCredit(int id)
+        public async Task<double?> GetAllCredit(int id)
         {
             var contact = await GetContactById(id);
             return contact?.Credit;

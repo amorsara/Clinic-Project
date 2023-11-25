@@ -81,6 +81,7 @@ public partial class ClinicDBContext : DbContext
 
     public virtual DbSet<Workhour> Workhours { get; set; }
 
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (!optionsBuilder.IsConfigured)
@@ -88,7 +89,6 @@ public partial class ClinicDBContext : DbContext
             optionsBuilder.UseNpgsql("ClinicDBConnectionString");
         }
     }
-
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

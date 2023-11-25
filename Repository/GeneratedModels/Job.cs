@@ -22,9 +22,7 @@ public partial class Job
 
     public int Updatecount { get; set; }
     [JsonIgnore]
-
     public virtual ICollection<Jobparameter> Jobparameters { get; set; } = new List<Jobparameter>();
     [JsonIgnore]
-
     public virtual ICollection<State> States { get; set; } = new List<State>();
 }

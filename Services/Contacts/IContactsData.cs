@@ -23,7 +23,7 @@ namespace Services.Contacts
 
         Task<bool> UpdateRemarkLaser(LaserDetailsDto laserDetailsDto);
 
-        Task<bool> UpdateAllCredit(int id, int allCredit);
+        Task<bool> UpdateAllCredit(int id, double allCredit);
 
         Task<bool> CreateContact(Contact contact);
 
@@ -33,7 +33,7 @@ namespace Services.Contacts
 
         Task<List<MedicalListDto>> GetMedicalListById(int id, string type);
 
-        Task<int?> GetAllCredit(int id);
+        Task<double?> GetAllCredit(int id);
 
         bool ContactExists(int id);
 

@@ -20,11 +20,11 @@ public partial class Payment
 
     public string? Type { get; set; }
 
-    public int? Pay { get; set; }
+    public double? Pay { get; set; }
 
-    public int? Owes { get; set; }
+    public double? Owes { get; set; }
 
-    public int? Credit { get; set; }
+    public double? Credit { get; set; }
 
     public bool? R { get; set; }
 
@@ -38,6 +38,5 @@ public partial class Payment
 
     public string? Advanced { get; set; }
     [JsonIgnore]
-
     public virtual Contact IdcontactNavigation { get; set; } = null!;
 }

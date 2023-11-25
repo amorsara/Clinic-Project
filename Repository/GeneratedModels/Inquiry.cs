@@ -28,6 +28,5 @@ public partial class Inquiry
 
     public string? Response { get; set; }
     [JsonIgnore]
-
     public virtual Employee IdemployeeNavigation { get; set; } = null!;
 }

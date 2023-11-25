@@ -30,15 +30,15 @@ namespace Services.DTO
 
         public string? employee { get; set;}
 
-        public int? Payed { get; set;}
+        public double? Payed { get; set;}
 
         public string? type { get; set;}
 
-        public int? Debt { get; set;}
+        public double? Debt { get; set;}
 
-        public int? credit { get; set;}
+        public double? credit { get; set;}
 
-        public int? allCredit { get; set; }
+        public double? allCredit { get; set; }
 
         public string? remark { get; set;}  
 

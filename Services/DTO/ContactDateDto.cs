@@ -32,7 +32,7 @@ namespace Services.DTO
 
         public bool? Isactive { get; set; }
 
-        public int? allCredit { get; set; }
+        public double? allCredit { get; set; }
 
         public bool? isshow { get; set; }
 

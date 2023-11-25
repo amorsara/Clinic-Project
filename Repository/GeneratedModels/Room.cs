@@ -14,12 +14,9 @@ public partial class Room
 
     public bool? Isshow { get; set; }
     [JsonIgnore]
-
     public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
     [JsonIgnore]
-
     public virtual ICollection<Tempworkhour> Tempworkhours { get; set; } = new List<Tempworkhour>();
     [JsonIgnore]
-
     public virtual ICollection<Workhour> Workhours { get; set; } = new List<Workhour>();
 }

@@ -24,6 +24,5 @@ public partial class Lasertreatment
 
     public string? Results { get; set; }
     [JsonIgnore]
-
     public virtual Contact IdcontactNavigation { get; set; } = null!;
 }

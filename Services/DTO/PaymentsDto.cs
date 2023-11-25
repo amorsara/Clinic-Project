@@ -12,7 +12,7 @@ namespace Services.DTO
 
         public int idContact { get; set; }
 
-        public int allCredit { get; set; }
+        public double allCredit { get; set; }
 
         public string? employee { get; set; }
 

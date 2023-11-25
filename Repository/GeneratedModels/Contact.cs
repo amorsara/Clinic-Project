@@ -40,7 +40,7 @@ public partial class Contact
 
     public string? Remarklaser { get; set; }
 
-    public int? Credit { get; set; }
+    public double? Credit { get; set; }
 
     public bool? Isshow { get; set; }
 
@@ -48,15 +48,11 @@ public partial class Contact
 
     public string? Medicalepilationlist { get; set; }
     [JsonIgnore]
-
     public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
     [JsonIgnore]
-
     public virtual ICollection<Epilationtreatment> Epilationtreatments { get; set; } = new List<Epilationtreatment>();
     [JsonIgnore]
-
     public virtual ICollection<Lasertreatment> Lasertreatments { get; set; } = new List<Lasertreatment>();
     [JsonIgnore]
-
     public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
 }
