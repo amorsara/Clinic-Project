@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "uK2KXJCZTbLk7/sCFq26VUE/8o9i1Se6lcFRSIC9jWD7+o3jAdhu/asdxHGm5li8BB/VJ2/AYvGjRun+3fRl3Q==",
+  "dgSpecHash": "1ptEiBsWVkW3UpKA7HOmGGB+XU81HT+5eMkkSXin3XjT8TW2/pceA/9vDEVg3Ywbeat6rNQRj75l6IffKcp8yA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\user1\\Desktop\\Projects\\oo-server\\Clinic-Project\\App\\App.csproj",
+  "projectFilePath": "C:\\Users\\user1\\Desktop\\Projects\\server\\Clinic-Project\\App\\App.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\user1\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
     "C:\\Users\\user1\\.nuget\\packages\\hangfire\\1.8.5\\hangfire.1.8.5.nupkg.sha512",

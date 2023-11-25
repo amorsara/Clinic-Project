@@ -90,7 +90,8 @@ namespace Services.Schedule
                     phonen2 = appointment.Phonenumber2,
                     phone3 = appointment.Phonenumber3,
                     detailsType = appointment.Duration != 0 ? appointment.Duration.ToString() : appointment.Area,
-                    isPay = appointment.Ispay == true ? true : false
+                    isPay = appointment.Ispay == true ? true : false,
+                    discount = appointment.Discount
                 };
                 list.Add(scheduleDto);
             }

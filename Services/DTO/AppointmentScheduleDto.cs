@@ -29,5 +29,7 @@ namespace Services.DTO
         public int Duration { get; set; }
         public string Area { get; set; }
         public bool Ispay { get; set; }
+        public bool Discount { get; set; }
+
     }
 }
