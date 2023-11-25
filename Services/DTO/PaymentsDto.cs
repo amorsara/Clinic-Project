@@ -16,11 +16,11 @@ namespace Services.DTO
 
         public string? employee { get; set; }
 
-        public int pay { get; set; }
+        public double pay { get; set; }
 
-        public int owes { get; set; }
+        public double owes { get; set; }
 
-        public int credit { get; set; }
+        public double credit { get; set; }
 
         public string? datePayment { get; set; }
 
