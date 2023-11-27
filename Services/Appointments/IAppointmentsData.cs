@@ -36,6 +36,7 @@ namespace Services.Appointments
         Task<bool> UpdateRemark(int id, string remark);
 
         Task<bool> UpdateIsPay(int id);
+        Task<bool> UpdateIsR(int id);
 
         Task<bool> UpdateAppointment(int id, Appointment appointment);
     }

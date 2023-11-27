@@ -104,7 +104,18 @@ namespace App.Controllers
             }
             return Ok(res);
         }
-    
+
+        [HttpGet]
+        [Route("/api/appointments/updateisr/{id}")]
+        public async Task<ActionResult<Appointment>> UpdateIsR(int id)
+        {
+            var res = await _iAppointmentsData.UpdateIsR(id);
+            if (res == false)
+            {
+                return BadRequest();
+            }
+            return Ok(res);
+        }
 
         [HttpPut]
         [Route("/api/appointments/updateappointment/{id}")]

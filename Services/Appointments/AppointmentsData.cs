@@ -254,7 +254,17 @@ namespace Services.Appointments
             var isOk = await UpdateAppointment(id, appointment);
             return isOk;
         }
-
+        public async Task<bool> UpdateIsR(int id)
+        {
+            var appointment = await GetAppointmentById(id);
+            if (appointment == null)
+            {
+                return false;
+            }
+            appointment.Isr = true;
+            var isOk = await UpdateAppointment(id, appointment);
+            return isOk;
+        }
         public async Task<List<Appointment>> GetAllPayedAppointments()
         {
             var appointment = await _context.Appointments.Where(a => a.Ispay == true).OrderBy(a => a.Date).ToListAsync();
