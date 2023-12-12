@@ -111,9 +111,8 @@ namespace Services.Appointments
         {
             var date2 = (DateOnly)date;
 
-            // Query the database to get the required data
             var appointmentsData = await _context.Appointments
-                .Where(a => a.Date >= date && a.Date <= date2.AddDays(5))
+                .Where(a => a.Date >= date && a.Date <= date2.AddDays(5)&&a.Ispay==false&&a.Isr==false)
                 .Select(a => new AppointmentScheduleDto
                 {
                     Idappointment = a.Idappointment,
@@ -138,12 +137,50 @@ namespace Services.Appointments
                     Phonenumber3 = a.IdcontactNavigation.Phonenumber3,
                     Duration = (int)a.Duration,
                     Area = a.Area,
-                    Ispay = (bool)a.Ispay
+                    Ispay = (bool)a.Ispay,
+                    Isr = (bool)a.Isr
                 })
                 .ToListAsync();
             return appointmentsData;
         }
+        public async Task<List<AppointmentScheduleDto>> GetAllAppointmentDataForWeekr(DateOnly date)
+        {
+            var date2 = (DateOnly)date;
+                     //.Where(a => a != null && a.Date != null && a.Ispay != null && a.Date >= date && a.Date <= date2.AddDays(5) && ((a.Ispay == true) || (a.Ispay == false && a.Date > DateOnly.FromDateTime(DateTime.Now))))
 
+            var appointmentsData = await _context.Appointments
+                                .Where(a => a.Date >= date && a.Date <= date2.AddDays(5) && a.Ispay == false && ((a.Ispay == true) || (a.Ispay == false && a.Date > DateOnly.FromDateTime(DateTime.Now))))
+
+                .Select(a => new AppointmentScheduleDto
+                {
+                    Idappointment = a.Idappointment,
+                    Idcontact = a.Idcontact,
+                    Timestart = a.Timestart,
+                    Timeend = a.Timeend,
+                    Date = a.Date,
+                    Treatmentname = a.Treatmentname,
+                    Isremaind = a.Isremaind,
+                    Cancle = a.Cancle,
+                    Idemployee = a.Idemployee,
+                    Color = a.IdemployeeNavigation.Color,
+                    RoomName = a.IdroomNavigation.Nameroom,
+                    Shift = a.IdemployeeNavigation.Workhours
+                        .FirstOrDefault(w => w.Idemployee == a.Idemployee && w.Starthour <= a.Timestart && w.Endhour >= a.Timestart)
+                        .Shift,
+                    Firstname = a.IdcontactNavigation.Firstname,
+                    Lastname = a.IdcontactNavigation.Lastname,
+                    Remark = a.Remark,
+                    Phonenumber1 = a.IdcontactNavigation.Phonenumber1,
+                    Phonenumber2 = a.IdcontactNavigation.Phonenumber2,
+                    Phonenumber3 = a.IdcontactNavigation.Phonenumber3,
+                    Duration = (int)a.Duration,
+                    Area = a.Area,
+                    Ispay = (bool)a.Ispay,
+                    Isr=(bool)a.Isr
+                })
+                .ToListAsync();
+            return appointmentsData;
+        }
         public async Task<List<DateOnly>> GetAllFutureDatesById(int id)
         {
             DateOnly today = DateOnly.FromDateTime(DateTime.Now);

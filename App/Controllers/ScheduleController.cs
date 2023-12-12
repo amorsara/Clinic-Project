@@ -47,7 +47,17 @@ namespace App.Controllers
             }
             return schedules;
         }
-
+        [HttpPost]
+        [Route("/api/schedule/getalldatesforweekr")]
+        public async Task<ActionResult<IEnumerable<ScheduleDto>>> GetAllDatesForWeekr(DateDto date)
+        {
+            var schedules = await _iScheduleData.GetAllDatesForWeekr(date.sunday);
+            if (schedules == null)
+            {
+                return NotFound();
+            }
+            return schedules;
+        }
         [HttpGet]
         [Route("/api/schedule/getschedule")]
         public async Task<ActionResult<IEnumerable<RoomScheduleDto>>> GetSchedule()

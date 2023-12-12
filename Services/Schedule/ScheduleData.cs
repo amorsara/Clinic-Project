@@ -91,13 +91,50 @@ namespace Services.Schedule
                     phone3 = appointment.Phonenumber3,
                     detailsType = appointment.Duration != 0 ? appointment.Duration.ToString() : appointment.Area,
                     isPay = appointment.Ispay == true ? true : false,
+                    isr = appointment.Isr == true ? true : false,
+
                     discount = appointment.Discount
                 };
                 list.Add(scheduleDto);
             }
             return list;
         }
+        public async Task<List<ScheduleDto>> GetAllDatesForWeekr(DateOnly date)
+        {
+            var list = new List<ScheduleDto>();
+            var appointments = await _iAppintmentsData.GetAllAppointmentDataForWeekr(date);
+            foreach (var appointment in appointments)
+            {
+                var scheduleDto = new ScheduleDto
+                {
+                    Id = appointment.Idappointment,
+                    IdContact = appointment.Idcontact,
+                    startHouer = appointment.Timestart,
+                    endTime = appointment.Timeend,
+                    Date = appointment.Date,
+                    type = appointment.Treatmentname,
+                    isRemined = appointment.Isremaind,
+                    cancel = appointment.Cancle,
+                    idWorker = appointment.Idemployee,
+                    colorWorker = appointment.Color,
+                    nameRoom = appointment.RoomName,
+                    shift = (char?)appointment.Shift,
+                    firstName = appointment.Firstname,
+                    lastName = appointment.Lastname,
+                    note = appointment.Remark,
+                    phone1 = appointment.Phonenumber1,
+                    phonen2 = appointment.Phonenumber2,
+                    phone3 = appointment.Phonenumber3,
+                    detailsType = appointment.Duration != 0 ? appointment.Duration.ToString() : appointment.Area,
+                    isPay = appointment.Ispay == true ? true : false,
+                    isr = appointment.Isr == true ? true : false,
 
+                    discount = appointment.Discount
+                };
+                list.Add(scheduleDto);
+            }
+            return list;
+        }
         public async Task<List<RoomScheduleDto>> GetAllSchedules(bool regular)
         {
             var rooms = await _iRoomsData.GetAllRooms();

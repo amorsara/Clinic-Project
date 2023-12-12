@@ -47,6 +47,8 @@ namespace Services.DTO
         public string? detailsType { get; set; }
 
         public bool isPay { get; set; }
+        public bool isr { get; set; }
+
         public bool discount { get; set; }
     }
 }

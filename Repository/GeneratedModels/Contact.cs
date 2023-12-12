@@ -47,6 +47,8 @@ public partial class Contact
     public string? Medicallaserlist { get; set; }
 
     public string? Medicalepilationlist { get; set; }
+
+    public int? Pre { get; set; }
     [JsonIgnore]
     public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
     [JsonIgnore]
