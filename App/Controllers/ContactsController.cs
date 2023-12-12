@@ -103,6 +103,8 @@ namespace App.Controllers
             newContact.Phonenumber3 = contact.Values[2]?.field2;
             newContact.Email = contact.Values[2]?.field3;
             newContact.Sem = contact.Sem;
+            newContact.Pre = contact.Priority;
+
             newContact.Isactive = contact.Active;
             newContact.Credit = contact.credit == null ? null : contact.credit;
             newContact.Isshow = contact.IsShow == null ? true : contact.IsShow;
@@ -163,26 +165,13 @@ namespace App.Controllers
             newContact.Urlfile = contactDetails.Values[2]?.field1;
             newContact.Email = contactDetails.Values[2]?.field3;
             newContact.Sem = contactDetails.Sem;
+            newContact.Pre = contactDetails.Priority;
             newContact.Isactive = contactDetails.Active;
             newContact.Credit = 0;
-            if(contactDetails.Priority == "Phonenumber1")
-            {
-                newContact.Phonenumber1 = contactDetails.Values[0]?.field2;
-                newContact.Phonenumber2 = contactDetails.Values[1]?.field2;
-                newContact.Phonenumber3 = contactDetails.Values[2]?.field2;
-            }
-            if (contactDetails.Priority == "Phonenumber2")
-            {
-                newContact.Phonenumber1 = contactDetails.Values[1]?.field2;
-                newContact.Phonenumber2 = contactDetails.Values[0]?.field2;
-                newContact.Phonenumber3 = contactDetails.Values[2]?.field2;
-            }
-            if (contactDetails.Priority == "Phonenumber3")
-            {
-                newContact.Phonenumber1 = contactDetails.Values[2]?.field2;
-                newContact.Phonenumber2 = contactDetails.Values[0]?.field2;
-                newContact.Phonenumber3 = contactDetails.Values[1]?.field2;
-            }
+            newContact.Phonenumber1 = contactDetails.Values[0]?.field2;
+            newContact.Phonenumber2 = contactDetails.Values[1]?.field2;
+            newContact.Phonenumber3 = contactDetails.Values[2]?.field2;
+    
 
             var contact = await CreateContact(newContact);
             _logger.LogInformation("Finishing treatment: CreateContactWarpper");

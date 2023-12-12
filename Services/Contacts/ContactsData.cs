@@ -88,6 +88,7 @@ namespace Services.Contacts
                 Phonenumber1 = c.Phonenumber1,
                 Phonenumber2 = c.Phonenumber2,
                 Phonenumber3 = c.Phonenumber3,
+                Pre=c.Pre,
                 Sem = c.Sem.ToString(),
                 Email = c.Email,
                 Remark = c.Remark,

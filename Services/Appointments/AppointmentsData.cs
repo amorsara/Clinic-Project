@@ -110,9 +110,10 @@ namespace Services.Appointments
         public async Task<List<AppointmentScheduleDto>> GetAllAppointmentDataForWeek(DateOnly date)
         {
             var date2 = (DateOnly)date;
+                            //.Where(a => a.Date >= date && a.Date <= date2.AddDays(5) && a.Ispay == false && a.Isr == false)
 
             var appointmentsData = await _context.Appointments
-                .Where(a => a.Date >= date && a.Date <= date2.AddDays(5)&&a.Ispay==false&&a.Isr==false)
+                .Where(a => a.Date >= date && a.Date <= date2.AddDays(5))
                 .Select(a => new AppointmentScheduleDto
                 {
                     Idappointment = a.Idappointment,

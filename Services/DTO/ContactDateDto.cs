@@ -35,6 +35,7 @@ namespace Services.DTO
         public double? allCredit { get; set; }
 
         public bool? isshow { get; set; }
+        public int? Pre { get; set; }
 
         public List<FutureDateDto>? ListDates { get; set; }
     }
