@@ -83,13 +83,13 @@ namespace Services.EpilationTreatments
                 epilationDto.idClient = id;
                 epilationDto.Date = epilationTreatment.Date;
                 epilationDto.colorWorker = epilationTreatment.Coloremployee;
-                epilationDto.Results = epilationTreatment.Results.Split(",").ToList();
-               epilationDto.Probe = epilationTreatment.Probe.Split(",").ToList();
-               epilationDto.Parameters = epilationTreatment.Parameters.Split(",").ToList();
-                epilationDto.Techniqe = epilationTreatment.Techniqe.Split(",").ToList();
+                epilationDto.Results = epilationTreatment.Results?.Split(",").ToList();
+               epilationDto.Probe = epilationTreatment.Probe?.Split(",").ToList();
+               epilationDto.Parameters = epilationTreatment.Parameters?.Split(",").ToList();
+                epilationDto.Techniqe = epilationTreatment.Techniqe?.Split(",").ToList();
                 epilationDto.Area = epilationTreatment.Area?.Split(",").ToList();
-                epilationDto.Machine = epilationTreatment.Machine.Split(",").ToList(); ;
-               epilationDto.Time = epilationTreatment.Time.Split(",").ToList(); ;
+                epilationDto.Machine = epilationTreatment.Machine?.Split(",").ToList(); ;
+               epilationDto.Time = epilationTreatment.Time?.Split(",").ToList(); ;
                 if (epilationTreatment != null && epilationTreatment.Idcontact == id)
                 {
                     list.Add(epilationDto);
