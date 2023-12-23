@@ -87,6 +87,8 @@ public partial class ClinicDBContext : DbContext
         {
             optionsBuilder.UseNpgsql("ClinicDBConnectionString");
         }
+
+
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -332,13 +334,21 @@ public partial class ClinicDBContext : DbContext
             entity.Property(e => e.Machine)
                 .HasColumnType("character varying")
                 .HasColumnName("machine");
+            entity.Property(e => e.Parameters)
+                .HasColumnType("character varying")
+                .HasColumnName("parameters");
+            entity.Property(e => e.Probe)
+                .HasColumnType("character varying")
+                .HasColumnName("probe");
             entity.Property(e => e.Results)
                 .HasColumnType("character varying")
                 .HasColumnName("results");
             entity.Property(e => e.Techniqe)
                 .HasColumnType("character varying")
                 .HasColumnName("techniqe");
-            entity.Property(e => e.Time).HasColumnName("time");
+            entity.Property(e => e.Time)
+                .HasColumnType("character varying")
+                .HasColumnName("time");
 
             entity.HasOne(d => d.IdcontactNavigation).WithMany(p => p.Epilationtreatments)
                 .HasForeignKey(d => d.Idcontact)

@@ -18,13 +18,14 @@ namespace Services.DTO
 
         public List<string>? Area { get; set; }
 
-        public string? Machine { get; set; }
+        public List<string>? Machine { get; set; }
 
-        public int? Time { get; set; }
+        public List<string>? Time { get; set; }
 
-        public string? Techniqe { get; set; }
-
-        public string? Results { get; set; }
+        public List<string>? Techniqe { get; set; }
+        public List<string>? Parameters { get; set; }
+        public List<string>? Probe { get; set; }
+        public List<string>? Results { get; set; }
 
         public string? remarkElecr { get; set; }
     }

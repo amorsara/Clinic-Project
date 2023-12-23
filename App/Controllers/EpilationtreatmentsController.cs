@@ -9,6 +9,7 @@ using Repository.GeneratedModels;
 using Services.Contacts;
 using Services.DTO;
 using Services.EpilationTreatments;
+using Services.LaserTreatments;
 
 namespace App.Controllers
 {
@@ -88,15 +89,17 @@ namespace App.Controllers
                     return BadRequest();
                 }
             }
-          
+
             epilationtreatment.Idcontact = epilationtreatmentDto.idClient;
             epilationtreatment.Date = epilationtreatmentDto.Date;
-            epilationtreatment.Time = epilationtreatmentDto.Time;
             epilationtreatment.Coloremployee = epilationtreatmentDto.colorWorker;
-            epilationtreatment.Machine = epilationtreatmentDto.Machine;
-            epilationtreatment.Results = epilationtreatmentDto.Results;
-            epilationtreatment.Techniqe = epilationtreatmentDto.Techniqe;
+            epilationtreatment.Results = epilationtreatmentDto.Results?.Count != null ? String.Join(",", epilationtreatmentDto.Results) : null; ;
+            epilationtreatment.Probe = epilationtreatmentDto.Probe?.Count != null ? String.Join(",", epilationtreatmentDto.Probe) : null;
+            epilationtreatment.Parameters = epilationtreatmentDto.Parameters?.Count != null ? String.Join(",", epilationtreatmentDto.Parameters) : null;
+            epilationtreatment.Techniqe = epilationtreatmentDto.Techniqe?.Count != null ? String.Join(",", epilationtreatmentDto.Techniqe) : null;
             epilationtreatment.Area = epilationtreatmentDto.Area?.Count != null ? String.Join(",", epilationtreatmentDto.Area) : null;
+            epilationtreatment.Machine = epilationtreatmentDto.Machine?.Count != null ? String.Join(",", epilationtreatmentDto.Machine) : null;
+            epilationtreatment.Time = epilationtreatmentDto.Time?.Count != null ? String.Join(",", epilationtreatmentDto.Time) : null;
 
             var res = await _iEpilationTreatmentData.UpdateEpilationtreatment(id, epilationtreatment);
             if (res == false)
@@ -141,13 +144,15 @@ namespace App.Controllers
 
             var epilationtreatment = new Epilationtreatment();
             epilationtreatment.Idcontact = epilationtreatmentDto.idClient;
-            epilationtreatment.Date = epilationtreatmentDto.Date;
-            epilationtreatment.Time = epilationtreatmentDto.Time;
-            epilationtreatment.Coloremployee = epilationtreatmentDto.colorWorker;
-            epilationtreatment.Machine = epilationtreatmentDto.Machine;
-            epilationtreatment.Results = epilationtreatmentDto.Results;
-            epilationtreatment.Techniqe = epilationtreatmentDto.Techniqe;
+            epilationtreatment.Date = epilationtreatmentDto.Date;          
+            epilationtreatment.Coloremployee = epilationtreatmentDto.colorWorker;           
+            epilationtreatment.Results = epilationtreatmentDto.Results?.Count != null ? String.Join(",", epilationtreatmentDto.Results) : null; ;
+            epilationtreatment.Probe = epilationtreatmentDto.Probe?.Count != null ? String.Join(",", epilationtreatmentDto.Probe) : null;
+            epilationtreatment.Parameters = epilationtreatmentDto.Parameters?.Count != null ? String.Join(",", epilationtreatmentDto.Parameters) : null;
+            epilationtreatment.Techniqe = epilationtreatmentDto.Techniqe?.Count != null ? String.Join(",", epilationtreatmentDto.Techniqe) : null;
             epilationtreatment.Area = epilationtreatmentDto.Area?.Count != null ? String.Join(",", epilationtreatmentDto.Area) : null;
+            epilationtreatment.Machine = epilationtreatmentDto.Machine?.Count != null ? String.Join(",", epilationtreatmentDto.Machine) : null;
+            epilationtreatment.Time = epilationtreatmentDto.Time?.Count != null ? String.Join(",", epilationtreatmentDto.Time) : null; 
             var result = await _iEpilationTreatmentData.CreateEpilationtreatment(epilationtreatment);
             if (result)
             {

@@ -18,11 +18,15 @@ public partial class Epilationtreatment
 
     public string? Machine { get; set; }
 
-    public int? Time { get; set; }
-
     public string? Techniqe { get; set; }
 
     public string? Results { get; set; }
+
+    public string? Probe { get; set; }
+
+    public string? Parameters { get; set; }
+
+    public string? Time { get; set; }
     [JsonIgnore]
     public virtual Contact IdcontactNavigation { get; set; } = null!;
 }
